@@ -13,38 +13,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMap"
         tools:targetApi="31">
-
         <activity
-            android:name="com.ikalne.meetmap.Initial"
+            android:name=".NavigationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/Theme.MeetMap.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Initial"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.Profile"
+            android:name=".Profile"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.EditProfile"
+            android:name=".EditProfile"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.Chat"
+            android:name=".Chat"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.ChatList"
+            android:name=".ChatList"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.InfoActivity"
+            android:name=".InfoActivity"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.ActivitiesList"
-            android:exported="false" />
-
-        <activity
-            android:name="com.ikalne.meetmap.Login"
+            android:name=".ActivitiesList"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.SignUp"
+            android:name=".Login"
             android:exported="false" />
         <activity
-            android:name="com.ikalne.meetmap.Splash"
-
+            android:name=".SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
