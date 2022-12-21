@@ -1,4 +1,4 @@
-package com.example.meetmap
+package com.ikalne.meetmap
 
 import org.junit.Test
 

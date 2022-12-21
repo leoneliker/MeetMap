@@ -1,11 +1,11 @@
-package com.example.meetmap
+package com.ikalne.meetmap
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class SignUp : AppCompatActivity() {
+class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sing_up)
+        setContentView(R.layout.activity_profile)
     }
 }

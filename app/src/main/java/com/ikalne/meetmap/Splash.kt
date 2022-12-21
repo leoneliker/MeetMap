@@ -1,11 +1,11 @@
-package com.example.meetmap
+package com.ikalne.meetmap
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class ChatList : AppCompatActivity() {
+class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat_list)
+        setContentView(R.layout.activity_splash)
     }
 }

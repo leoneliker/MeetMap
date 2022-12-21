@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.meetmap">
+    package="com.ikalne.meetmap">
 
     <application
         android:allowBackup="true"
@@ -15,35 +15,35 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".Initial"
+            android:name="com.ikalne.meetmap.Initial"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name="com.ikalne.meetmap.Profile"
             android:exported="false" />
         <activity
-            android:name=".EditProfile"
+            android:name="com.ikalne.meetmap.EditProfile"
             android:exported="false" />
         <activity
-            android:name=".Chat"
+            android:name="com.ikalne.meetmap.Chat"
             android:exported="false" />
         <activity
-            android:name=".ChatList"
+            android:name="com.ikalne.meetmap.ChatList"
             android:exported="false" />
         <activity
-            android:name=".InfoActivity"
+            android:name="com.ikalne.meetmap.InfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivitiesList"
+            android:name="com.ikalne.meetmap.ActivitiesList"
             android:exported="false" />
 
         <activity
-            android:name=".Login"
+            android:name="com.ikalne.meetmap.Login"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name="com.ikalne.meetmap.SignUp"
             android:exported="false" />
         <activity
-            android:name=".Splash"
+            android:name="com.ikalne.meetmap.Splash"
 
             android:exported="true">
             <intent-filter>
