@@ -18,8 +18,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/concert_one"
         android:text="@string/login"
-        android:textSize="70dp"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="338dp" />
+        android:textSize="70sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
