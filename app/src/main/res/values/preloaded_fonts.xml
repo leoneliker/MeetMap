@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/concert_one</item>
-        <item>@font/roboto</item>
+        <item>@font/concert_one</item><!-- FUENTE TITULOS-->
+        <item>@font/roboto</item><!-- FUENTE TEXTO-->
     </array>
 </resources>
