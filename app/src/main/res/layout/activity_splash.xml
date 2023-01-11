@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".Splash">
+    tools:context=".Splash"
+    android:background="@color/primary">
     <ImageView
-        android:id="@+id/manoIzq"
+        android:id="@+id/leftHand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitStart"
         android:src="@drawable/mano_izq"
         app:layout_constraintRight_toLeftOf="@id/centerguide"
-        app:layout_constraintTop_toTopOf="@+id/manoDcha"
-        app:layout_constraintBottom_toBottomOf="@+id/manoDcha" />
+        app:layout_constraintTop_toTopOf="@+id/rightHand"
+        app:layout_constraintBottom_toBottomOf="@+id/rightHand" />
 
     <ImageView
-        android:id="@+id/manoDcha"
+        android:id="@+id/rightHand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitStart"

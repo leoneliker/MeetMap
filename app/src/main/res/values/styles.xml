@@ -21,6 +21,9 @@
         <item name="android:fontFamily">@font/roboto</item>
     </style>
 
+    <style name="MyTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+    </style>
 
 
 </resources>
