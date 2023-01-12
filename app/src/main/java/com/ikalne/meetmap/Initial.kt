@@ -57,11 +57,11 @@ class Initial : AppCompatActivity() {
             dots.add(TextView(this))
             dots[i].text = Html.fromHtml("•")
             dots[i].textSize = 35f
-            dots.get(i).setTextColor(resources.getColor(R.color.black))
+            dots.get(i).setTextColor(resources.getColor(R.color.dark_gray))
             dotsLL.addView(dots[i])
         }
         if (dots.size > 0) {
-            dots.get(pos).setTextColor(resources.getColor(R.color.purple_200))
+            dots.get(pos).setTextColor(resources.getColor(R.color.secondary))
         }
     }
 
