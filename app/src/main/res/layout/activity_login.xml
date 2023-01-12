@@ -128,19 +128,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.20"></androidx.constraintlayout.widget.Guideline>
+        app:layout_constraintGuide_percent="0.20">
+
+    </androidx.constraintlayout.widget.Guideline>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightguide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8"></androidx.constraintlayout.widget.Guideline>
+        app:layout_constraintGuide_percent="0.8">
+
+    </androidx.constraintlayout.widget.Guideline>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topguide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="-0.15"></androidx.constraintlayout.widget.Guideline>
+        app:layout_constraintGuide_percent="-0.15">
+
+    </androidx.constraintlayout.widget.Guideline>
 </androidx.constraintlayout.widget.ConstraintLayout>
