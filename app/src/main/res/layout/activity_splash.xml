@@ -9,24 +9,30 @@
     android:background="@color/primary">
     <ImageView
         android:id="@+id/leftHand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitStart"
+        style="@style/imageSpalshHands"
         android:src="@drawable/mano_izq"
-        app:layout_constraintRight_toLeftOf="@id/centerguide"
         app:layout_constraintTop_toTopOf="@+id/rightHand"
-        app:layout_constraintBottom_toBottomOf="@+id/rightHand" />
+        app:layout_constraintBottom_toBottomOf="@+id/rightHand"
+        app:layout_constraintEnd_toStartOf="@id/centerguide" />
 
     <ImageView
         android:id="@+id/rightHand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitStart"
+        style="@style/imageSpalshHands"
         android:src="@drawable/mano_dcha"
-
-        app:layout_constraintLeft_toRightOf="@+id/centerguide"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/centerguide"
+        />
+
+    <ImageView
+        android:id="@+id/meetmap"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:src="@drawable/meetmap"
+        app:layout_constraintTop_toBottomOf="@id/rightHand"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/centerguide"
@@ -34,4 +40,5 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.50"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

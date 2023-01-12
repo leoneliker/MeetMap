@@ -16,7 +16,8 @@
 
         <activity
             android:name="com.ikalne.meetmap.Initial"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar"/>
         <activity
             android:name="com.ikalne.meetmap.Profile"
             android:exported="false" />
