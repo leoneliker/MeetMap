@@ -9,15 +9,15 @@ Application that allows you to see the next activities in your city and meet peo
 
 
 
-##User manual
+## User manual
 
-####Welcome to MeetMap, an application that will allow you to meet a lot of people doing really interesting plans in Madrid.
+#### Welcome to MeetMap, an application that will allow you to meet a lot of people doing really interesting plans in Madrid.
 
-#####The app is simple, the first time that you open it, u will have to choose between login or sing up, since the app has a carousel with the posibilities of the same
+##### The app is simple, the first time that you open it, u will have to choose between login or sing up, since the app has a carousel with the posibilities of the same
 ![Initial](img/initial.png)
 
 
-#####The following times that you start the app, you will be automaticaly directed to the map, the principal function of MeetMap
+##### The following times that you start the app, you will be automaticaly directed to the map, the principal function of MeetMap
 ![Map](img/map.png)
 
 In this map, u will see the nearest activities in the zone (actually just in Madrid). You can select any and sing up to do them.
@@ -33,8 +33,8 @@ The user can click in any of this people to chat with them, of course, any user 
 
 
 Finally, back in the map, we can see:
-#####The like button, where you can see the plans that you has selected
-#####The chat button, where you can see the chats with other people
-#####A slide menu, where the user has a lot of posibilities, like that:
+##### The like button, where you can see the plans that you has selected
+##### The chat button, where you can see the chats with other people
+##### A slide menu, where the user has a lot of posibilities, like that:
 ![Slide](img/slide.png)
 Also, you can see an example of edit your profile.
