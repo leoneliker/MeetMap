@@ -4,6 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Splash">
+    android:layout_gravity="center"
+    tools:context=".Splash"
+    android:background="@color/primary">
+    <ImageView
+        android:id="@+id/leftHand"
+        style="@style/imageSpalshHands"
+        android:src="@drawable/mano_izq"
+        app:layout_constraintTop_toTopOf="@+id/rightHand"
+        app:layout_constraintBottom_toBottomOf="@+id/rightHand"
+        app:layout_constraintEnd_toStartOf="@id/centerguide" />
+
+    <ImageView
+        android:id="@+id/rightHand"
+        style="@style/imageSpalshHands"
+        android:src="@drawable/mano_dcha"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/centerguide"
+        />
+
+    <ImageView
+        android:id="@+id/meetmap"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:src="@drawable/meetmap"
+        app:layout_constraintTop_toBottomOf="@id/rightHand"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
