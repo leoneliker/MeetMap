@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">MeetMap</string>
-    <string name="login">Login</string>
+    <string name="login">LOGIN</string>
+    <string name="newaccount">SIGN UP</string>
     <string name="usu">User name</string>
     <string name="pass">Password</string>
+    <string name="repass">Repeat password</string>
     <string name="cancel">Cancel</string>
     <string name="other">or sign up with</string>
 </resources>
