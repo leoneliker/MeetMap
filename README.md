@@ -37,4 +37,5 @@ Finally, back in the map, we can see:
 ##### The chat button, where you can see the chats with other people
 ##### A slide menu, where the user has a lot of posibilities, like that:
 ![Slide](img/slide.png)
+
 Also, you can see an example of edit your profile.
