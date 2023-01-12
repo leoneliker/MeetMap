@@ -5,23 +5,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login"
+    android:background="@drawable/fondo_meet_map"
    >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/fondo_meet_map"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
+        android:id="@+id/tvlogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/concert_one"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toTopOf="@id/topguide"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/login"
-        android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:fontFamily="@font/concert_one"
+        android:textSize="60sp"
+        />
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etusername"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@id/tvlogin"
+        app:startIconDrawable="@drawable/ic_usu">
+
+        <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/usu"
+        android:theme="@style/lineET"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etpassword"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintTop_toBottomOf="@id/etusername"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/pass"
+            android:theme="@style/lineET"
+            android:inputType="textPassword"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etpassword"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        android:layout_marginTop="20dp"
+        style="@style/buttonlogin"
+        android:text="@string/login"
+
+
+        />
+    <Button
+        android:id="@+id/btncancel"
+        app:layout_constraintTop_toBottomOf="@id/btnlogin"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        style="@style/buttonoutlined"
+        android:text="@string/cancel"
+        />
+
+    <TextView
+        android:id="@+id/tvother"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/other"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintTop_toBottomOf="@id/btncancel"
+        android:layout_marginTop="20dp"
+        >
+    </TextView>
+
+
+    <ImageButton
+        android:id="@+id/btngoogle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@id/tvother"
+        app:layout_constraintEnd_toStartOf="@id/btnfacebook"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/google"
+
+        />
+    <ImageButton
+        android:id="@+id/btnfacebook"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@id/tvother"
+        app:layout_constraintEnd_toStartOf="@id/btnapple"
+        app:layout_constraintStart_toEndOf="@id/btngoogle"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/facebook"
+        />
+    <ImageButton
+        android:id="@+id/btnapple"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@id/tvother"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toEndOf="@id/btnfacebook"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/apple"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.20"
+        >
+    </androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8">
+    </androidx.constraintlayout.widget.Guideline>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="-0.15">
+    </androidx.constraintlayout.widget.Guideline>
 </androidx.constraintlayout.widget.ConstraintLayout>
