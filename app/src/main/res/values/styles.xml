@@ -45,7 +45,26 @@
         <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">20dp</item>
     </style>
-
+    <style name="lineET" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/secondary</item>
+        <item name="colorControlActivated">@color/secondary_dark</item>
+        <item name="android:textColorHighlight">@color/secondary_dark</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+    <style name="compoeditableusu">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">32dp</item>
+    </style>
+    <style name="compoeditablepass">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="buttonlogin">
+        <item name="android:backgroundTint">@color/secondary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
 
     <style name="imageSpalshHands">
         <item name="android:layout_width">wrap_content</item>
