@@ -41,14 +41,10 @@
             android:background="@android:color/transparent"
             android:orientation="horizontal"
             android:weightSum="5">
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="2" />
-
-            <!--adding linear layout for
-                creating dots view-->
             <LinearLayout
                 android:id="@+id/idLLDots"
                 android:layout_width="0dp"
@@ -57,8 +53,6 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal" />
-
-
         </LinearLayout>
 
     </RelativeLayout>
@@ -75,13 +69,13 @@
             <Button
                 android:id="@+id/create"
                 android:text="@string/create"
-                style="@style/buttonoutlined"
+                style="@style/buttonOutlinedRed"
                 android:backgroundTint="@color/button_selector"></Button>
 
             <Button
                 android:id="@+id/login"
                 android:text="@string/login"
-                style="@style/buttonoutlined"
+                style="@style/buttonOutlinedRed"
                 android:backgroundTint="@color/button_selector"></Button>
     </LinearLayout>
 
