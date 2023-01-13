@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_meet_map"
+
     tools:context=".Login">
 
     <TextView
@@ -28,7 +29,9 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/tvlogin"
-        app:startIconDrawable="@drawable/ic_usu">
+        app:startIconDrawable="@drawable/ic_usu"
+        app:hintTextColor="@color/secondary_dark"
+        android:textColorHint="@color/etselector">
 
         <EditText
             android:layout_width="match_parent"
@@ -65,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/login"
-        android:backgroundTint="@color/btnselector"
+        android:backgroundTint="@color/btnselector1"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/etpassword"
