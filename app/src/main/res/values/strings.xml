@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">MeetMap</string>
-    <string name="login">Login</string>
+    <string name="login">LOGIN</string>
+    <string name="newaccount">SIGN UP</string>
+    <string name="usu">User name</string>
+    <string name="pass">Password</string>
+    <string name="repass">Repeat password</string>
+    <string name="cancel">Cancel</string>
+    <string name="other">or sign up with</string>
+    <string name="create">Create Account</string>
+    <string name="slide1">Bienvenido a MeetMap</string>
+    <string name="slide2">Encuentra las actividades más cercanas</string>
+    <string name="slide3">Apuntate a ellas y contacta con otros usuarios!</string>
+    <string name="slide4">Entabla amistades y forja nuevas aventuras</string>
 </resources>

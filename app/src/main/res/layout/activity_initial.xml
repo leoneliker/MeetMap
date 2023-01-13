@@ -1,9 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Initial">
+    tools:context=".Initial"
+    >
+    <ImageView
+        android:id="@+id/image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo_meet_map" />
+
+    <RelativeLayout
+        android:id="@+id/slider"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="700px"
+        android:orientation="vertical"
+        android:weightSum="5"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="600px"
+        tools:context=".Initial">
+
+        <!--view pager for displaying our slides-->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/idViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:weightSum="5">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
+            <LinearLayout
+                android:id="@+id/idLLDots"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        app:layout_constraintTop_toBottomOf="@+id/slider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+            <Button
+                android:id="@+id/create"
+                android:text="@string/create"
+                style="@style/buttonOutlinedRed"
+                android:backgroundTint="@color/button_selector"></Button>
+
+            <Button
+                android:id="@+id/login"
+                android:text="@string/login"
+                style="@style/buttonOutlinedRed"
+                android:backgroundTint="@color/button_selector"></Button>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

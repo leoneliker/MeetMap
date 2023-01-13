@@ -16,7 +16,8 @@
 
         <activity
             android:name="com.ikalne.meetmap.Initial"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar"/>
         <activity
             android:name="com.ikalne.meetmap.Profile"
             android:exported="false" />
@@ -38,13 +39,16 @@
 
         <activity
             android:name="com.ikalne.meetmap.Login"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar">
+        </activity>
         <activity
             android:name="com.ikalne.meetmap.SignUp"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar"/>
         <activity
             android:name="com.ikalne.meetmap.Splash"
-
+            android:theme="@style/MyTheme.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
