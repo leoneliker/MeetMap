@@ -22,8 +22,8 @@
     </style>
     <style name="lineET" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/secondary</item>
-        <item name="colorControlActivated">@color/secondary</item>
-        <item name="android:textColorHighlight">@color/secondary</item>
+        <item name="colorControlActivated">@color/secondary_dark</item>
+        <item name="android:textColorHighlight">@color/secondary_dark</item>
         <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="compoeditableusu">
