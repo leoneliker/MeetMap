@@ -67,7 +67,7 @@ class Initial : AppCompatActivity() {
     }
     override fun onBackPressed() {
         if (true){
-            Toast.makeText(this,"Click again to close the app", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Click again to close the app", Toast.LENGTH_SHORT).show()
         }else{
             super.onBackPressed()
         }

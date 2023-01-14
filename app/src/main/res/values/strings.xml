@@ -12,4 +12,5 @@
     <string name="slide2">Encuentra las actividades más cercanas</string>
     <string name="slide3">Apuntate a ellas y contacta con otros usuarios!</string>
     <string name="slide4">Entabla amistades y forja nuevas aventuras</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
