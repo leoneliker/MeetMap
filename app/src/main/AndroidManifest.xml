@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ikalne.meetmap">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,42 +16,59 @@
         android:theme="@style/Theme.MeetMap"
         tools:targetApi="31">
 
-        <activity
-            android:name="com.ikalne.meetmap.Initial"
-            android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar"/>
-        <activity
-            android:name="com.ikalne.meetmap.Profile"
-            android:exported="false" />
-        <activity
-            android:name="com.ikalne.meetmap.EditProfile"
-            android:exported="false" />
-        <activity
-            android:name="com.ikalne.meetmap.Chat"
-            android:exported="false" />
-        <activity
-            android:name="com.ikalne.meetmap.ChatList"
-            android:exported="false" />
-        <activity
-            android:name="com.ikalne.meetmap.InfoActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.ikalne.meetmap.ActivitiesList"
-            android:exported="false" />
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY" />
 
         <activity
-            android:name="com.ikalne.meetmap.Login"
+            android:name=".MapsActivity"
             android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".Initial"
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".Chat"
+            android:exported="false" />
+        <activity
+            android:name=".ChatList"
+            android:exported="false" />
+        <activity
+            android:name=".InfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivitiesList"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar"></activity>
+        <activity
+            android:name=".SignUp"
+            android:exported="false"
+            android:theme="@style/MyTheme.NoActionBar" />
+        <activity
+            android:name=".Splash"
+            android:exported="true"
             android:theme="@style/MyTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name="com.ikalne.meetmap.SignUp"
-            android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar"/>
-        <activity
-            android:name="com.ikalne.meetmap.Splash"
-            android:theme="@style/MyTheme.NoActionBar"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
