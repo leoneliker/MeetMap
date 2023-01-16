@@ -20,7 +20,7 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etusername"
+        android:id="@+id/etuseremail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,13 +28,13 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/tvlogin"
-        app:startIconDrawable="@drawable/ic_usu"
+        app:startIconDrawable="@drawable/ic_email"
         app:hintTextColor="@color/secondary_dark">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/usu"
+            android:hint="@string/email"
             android:theme="@style/lineET" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/etusername"
+        app:layout_constraintTop_toBottomOf="@id/etuseremail"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_lock"
         app:hintTextColor="@color/secondary_dark">
