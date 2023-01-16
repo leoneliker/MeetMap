@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.google.android.material.textfield.TextInputEditText
 import com.ikalne.meetmap.MeetMapApplication.Companion.prefs
 
 class SignUp : AppCompatActivity() {
@@ -18,7 +19,7 @@ class SignUp : AppCompatActivity() {
 
     fun checkUserValues()
     {
-        if(prefs.getName().isNotEmpty())
+        if(prefs.getEmail().isNotEmpty())
         {
             goToDetail()
         }
@@ -31,12 +32,12 @@ class SignUp : AppCompatActivity() {
 
     fun accessToDetail()
     {
-        val name =findViewById<EditText>(R.id.etusername)
-        val password =findViewById<EditText>(R.id.etpassword)
-        val repassword =findViewById<EditText>(R.id.etrepassword)
-        if(name.text.toString().isNotEmpty())
+        val email =findViewById<EditText>(R.id.email)
+        val password =findViewById<EditText>(R.id.password)
+        val repassword =findViewById<EditText>(R.id.repassword)
+        if(email.text.toString().isNotEmpty())
         {
-            prefs.saveName(name.text.toString())
+            prefs.saveEmail(email.text.toString())
             prefs.savePass(password.text.toString())
             prefs.saveRePass(repassword.text.toString())
             goToDetail()
@@ -49,6 +50,6 @@ class SignUp : AppCompatActivity() {
 
     fun goToDetail()
     {
-        startActivity(Intent(this,MapsActivity::class.java ))
+        startActivity(Intent(this,ResultActivity::class.java ))
     }
 }

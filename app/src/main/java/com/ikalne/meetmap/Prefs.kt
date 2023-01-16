@@ -5,14 +5,14 @@ import android.content.Context
 class Prefs(val context:Context)
 {
     val SHARED_DATA="Mydtb"
-    val SHARED_USER_NAME="username"
+    val SHARED_USER_EMAIL="useremail"
     val SHARED_PASSWORD="password"
     val SHARED_REPASSWORD="repassword"
     val storage = context.getSharedPreferences(SHARED_DATA, 0)
 
-    fun saveName(name:String)
+    fun saveEmail(email:String)
     {
-        storage.edit().putString(SHARED_USER_NAME, name).apply()
+        storage.edit().putString(SHARED_USER_EMAIL, email).apply()
     }
 
     fun savePass(password:String)
@@ -25,9 +25,9 @@ class Prefs(val context:Context)
         storage.edit().putString(SHARED_REPASSWORD, repassword).apply()
     }
 
-    fun getName():String
+    fun getEmail():String
     {
-        return storage.getString(SHARED_USER_NAME, "")!!
+        return storage.getString(SHARED_USER_EMAIL, "")!!
     }
 
     fun getPassword():String
@@ -38,5 +38,10 @@ class Prefs(val context:Context)
     fun getRePassword():String
     {
         return storage.getString(SHARED_REPASSWORD, "")!!
+    }
+
+    fun wipe()
+    {
+        storage.edit().clear().apply()
     }
 }
