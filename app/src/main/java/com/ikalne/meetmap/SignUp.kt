@@ -9,7 +9,7 @@ import android.widget.Button
 class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sing_up)
+        setContentView(R.layout.activity_sign_up)
 
         val login = findViewById<Button>(R.id.btnSingUp)
         val cancel = findViewById<Button>(R.id.btncancel)
