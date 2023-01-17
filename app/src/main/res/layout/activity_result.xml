@@ -26,8 +26,13 @@
         tools:text="Tu password es"/>
 
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Cerrar sesion"/>
+        android:text="Cerrar sesion"/>
+    <Button
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eliminar cuenta"/>
 </LinearLayout>

@@ -22,6 +22,8 @@ class Initial : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
+        checkUserValues()
+
 
         val botonC = findViewById<Button>(R.id.create)
         val botonL = findViewById<Button>(R.id.login)
@@ -49,6 +51,14 @@ class Initial : AppCompatActivity() {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         })
+    }
+
+    fun checkUserValues()
+    {
+        if (MeetMapApplication.prefs.getEmail().isNotEmpty())
+        {
+            startActivity(Intent(this, ResultActivity::class.java))
+        }
     }
 
     private fun addDots(size: Int, pos: Int) {
