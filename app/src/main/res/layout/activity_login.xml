@@ -28,15 +28,16 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/tvlogin"
-        app:startIconDrawable="@drawable/ic_usu"
+        app:startIconDrawable="@drawable/ic_email"
         app:hintTextColor="@color/secondary_dark">
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/usu"
-            android:theme="@style/lineET" />
+            android:hint="@string/email"
+            android:theme="@style/lineET"
+            android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 

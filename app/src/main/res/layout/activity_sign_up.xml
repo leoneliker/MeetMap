@@ -27,15 +27,16 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/tvsignup"
-        app:startIconDrawable="@drawable/ic_usu"
+        app:startIconDrawable="@drawable/ic_email"
         app:hintTextColor="@color/secondary_dark">
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/usu"
-            android:theme="@style/lineET" />
+            android:hint="@string/email"
+            android:theme="@style/lineET"
+            android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -82,7 +83,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnSingUp"
         style="@style/buttonOutlinedRed"
         android:backgroundTint="@color/button_selector"
         android:layout_marginTop="5dp"
@@ -97,7 +98,7 @@
         android:text="@string/cancel"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
+        app:layout_constraintTop_toBottomOf="@id/btnSingUp" />
 
 <!--    <TextView-->
 <!--        android:id="@+id/tvother"-->

@@ -3,6 +3,7 @@ package com.ikalne.meetmap
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import android.view.View.OnClickListener
 import android.widget.Button
@@ -65,12 +66,17 @@ class Initial : AppCompatActivity() {
             dots.get(pos).setTextColor(resources.getColor(R.color.secondary))
         }
     }
+    private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
-        if (true){
-            Toast.makeText(this,"Click again to close the app", Toast.LENGTH_SHORT).show()
-        }else{
-            super.onBackPressed()
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity()
+            return
         }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
 

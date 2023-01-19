@@ -19,7 +19,7 @@ class SignUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sing_up)
+        setContentView(R.layout.activity_sign_up)
 
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
