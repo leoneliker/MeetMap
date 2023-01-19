@@ -17,5 +17,11 @@
     <style name="MyTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--        <item name="windowActionBar">false</item>-->
         <!--        <item  name="windowNoTitle">true</item> comentario ctrl barra del 7 y ctrl alt L para ajustar codigo-->
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="itemIconTint">@color/bottomselector</item>
+        <item name="android:background">@color/white</item>
+        <item name="itemTextColor">@color/bottomselector</item>
     </style>
+
+
 </resources>
