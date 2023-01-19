@@ -4,30 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_meet_map"
-    tools:context=".Login">
+    tools:context=".SignUp"
+    android:background="@drawable/fondo_meet_map">
 
     <TextView
-        android:id="@+id/tvlogin"
+        android:id="@+id/tvsignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/concert_one"
-        android:text="@string/login"
+        android:text="@string/newaccount"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toTopOf="@id/topguide"
-        />
+        app:layout_constraintTop_toTopOf="@id/topguide"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etuseremail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/tvlogin"
+        app:layout_constraintTop_toBottomOf="@id/tvsignup"
         app:startIconDrawable="@drawable/ic_email"
         app:hintTextColor="@color/secondary_dark">
 
@@ -61,16 +60,36 @@
             android:theme="@style/lineET" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnlogin"
-        style="@style/buttonOutlinedRed"
-        android:backgroundTint="@color/button_selector"
-        android:layout_marginTop="15dp"
-        android:text="@string/login"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etrepassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/etpassword"
-        />
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:hintTextColor="@color/secondary_dark">
+
+        <EditText
+            android:id="@+id/repassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/repass"
+            android:inputType="textPassword"
+            android:theme="@style/lineET" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSingUp"
+        style="@style/buttonOutlinedRed"
+        android:backgroundTint="@color/button_selector"
+        android:layout_marginTop="5dp"
+        android:text="@string/newaccount"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/etrepassword" />
 
     <Button
         android:id="@+id/btncancel"
@@ -78,7 +97,7 @@
         android:text="@string/cancel"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/btnlogin" />
+        app:layout_constraintTop_toBottomOf="@id/btnSingUp" />
 
 <!--    <TextView-->
 <!--        android:id="@+id/tvother"-->
@@ -142,4 +161,5 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".4"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

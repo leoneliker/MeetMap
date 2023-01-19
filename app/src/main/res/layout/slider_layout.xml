@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/idRLSlider"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <!--text view for displaying
+        our heading-->
+    <TextView
+        android:id="@+id/idTVtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:text="Slide 1"
+        android:textAlignment="center"
+        android:textColor="@color/dark_gray"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/concert_one"/>
+
+</RelativeLayout>
