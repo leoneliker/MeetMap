@@ -1,22 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfile">
+   <ImageView
+       android:id="@+id/ivuser"
+       android:layout_width="100dp"
+       android:layout_height="100dp"
+       android:scaleType="centerCrop"
+       android:layout_marginBottom="40dp"
+       android:src="@drawable/apple"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/etname"
+       />
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/etname"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="2dp"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/etsurname"
+       app:hintTextColor="@color/secondary_dark">
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:hint="@string/name"
+          android:theme="@style/lineET"
+          android:inputType="text"/>
+   </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/etsurname"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="100dp"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/ettelf"
+       app:hintTextColor="@color/secondary_dark">
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:hint="@string/surname"
+          android:theme="@style/lineET"
+          android:inputType="text"/>
+   </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/ettelf"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="2dp"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/etmail"
+       app:hintTextColor="@color/secondary_dark">
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:hint="@string/telefono"
+          android:theme="@style/lineET"
+          android:inputType="phone"/>
+   </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/etmail"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="2dp"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/etpassword"
+       app:hintTextColor="@color/secondary_dark">
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:hint="@string/email"
+          android:theme="@style/lineET"
+          android:inputType="textEmailAddress"/>
+   </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/etpassword"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="2dp"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/etdescription"
+       app:hintTextColor="@color/secondary_dark">
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:hint="@string/pass"
+          android:theme="@style/lineET"
+          android:inputType="textPassword"/>
+   </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/etdescription"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="2dp"
+       android:layout_marginBottom="60dp"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/btncancel"
+       app:hintTextColor="@color/secondary_dark">
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:hint="@string/description"
+          android:theme="@style/lineET"
+          android:inputType="text"
+          android:text="hola me llamo pepe tengo hambre y quiero comer chocolate con churros"/>
+   </com.google.android.material.textfield.TextInputLayout>
+
+   <Button
+       android:id="@+id/btncancel"
+      android:layout_width="150dp"
+       style="@style/buttonOutlinedRed"
+       android:backgroundTint="@color/button_selector"
+       android:layout_marginTop="15dp"
+       android:layout_marginBottom="30dp"
+       android:text="@string/cancel"
+       app:layout_constraintStart_toStartOf="@id/leftguide"
+       app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+       />
+
+   <Button
+       android:id="@+id/btnsave"
+       style="@style/buttonOutlinedRed"
+       android:layout_width="150dp"
+       android:layout_marginBottom="30dp"
+       android:backgroundTint="@color/button_selector"
+       android:text="@string/save"
+       app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+       app:layout_constraintEnd_toEndOf="@id/rightguide"
+       app:layout_constraintHorizontal_bias="1.0"
+       app:layout_constraintStart_toEndOf="@+id/btncancel" />
+
 
    <com.google.android.material.bottomnavigation.BottomNavigationView
        android:id="@+id/bottom_navigation"
+       style="@style/Widget.App.BottomNavigationView"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+
        app:layout_constraintBottom_toBottomOf="parent"
        app:menu="@menu/bottom_navigation_menu"
-       style="@style/Widget.App.BottomNavigationView"
-       android:backgroundTint="@color/button_selector"
-       />
+       tools:layout_editor_absoluteX="0dp"
+       app:itemIconTint="@color/bottomselector"
+       app:itemTextColor="@color/bottomselector"/>
+
+   <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/leftguide"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       app:layout_constraintGuide_percent="0.1"/>
+
+   <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/rightguide"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       app:layout_constraintGuide_percent="0.9"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

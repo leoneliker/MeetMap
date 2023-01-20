@@ -44,8 +44,14 @@
             android:exported="false" />
         <activity
             android:name=".EditProfile"
-            android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar"/>
+            android:exported="true"
+            android:theme="@style/MyTheme.NoActionBarNavigation">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".Chat"
             android:exported="false" />
@@ -68,13 +74,9 @@
             android:theme="@style/MyTheme.NoActionBar" />
         <activity
             android:name=".Splash"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/MyTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

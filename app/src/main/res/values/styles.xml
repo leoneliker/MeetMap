@@ -42,8 +42,8 @@
     </style>
 
    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/primary</item>
-       <item name="colorOnPrimary">@color/dark_gray</item>
+        <item name="colorPrimary">#F1F1F1</item>
+       <item name="colorOnPrimary">@color/bottomselector</item>
    </style>
 
 </resources>

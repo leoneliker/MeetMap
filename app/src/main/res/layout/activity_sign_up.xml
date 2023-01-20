@@ -84,10 +84,11 @@
     <Button
         android:id="@+id/btnSingUp"
         style="@style/buttonOutlinedRed"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/button_selector"
-        android:layout_marginTop="5dp"
         android:text="@string/newaccount"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/etrepassword" />
 

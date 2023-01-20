@@ -6,7 +6,7 @@
     <string name="email">Email</string>
     <string name="pass">Password</string>
     <string name="repass">Repeat password</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">CANCEL</string>
     <string name="other">or sign up with</string>
     <string name="create">Create Account</string>
     <string name="slide1">Bienvenido a MeetMap</string>
@@ -14,4 +14,9 @@
     <string name="slide3">Apuntate a ellas y contacta con otros usuarios!</string>
     <string name="slide4">Entabla amistades y forja nuevas aventuras</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="description">Your description</string>
+    <string name="save">SAVE</string>
+    <string name="telefono">Telephone number</string>
+    <string name="surname">Surname</string>
+    <string name="name">Name</string>
 </resources>
