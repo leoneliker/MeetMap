@@ -21,10 +21,13 @@ class ResultActivity : AppCompatActivity() {
         val btnDeleteAccount = findViewById<Button>(R.id.btnDeleteAccount)
         val etemail = findViewById<TextView>(R.id.tvemail)
         val etpassword = findViewById<TextView>(R.id.tvpassword)
+
+        //En la vista del perfil sobre el mapa un boton
         btnDeleteAccount.setOnClickListener{
             prefs.wipe()
             initialActivity()
         }
+        //En la vista del perfil sobre el mapa un boton
         btnLogout.setOnClickListener{
             prefs.wipe()
             loginActivity()

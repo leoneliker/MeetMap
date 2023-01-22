@@ -53,7 +53,7 @@ class SignUp : AppCompatActivity() {
 
     fun goToDetail()
     {
-        startActivity(Intent(this,ResultActivity::class.java ))
+        startActivity(Intent(this,MapsActivity::class.java ))
     }
     fun initialActivity()
     {
