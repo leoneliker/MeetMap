@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,8 +28,6 @@ class SignUp : AppCompatActivity() {
         val signUp = findViewById<Button>(R.id.btnSignUp)
         val cancel = findViewById<Button>(R.id.btncancel)
 
-
-
         signUp.setOnClickListener{
             signUp()
         }
@@ -38,23 +37,31 @@ class SignUp : AppCompatActivity() {
         }
     }
     fun signUp(){
-        if (email.text.isNotEmpty() && password.text.isNotEmpty() && repassword.text.isNotEmpty()){
-            if (password.text.toString().equals(repassword.text.toString())){
-                FirebaseAuth.getInstance()
-                    .createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
+        val expRegular = Regex("([A-Za-z0-9]){6,15}")
+        val emailTIL = findViewById<TextInputLayout>(R.id.etemail)
+        val passwordTIL = findViewById<TextInputLayout>(R.id.etpassword)
+        val repasswordTIL = findViewById<TextInputLayout>(R.id.etrepassword)
+        if (email.text.isEmpty() && password.text.isEmpty() && repassword.text.isEmpty()){
+            showError(emailTIL, "This field can´t be empty")
+            showError(passwordTIL, "This field can´t be empty")
+            showError(repasswordTIL, "This field can´t be empty")
+        }else if (!email.text.contains("@")){
+            showError(emailTIL, "Email is not valid.")  //This field can´t be empty
+        }else if(expRegular.containsMatchIn(password.text.toString())){
+            showError(passwordTIL, "Password needs: Capital letters, small letters, numbers and must be longer than 6 characters")
+        }else if (!password.text.toString().equals(repassword.text.toString())){
+            showError(repasswordTIL, "Passwords must me the same")
+        }else{
+            FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
                         showMapActivity()
                     }else{
-                        showAlert()
+                        //showAlert()
+                        showError(emailTIL, "This email already exists")
                     }
                 }
-            }else{
-                Toast.makeText(this, "Please check both passwords", Toast.LENGTH_LONG).show()
-            }
-        }else {
-           Toast.makeText(this, "Please add your credentials", Toast.LENGTH_LONG).show()
         }
-
     }
 
     private fun showAlert(){
@@ -65,6 +72,11 @@ class SignUp : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
+    private fun showError(textInputLayout: TextInputLayout, error: String){
+        textInputLayout.error = error
+    }
+
     private fun showMapActivity(){
         val intent = Intent(this, MapsActivity::class.java)
         startActivity(intent)

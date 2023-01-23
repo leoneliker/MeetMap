@@ -129,14 +129,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.20"/>
+        app:layout_constraintGuide_percent="0.10"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightguide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8"/>
+        app:layout_constraintGuide_percent="0.9"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topguide"
         android:layout_width="match_parent"
