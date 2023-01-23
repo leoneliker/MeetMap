@@ -37,7 +37,7 @@ class SignUp : AppCompatActivity() {
         }
     }
     fun signUp(){
-        val expRegular = Regex("([A-Za-z0-9]){6,15}")
+        val expRegular = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,15}\$")
         val emailTIL = findViewById<TextInputLayout>(R.id.etemail)
         val passwordTIL = findViewById<TextInputLayout>(R.id.etpassword)
         val repasswordTIL = findViewById<TextInputLayout>(R.id.etrepassword)
@@ -47,7 +47,7 @@ class SignUp : AppCompatActivity() {
             showError(repasswordTIL, "This field can´t be empty")
         }else if (!email.text.contains("@")){
             showError(emailTIL, "Email is not valid.")  //This field can´t be empty
-        }else if(expRegular.containsMatchIn(password.text.toString())){
+        }else if(!expRegular.matches(password.text.toString())){
             showError(passwordTIL, "Password needs: Capital letters, small letters, numbers and must be longer than 6 characters")
         }else if (!password.text.toString().equals(repassword.text.toString())){
             showError(repasswordTIL, "Passwords must me the same")
