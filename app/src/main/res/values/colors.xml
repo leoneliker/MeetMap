@@ -14,4 +14,5 @@
     <color name="secondary_light">#FF928A</color>
     <color name="secondary_dark">#C62833</color>
     <color name="dark_gray">#575858</color>
+    <color name="light_gray">#F1F1F1</color>
 </resources>

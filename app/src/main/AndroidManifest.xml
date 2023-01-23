@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ikalne.meetmap">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMap"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MainAppActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main_app"
+            android:theme="@style/Theme.MeetMap.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -60,7 +68,7 @@
         <activity
             android:name=".Login"
             android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar"></activity>
+            android:theme="@style/MyTheme.NoActionBar" />
         <activity
             android:name=".SignUp"
             android:exported="false"
