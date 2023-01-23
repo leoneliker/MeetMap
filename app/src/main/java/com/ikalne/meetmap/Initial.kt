@@ -52,6 +52,13 @@ class Initial : AppCompatActivity() {
         })
     }
 
+    fun checkUserValues()
+    {
+        if (MeetMapApplication.prefs.getEmail().isNotEmpty())
+        {
+            startActivity(Intent(this, MainAppActivity::class.java))
+        }
+    }
     private fun addDots(size: Int, pos: Int) {
         dots = mutableListOf()
         dotsLL.removeAllViews()

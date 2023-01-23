@@ -18,6 +18,7 @@ android {
     }
     //bottom navigation
     buildFeatures{
+        dataBinding true
         viewBinding true
     }
     buildTypes {
