@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ikalne.meetmap">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-
     <application
+        android:name=".MeetMapApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,7 +16,17 @@
         android:roundIcon="@mipmap/ic_launcher_meetmap_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMap"
+
         tools:targetApi="33">
+        <activity
+            android:name=".MainAppActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main_app"
+            android:theme="@style/Theme.MeetMap.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
