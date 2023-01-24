@@ -66,8 +66,8 @@ class Initial : AppCompatActivity() {
             dots.get(pos).setTextColor(resources.getColor(R.color.secondary))
         }
     }
+    var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
-        var doubleBackToExitPressedOnce = false
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
             return

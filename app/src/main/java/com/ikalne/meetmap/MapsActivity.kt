@@ -50,9 +50,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         mapFragment.getMapAsync(this)
 
     }
-
+    var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
-        var doubleBackToExitPressedOnce = false
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
             return
