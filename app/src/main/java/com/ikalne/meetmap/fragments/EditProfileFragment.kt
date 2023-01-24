@@ -2,6 +2,7 @@ package com.ikalne.meetmap.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,22 +22,24 @@ lateinit var binding: FragmentEditProfileBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
 
+
     ): View? {
         binding = FragmentEditProfileBinding.inflate(inflater, container,false)
         initUI()
 
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+        return binding.root
     }
     fun initUI()
     {
-
         binding.btnDeleteAccount.setOnClickListener{
             MeetMapApplication.prefs.wipe()
-//            initialActivity()
+            startActivity(Intent(this.requireContext(), Initial::class.java ))
+            Intent(getActivity(), Initial::class.java)
         }
         binding.btnlogout.setOnClickListener{
             MeetMapApplication.prefs.wipe()
-//            loginActivity()
+            startActivity(Intent(this.requireContext(), Login::class.java ))
+            Intent(getActivity(), Login::class.java)
 
         }
 //        binding.apply {
@@ -44,12 +47,5 @@ lateinit var binding: FragmentEditProfileBinding
 //        }
     }
 
-//    fun loginActivity()
-//    {
-//        startActivity(Intent(this, Login::class.java ))
-//    }
-//    fun initialActivity()
-//    {
-//        startActivity(Intent(this, Initial::class.java ))
-//    }
+
 }

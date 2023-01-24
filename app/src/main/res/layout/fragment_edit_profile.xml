@@ -19,6 +19,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="80dp"
                 android:scaleType="centerCrop"
+                android:background="@drawable/circleiv"
                 android:src="@drawable/cara"
                 app:layout_constraintEnd_toEndOf="@id/rightguide"
                 app:layout_constraintHorizontal_bias="0.497"
@@ -37,6 +38,8 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
+
+                    android:id="@+id/nombre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto"
