@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ikalne.meetmap">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_meetmap_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMap"
-        tools:targetApi="31">
+        tools:targetApi="33">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".Initial"
             android:exported="false"
@@ -40,7 +51,7 @@
         <activity
             android:name=".Login"
             android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar"></activity>
+            android:theme="@style/MyTheme.NoActionBar" />
         <activity
             android:name=".SignUp"
             android:exported="false"
@@ -56,6 +67,9 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

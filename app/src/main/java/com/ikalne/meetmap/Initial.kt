@@ -66,14 +66,14 @@ class Initial : AppCompatActivity() {
             dots.get(pos).setTextColor(resources.getColor(R.color.secondary))
         }
     }
-    private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
+        var doubleBackToExitPressedOnce = false
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
             return
         }
 
-        this.doubleBackToExitPressedOnce = true
+        doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 
         Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
