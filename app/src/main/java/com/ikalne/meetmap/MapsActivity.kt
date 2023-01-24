@@ -165,3 +165,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         Toast.makeText(this,"Estas en ${p0.latitude}, ${p0.longitude}", Toast.LENGTH_SHORT).show()
     }
 }
+
