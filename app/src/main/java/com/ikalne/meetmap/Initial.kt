@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewpager.widget.ViewPager
 
 
@@ -21,6 +22,7 @@ class Initial : AppCompatActivity() {
     var size = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
 
@@ -73,14 +75,14 @@ class Initial : AppCompatActivity() {
             dots.get(pos).setTextColor(resources.getColor(R.color.secondary))
         }
     }
-    private var doubleBackToExitPressedOnce = false
+    var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
             return
         }
 
-        this.doubleBackToExitPressedOnce = true
+        doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 
         Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)

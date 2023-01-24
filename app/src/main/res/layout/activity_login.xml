@@ -20,7 +20,7 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etuseremail"
+        android:id="@+id/etemail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/etuseremail"
+        app:layout_constraintTop_toBottomOf="@id/etemail"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_lock"
         app:hintTextColor="@color/secondary_dark">
@@ -128,14 +128,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.20"/>
+        app:layout_constraintGuide_percent="0.10"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightguide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8"/>
+        app:layout_constraintGuide_percent="0.9"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topguide"
         android:layout_width="match_parent"
