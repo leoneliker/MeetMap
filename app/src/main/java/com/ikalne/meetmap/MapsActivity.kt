@@ -7,12 +7,15 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -25,7 +28,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     companion object{
         const val REQUEST_CODE_LOCATION = 0
     }
-
+    var Madrid = LatLng(40.401490, -3.708010)
     var Charla_Ted = LatLng(40.403940, -3.707746)
     var Poesia = LatLng(40.403351, -3.701352)
     var Hockey = LatLng(40.399824, -3.703590)
@@ -34,9 +37,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     var latLngArrayList: ArrayList<LatLng> = ArrayList()
     var locationNameArraylist: ArrayList<String> = ArrayList()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
         latLngArrayList!!.add(Charla_Ted);
         locationNameArraylist!!.add("Charla TED");
         latLngArrayList!!.add(Poesia);
@@ -45,6 +51,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         locationNameArraylist!!.add("Partido de hockey");
         latLngArrayList!!.add(Teatro);
         locationNameArraylist!!.add("Teatro: La maravilla de tu madre");
+
         requestLocationPermission()
         val mapFragment  = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -70,6 +77,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
             map.addMarker(
                 MarkerOptions().position(latLngArrayList.get(i))
                     .title("Marker in " + locationNameArraylist.get(i))
+                 //   .icon(BitmapDescriptorFactory.fromResource(R.drawable.mano_dcha_marker))
             )
 
         }
@@ -78,7 +86,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         enableLocation()
 
         map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(Teatro, 10f),
+            CameraUpdateFactory.newLatLngZoom(Madrid, 15f),
             4000,
             null
         )
