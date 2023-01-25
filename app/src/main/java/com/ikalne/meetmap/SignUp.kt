@@ -24,7 +24,16 @@ class SignUp : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        initUI()
+        email = findViewById(R.id.email)
+        password = findViewById(R.id.password)
+        repassword = findViewById(R.id.repassword)
+        val signup = findViewById<Button>(R.id.btnSignUp)
+        val cancel = findViewById<Button>(R.id.btncancel)
+        signup.setOnClickListener{accessToDetail()}
+        cancel.setOnClickListener{
+            val intent = Intent(this, Initial::class.java)
+            startActivity(intent)
+        }
         checkUserValues()
     }
 
@@ -32,20 +41,10 @@ class SignUp : AppCompatActivity() {
     {
         if(prefs.getEmail().isNotEmpty())
         {
-            goToDetail()
+            showMapActivity()
         }
     }
-    fun initUI()
-    {
-        val signup = findViewById<Button>(R.id.btnSignUp)
-        email = findViewById(R.id.email)
-        password = findViewById(R.id.password)
-        repassword = findViewById(R.id.repassword)
-        val signUp = findViewById<Button>(R.id.btnSignUp)
-        val cancel = findViewById<Button>(R.id.btncancel)
-        signup.setOnClickListener{accessToDetail()}
-        cancel.setOnClickListener{initialActivity()}
-    }
+
     fun accessToDetail()
     {
         val email =findViewById<EditText>(R.id.email)
@@ -53,10 +52,7 @@ class SignUp : AppCompatActivity() {
         val repassword =findViewById<EditText>(R.id.repassword)
         if(email.text.toString().isNotEmpty()&&password.text.toString().isNotEmpty()&&repassword.text.toString().isNotEmpty()) //falta añadir que nada este vacio
         { /*codigo nerea rama database dev*/
-            prefs.saveEmail(email.text.toString())
-            prefs.savePass(password.text.toString())
-            prefs.saveRePass(repassword.text.toString())
-            goToDetail()
+
         }
         else
         {
@@ -65,21 +61,6 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    fun goToDetail()
-    {
-        startActivity(Intent(this,MainAppActivity::class.java ))
-    }
-    fun initialActivity()
-    {
-        startActivity(Intent(this,Initial::class.java ))
-        signUp.setOnClickListener{
-            signUp()
-        }
-        cancel.setOnClickListener{
-            val intent = Intent(this, Initial::class.java)
-            startActivity(intent)
-        }
-    }
     fun signUp(){
         val expRegular = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,15}\$")
         val emailTIL = findViewById<TextInputLayout>(R.id.etemail)
@@ -99,6 +80,9 @@ class SignUp : AppCompatActivity() {
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
+                        prefs.saveEmail(email.text.toString())
+                        prefs.savePass(password.text.toString())
+                        prefs.saveRePass(repassword.text.toString())
                         showMapActivity()
                     }else{
                         //showAlert()

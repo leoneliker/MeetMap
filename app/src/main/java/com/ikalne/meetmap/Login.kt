@@ -23,7 +23,15 @@ class Login : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        initUI()
+        email = findViewById(R.id.email)
+        password = findViewById(R.id.password)
+        val login = findViewById<Button>(R.id.btnlogin)
+        val cancel = findViewById<Button>(R.id.btncancel)
+        login.setOnClickListener { login() }
+        cancel.setOnClickListener{
+            val intent = Intent(this, Initial::class.java)
+            startActivity(intent)
+        }
         checkUserValues()
     }
 
@@ -31,52 +39,11 @@ class Login : AppCompatActivity() {
     {
         if (MeetMapApplication.prefs.getEmail().isNotEmpty())
         {
-            goToDetail()
+            showMapActivity()
         }
     }
 
-    fun initUI()
-    {
-        email = findViewById(R.id.email)
-        password = findViewById(R.id.password)
-        val login = findViewById<Button>(R.id.btnlogin)
-        val cancel = findViewById<Button>(R.id.btncancel)
-        login.setOnClickListener { accessToDetail() }
-        cancel.setOnClickListener{initialActivity()}
-    }
 
-    fun accessToDetail()
-    {
-        val email = findViewById<EditText>(R.id.email)
-        val password = findViewById<EditText>(R.id.password)
-        if (email.text.toString().isNotEmpty() && password.text.toString().isNotEmpty())
-        {
-            MeetMapApplication.prefs.saveEmail(email.text.toString())
-            MeetMapApplication.prefs.savePass(password.text.toString())
-            goToDetail()
-        }
-        else
-        {
-            //hacer otra cosa
-            //mensaje de que falta algo por rellenar
-        }
-    }
-
-    fun goToDetail()
-    {
-        startActivity(Intent(this, MainAppActivity::class.java))
-    }
-    fun initialActivity()
-    {
-        startActivity(Intent(this,Initial::class.java ))
-        login.setOnClickListener{
-            login()
-        }
-        cancel.setOnClickListener{
-            val intent = Intent(this, Initial::class.java)
-            startActivity(intent)
-        }
-    }
     fun login(){
         val emailTIL = findViewById<TextInputLayout>(R.id.etemail)
         val passwordTIL = findViewById<TextInputLayout>(R.id.etpassword)
@@ -89,6 +56,8 @@ class Login : AppCompatActivity() {
             FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                 if (it.isSuccessful){
+                    MeetMapApplication.prefs.saveEmail(email.text.toString())
+                    MeetMapApplication.prefs.savePass(password.text.toString())
                     showMapActivity()
                 }else{
                     //showAlert()
@@ -111,7 +80,7 @@ class Login : AppCompatActivity() {
     }
 
     private fun showMapActivity(){
-        val intent = Intent(this, MapsActivity::class.java)
+        val intent = Intent(this, MainAppActivity::class.java)
         startActivity(intent)
     }
 }
