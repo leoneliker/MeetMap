@@ -26,11 +26,24 @@ class Splash : AppCompatActivity() {
 
     }
 
+    fun checkUserValues()
+    {
+        var intent = Intent(this@Splash, Initial::class.java)
+        if (MeetMapApplication.prefs.getEmail().isNotEmpty())
+        {
+            intent = Intent(this, MainAppActivity::class.java)
+        }else{
+
+        }
+        startActivity(intent)
+    }
+
     private fun openApp() {
         val handler = Handler()
         handler.postDelayed(Runnable {
-            val intent = Intent(this@Splash, Initial::class.java)
-            startActivity(intent)
+            checkUserValues()
+
+
         }, 3000)
     }
 }
