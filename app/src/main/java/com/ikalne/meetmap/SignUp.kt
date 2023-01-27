@@ -29,7 +29,7 @@ class SignUp : AppCompatActivity() {
         repassword = findViewById(R.id.repassword)
         val signup = findViewById<Button>(R.id.btnSignUp)
         val cancel = findViewById<Button>(R.id.btncancel)
-        signup.setOnClickListener{accessToDetail()}
+        signup.setOnClickListener{signUp()}
         cancel.setOnClickListener{
             val intent = Intent(this, Initial::class.java)
             startActivity(intent)
@@ -45,21 +45,6 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    fun accessToDetail()
-    {
-        val email =findViewById<EditText>(R.id.email)
-        val password =findViewById<EditText>(R.id.password)
-        val repassword =findViewById<EditText>(R.id.repassword)
-        if(email.text.toString().isNotEmpty()&&password.text.toString().isNotEmpty()&&repassword.text.toString().isNotEmpty()) //falta añadir que nada este vacio
-        { /*codigo nerea rama database dev*/
-
-        }
-        else
-        {
-            //hacer otra cosa
-            //mensaje de que esta vacio (toast, error...)
-        }
-    }
 
     fun signUp(){
         val expRegular = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,15}\$")
