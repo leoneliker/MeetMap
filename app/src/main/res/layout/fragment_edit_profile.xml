@@ -38,7 +38,6 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
-
                     android:id="@+id/nombre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -60,6 +59,7 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
+                    android:id="@+id/surnombre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/surname"
@@ -79,6 +79,7 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/telefono"
@@ -86,7 +87,7 @@
                     android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+           <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etemail"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
@@ -98,6 +99,7 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
+                    android:id="@+id/mail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/email"
@@ -105,8 +107,29 @@
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!--<com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/etpassword"
+               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="12dp"
+               app:layout_constraintEnd_toEndOf="@id/rightguide"
+               app:layout_constraintStart_toStartOf="@id/leftguide"
+               app:layout_constraintTop_toBottomOf="@id/etemail"
+               app:hintTextColor="@color/secondary_dark"
+               app:passwordToggleEnabled="true">
+
+               <EditText
+                   android:id="@+id/password"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:hint="@string/pass"
+                   android:theme="@style/lineET"
+                   android:inputType="textPassword" />
+           </com.google.android.material.textfield.TextInputLayout>-->
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etpassword"
+                android:id="@+id/etdescription"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -117,26 +140,7 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/pass"
-                    android:theme="@style/lineET"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etdescription"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:layout_constraintEnd_toEndOf="@id/rightguide"
-                app:layout_constraintStart_toStartOf="@id/leftguide"
-                app:layout_constraintTop_toBottomOf="@id/etpassword"
-                app:hintTextColor="@color/secondary_dark">
-
-                <EditText
-
+                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
