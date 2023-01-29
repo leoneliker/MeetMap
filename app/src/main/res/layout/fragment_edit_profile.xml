@@ -106,7 +106,7 @@
                     android:clickable="false"
                     android:cursorVisible="false"
                     android:theme="@style/lineET"
-                    android:inputType="none" />
+                    android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
 <!--            <com.google.android.material.textfield.TextInputLayout-->
