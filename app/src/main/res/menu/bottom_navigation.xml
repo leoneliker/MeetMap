@@ -4,28 +4,28 @@
 
         <item
             android:id="@+id/likes"
-            android:title="Favourites"
+            android:title="@string/favourites"
             android:icon="@drawable/ic_heart"
             android:contentDescription="none"
             app:showAsAction="ifRoom" />
 
         <item
             android:id="@+id/house"
-            android:title="Home"
+            android:title="@string/home"
             android:icon="@drawable/ic_house"
             android:contentDescription="none"
             app:showAsAction="always"/>
 
         <item
             android:id="@+id/chat"
-            android:title="Chat"
+            android:title="@string/chat"
             android:icon="@drawable/ic_message_square"
             android:contentDescription="none"
             app:showAsAction="ifRoom"
             />
         <item
             android:id="@+id/profile"
-            android:title="Profile"
+            android:title="@string/profile"
             android:icon="@drawable/ic_profile"
             android:contentDescription="none"
             app:showAsAction="ifRoom"

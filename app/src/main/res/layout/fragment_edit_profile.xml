@@ -120,10 +120,10 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/pass"
                     android:editable="false"
-                    android:theme="@style/lineET"
-                    android:inputType="none" />
+                    android:hint="@string/pass"
+                    android:inputType="none"
+                    android:theme="@style/lineET" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -181,7 +181,7 @@
                 android:backgroundTint="@color/button_selector"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
-                android:text="LOG OUT"
+                android:text="@string/logout"
                 app:layout_constraintStart_toStartOf="@id/leftguide"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,7 +192,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/button_selector"
-                android:text="DELETE ACCOUNT"
+                android:text="@string/deleteaccount"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/rightguide"
 
