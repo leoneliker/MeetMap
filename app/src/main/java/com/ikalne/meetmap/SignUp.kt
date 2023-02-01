@@ -5,14 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import com.google.android.material.textfield.TextInputEditText
-import com.ikalne.meetmap.MeetMapApplication.Companion.prefs
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUp : AppCompatActivity() {
 
@@ -34,16 +30,8 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(this, Initial::class.java)
             startActivity(intent)
         }
-        checkUserValues()
     }
 
-    fun checkUserValues()
-    {
-        if(prefs.getEmail().isNotEmpty())
-        {
-            showMapActivity()
-        }
-    }
 
 
     fun signUp(){
@@ -65,10 +53,11 @@ class SignUp : AppCompatActivity() {
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
-                        prefs.saveEmail(email.text.toString())
-                        prefs.savePass(password.text.toString())
-                        prefs.saveRePass(repassword.text.toString())
-                        showMapActivity()
+                        PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
+                        PreferencesManager.getDefaultSharedPreferences(this).savePass(password.text.toString())
+                        PreferencesManager.getDefaultSharedPreferences(this).saveRePass(repassword.text.toString())
+                        val intent = Intent(this, MainAppActivity::class.java)
+                        startActivity(intent)
                     }else{
                         //showAlert()
                         showError(emailTIL, "This email already exists")
@@ -88,10 +77,5 @@ class SignUp : AppCompatActivity() {
 
     private fun showError(textInputLayout: TextInputLayout, error: String){
         textInputLayout.error = error
-    }
-
-    private fun showMapActivity(){
-        val intent = Intent(this, MapsActivity::class.java)
-        startActivity(intent)
     }
 }

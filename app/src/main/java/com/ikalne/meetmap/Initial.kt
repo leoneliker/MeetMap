@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Html
+import android.util.Log
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.LinearLayout
@@ -44,14 +45,14 @@ class Initial : AppCompatActivity() {
         addDots(size, 0)
 
 
-        botonC.setOnClickListener(OnClickListener {
+        botonC.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
-        })
-        botonL.setOnClickListener(OnClickListener {
+        }
+        botonL.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
-        })
+        }
     }
 
 
