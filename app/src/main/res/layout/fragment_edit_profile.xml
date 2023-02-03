@@ -104,7 +104,10 @@
                     android:layout_height="match_parent"
                     android:hint="@string/email"
                     android:theme="@style/lineET"
-                    android:inputType="textEmailAddress" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:inputType="none"  />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--<com.google.android.material.textfield.TextInputLayout

@@ -87,6 +87,7 @@ class EditProfileFragment() : Fragment() {
         }
         binding.btnlogout.setOnClickListener{
             MeetMapApplication.prefs.wipe()
+            fAuth.signOut()
             startActivity(Intent(this.requireContext(), Login::class.java ))
             Intent(getActivity(), Login::class.java)
 
