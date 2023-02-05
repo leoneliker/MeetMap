@@ -12,9 +12,13 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.ikalne.meetmap.ui.main.SectionsPagerAdapter
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
 import com.ikalne.meetmap.fragments.ChatFragment
@@ -33,11 +37,14 @@ class MainAppActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         bottomNavView =binding.bottomNavigation
-
+        var isnavview= false
         val mapFragment = MapFragment()
         val favFragment = FavouritesFragment()
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
+        val navview = findViewById<NavigationView>(R.id.nav_view)
+        val animLeftNav = AnimationUtils.loadAnimation(this, R.anim.slidein)
+        val slideout = AnimationUtils.loadAnimation(this, R.anim.slideout)
 
         setThatFragment(mapFragment)
         bottomNavView.setSelectedItemId(R.id.house)
@@ -45,16 +52,41 @@ class MainAppActivity : AppCompatActivity() {
         bottomNavView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.house ->{
+                    binding.navView.isVisible= false
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
                     setThatFragment(mapFragment)
                 }
                 R.id.likes ->{
+                    binding.navView.isVisible= false
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
                     setThatFragment(favFragment)
                 }
                 R.id.chat ->{
+                    binding.navView.isVisible= false
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
                     setThatFragment(chatFragment)
                 }
                 R.id.profile ->{
-                    setThatFragment(profileFragment)
+                    //setThatFragment(profileFragment)
+                    binding.navView.isVisible= true
+                    isnavview=true
+                    animLeftNav.interpolator = DecelerateInterpolator()
+                    navview.startAnimation(animLeftNav)
                 }
             }
             true
