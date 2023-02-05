@@ -4,7 +4,12 @@ Application that allows you to see the next activities in your city and meet peo
 ## [Splash View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/Splash.kt)
 
 
-![Splash video](img/Splash_video.mp4)
+[![Splash Video](https://img.youtube.com/vi/q-YjV9VqvEQ/0.jpg)](https://www.youtube.com/shorts/q-YjV9VqvEQ)
+https://www.youtube.com/shorts/q-YjV9VqvEQ
+
+https://youtube.com/shorts/AK8dwAdvpHA?feature=share
+
+https://youtube.com/shorts/ME_c6M86qBU?feature=share
 
 
 ## [Figma prototype](https://www.figma.com/file/BnFUxtnABdXq7QyjVwtNXr/MeetMap?node-id=58%3A35&t=M3GuCny9oMMSULwz-1)
