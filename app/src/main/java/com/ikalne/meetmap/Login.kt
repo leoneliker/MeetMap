@@ -83,4 +83,10 @@ class Login : AppCompatActivity() {
         val intent = Intent(this, MainAppActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onBackPressed() {
+        // Ir a una actividad específica
+        val intent = Intent(this, Initial::class.java)
+        startActivity(intent)
+    }
 }

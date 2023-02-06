@@ -144,17 +144,23 @@ class MainAppActivity : AppCompatActivity() {
                 }
                 R.id.nav_exit ->
                 {
+                    MeetMapApplication.prefs.wipe()
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+
                     if(isnavview)
                     {
                         slideout.interpolator = DecelerateInterpolator()
                         navview.startAnimation(slideout)
                         isnavview=false
                     }
-                    setThatFragment(favFragment)
+
+                   /* setThatFragment(favFragment)*/
                    /* MeetMapApplication.prefs.wipe()
                     fAuth.signOut()
                     startActivity(Intent(this.requireContext(), Login::class.java ))
                     Intent(getActivity(), Login::class.java)*/
+
                 }
             }
             // Indica que el elemento ha sido seleccionado
