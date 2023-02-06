@@ -37,6 +37,25 @@
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
             android:visibility="gone"
-            app:menu="@menu/nav_menu"/>
+            app:menu="@menu/nav_menu">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <Button
+                    android:id="@+id/btnDeleteAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/buttonOutlinedWhite"
+                    android:gravity="center"
+                    android:text="@string/deleteaccount"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
