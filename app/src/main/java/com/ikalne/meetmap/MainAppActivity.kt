@@ -67,6 +67,7 @@ class MainAppActivity : AppCompatActivity() {
             .into(imagenav)
         bottomNavView.setSelectedItemId(R.id.house)
 
+
         bottomNavView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.house ->{
@@ -141,6 +142,17 @@ class MainAppActivity : AppCompatActivity() {
                         isnavview=false
                     }
                     //de momento no hace nada ver que pasa con esto
+                }
+                R.id.nav_manusu ->
+                {
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
+                    //de momento no hace nada ver que pasa con esto
+                    //crear el manual de usuario
                 }
                 R.id.nav_exit ->
                 {

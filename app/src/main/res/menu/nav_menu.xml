@@ -9,7 +9,10 @@
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
             android:title="@string/notifications" />
-
+        <item
+            android:id="@+id/nav_manusu"
+            android:icon="@drawable/ic_manusu"
+            android:title="@string/manusu" />
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_logout"
