@@ -4,26 +4,19 @@ Application that allows you to see the next activities in your city and meet peo
 ## [Splash View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/Splash.kt)
 
 
-Splash view with two animations of two hands coming together.
+[Splash](https://www.youtube.com/shorts/q-YjV9VqvEQ) view with two animations of two hands coming together.
 
 
-Show this video:
-
-
-[![Splash Video](https://img.youtube.com/vi/q-YjV9VqvEQ/0.jpg)](https://www.youtube.com/shorts/q-YjV9VqvEQ)
-
+![Splash Gif](img/splash_gif.gif)
 
 
 ## [Initial View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/Initial.kt)
 
 
-Initial carousel that starts the app with information about the possibilities of the application.
+[Initial carousel](https://www.youtube.com/shorts/AK8dwAdvpHA) that starts the app with information about the possibilities of the application.
 
 
-Show this video:
-
-
-[![Initial Video](https://img.youtube.com/vi/AK8dwAdvpHA/0.jpg)](https://www.youtube.com/shorts/AK8dwAdvpHA)
+![Initial Gif](img/initial_gif.gif)
 
 
 ## Login and Sign Up
@@ -38,13 +31,10 @@ Login and SignUp connected to the database and with verification of the fields.
 ## [Fragments Main View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/MainAppActivity.kt)
 
 
-Main view of the application.  A map that through the location allows you to know the plans that are nearby. A bar with buttons that allows navigation between the different possibilities of the app: favorites, chat, profile.
+[Main view of the application](https://www.youtube.com/shorts/ME_c6M86qBU).  A map that through the location allows you to know the plans that are nearby. A bar with buttons that allows navigation between the different possibilities of the app: favorites, chat, profile.
 
 
-Show this video:
-
-
-[![Fragments Video](https://img.youtube.com/vi/ME_c6M86qBU/0.jpg)](https://www.youtube.com/shorts/ME_c6M86qBU)
+![Fragments Gif](img/fragments_gif.gif)
 
 
 Connects with device location for geolocation:
@@ -95,3 +85,4 @@ Finally, back in the map, we can see:
 Also, you can see an example of edit your profile.
 
 
+https://www.youtube.com/@meetmap
