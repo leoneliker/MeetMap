@@ -13,6 +13,8 @@ Show this video:
 [![Splash Video](https://img.youtube.com/vi/q-YjV9VqvEQ/0.jpg)](https://www.youtube.com/shorts/q-YjV9VqvEQ)
 
 
+![Splash Gif](img/splash_gif.gif)
+
 
 ## [Initial View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/Initial.kt)
 
@@ -24,6 +26,9 @@ Show this video:
 
 
 [![Initial Video](https://img.youtube.com/vi/AK8dwAdvpHA/0.jpg)](https://www.youtube.com/shorts/AK8dwAdvpHA)
+
+
+![Initial Gif](img/initial_gif.gif)
 
 
 ## Login and Sign Up
@@ -45,6 +50,10 @@ Show this video:
 
 
 [![Fragments Video](https://img.youtube.com/vi/ME_c6M86qBU/0.jpg)](https://www.youtube.com/shorts/ME_c6M86qBU)
+
+
+
+![Fragments Gif](img/fragments_gif.gif)
 
 
 Connects with device location for geolocation:
@@ -95,3 +104,4 @@ Finally, back in the map, we can see:
 Also, you can see an example of edit your profile.
 
 
+https://www.youtube.com/@meetmap
