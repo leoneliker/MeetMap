@@ -84,9 +84,18 @@ class MainAppActivity : AppCompatActivity() {
                 R.id.profile ->{
                     //setThatFragment(profileFragment)
                     binding.navView.isVisible= true
-                    isnavview=true
-                    animLeftNav.interpolator = DecelerateInterpolator()
-                    navview.startAnimation(animLeftNav)
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
+                    else
+                    {
+                        isnavview = true
+                        animLeftNav.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(animLeftNav)
+                    }
                 }
             }
             true
