@@ -31,4 +31,7 @@
     <string name="profile">Perfil</string>
     <string name="favfragment">FRAGMENTO FAVORITOS</string>
     <string name="chatfragment">FRAGMENTO CONVERSACIONES</string>
+    <string name="exit">Cerrar sesión</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="editProfile">Editar perfil</string>
 </resources>

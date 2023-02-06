@@ -5,8 +5,10 @@
     android:layout_height="@dimen/header_height"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:layout_marginBottom="10dp"
     android:padding="@dimen/header_left_padding"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:background="@color/light_gray">
 
     <!-- Imagen de perfil -->
 
@@ -25,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:text="Juana Maria Perez"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/dark_gray"
         android:textStyle="bold" />
 
         <!-- Correo de la cuenta -->
@@ -33,8 +35,9 @@
         android:id="@+id/email"
         style="@style/Widget.AppCompat.Spinner"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:text="juanaperez01@gmail.com"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="42dp"
+        android:text="juanap01@gmail.com"
+        android:textColor="@color/dark_gray"
+       />
 
     </LinearLayout>

@@ -9,7 +9,7 @@
 
 
     <dimen name="header_left_padding">16dp</dimen>
-    <dimen name="header_height">192dp</dimen>
+    <dimen name="header_height">208dp</dimen>
 
     <dimen name="perfil_image_size">64dp</dimen>
 </resources>

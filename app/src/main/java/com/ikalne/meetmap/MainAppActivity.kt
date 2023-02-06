@@ -14,11 +14,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.ikalne.meetmap.ui.main.SectionsPagerAdapter
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
 import com.ikalne.meetmap.fragments.ChatFragment
@@ -34,19 +41,30 @@ class MainAppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        lateinit var fStore: FirebaseFirestore
+        lateinit var fAuth: FirebaseAuth
         supportActionBar?.hide()
+        fStore = FirebaseFirestore.getInstance()
+        fAuth = FirebaseAuth.getInstance()
         bottomNavView =binding.bottomNavigation
+
         var isnavview= false
         val mapFragment = MapFragment()
         val favFragment = FavouritesFragment()
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
         val navview = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navview.getHeaderView(0)
+        val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
+        val btnDeleteAccount =navview.findViewById<Button>(R.id.btnDeleteAccount)
         val animLeftNav = AnimationUtils.loadAnimation(this, R.anim.slidein)
         val slideout = AnimationUtils.loadAnimation(this, R.anim.slideout)
 
         setThatFragment(mapFragment)
+        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
+            .load(R.drawable.cara)
+            .circleCrop()
+            .into(imagenav)
         bottomNavView.setSelectedItemId(R.id.house)
 
         bottomNavView.setOnItemSelectedListener {
@@ -101,6 +119,68 @@ class MainAppActivity : AppCompatActivity() {
             true
         }
 
+        navview.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_profile ->
+                {
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
+                    setThatFragment(profileFragment)
+
+                }
+                R.id.nav_notifications ->
+                {
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
+                    //de momento no hace nada ver que pasa con esto
+                }
+                R.id.nav_exit ->
+                {
+                    if(isnavview)
+                    {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview=false
+                    }
+                    setThatFragment(favFragment)
+                   /* MeetMapApplication.prefs.wipe()
+                    fAuth.signOut()
+                    startActivity(Intent(this.requireContext(), Login::class.java ))
+                    Intent(getActivity(), Login::class.java)*/
+                }
+            }
+            // Indica que el elemento ha sido seleccionado
+            menuItem.isChecked = true
+            true
+        }
+        btnDeleteAccount.setOnClickListener {
+            // Acción para el botón
+            if(isnavview)
+            {
+                slideout.interpolator = DecelerateInterpolator()
+                navview.startAnimation(slideout)
+                isnavview=false
+            }
+            setThatFragment(favFragment)
+           /* val builder = AlertDialog.Builder(requireActivity())
+            builder.setTitle("Delete account")
+            builder.setMessage("Are you sure you want to delete the account")
+            builder.setPositiveButton("Accept") { dialog, which ->
+                fStore.collection("users").document(email).delete()
+                fAuth.currentUser?.delete()
+                Toast.makeText(requireActivity(), "The account has been deleted", Toast.LENGTH_LONG).show()
+                MeetMapApplication.prefs.wipe()
+                startActivity(Intent(this.requireContext(), Initial::class.java ))
+                Intent(getActivity(), Initial::class.java)*/
+        }
 
     }
     var doubleBackToExitPressedOnce = false

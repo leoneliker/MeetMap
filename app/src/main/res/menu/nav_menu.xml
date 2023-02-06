@@ -2,27 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:checked="true"
-            android:icon="@drawable/ic_house"
-            android:title="Menu principal" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_usuario"
+            android:title="@string/editProfile" />
         <item
-            android:id="@+id/nav_productos"
-            android:icon="@drawable/ic_heart"
-            android:title="Favoritos" />
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/notifications" />
+
         <item
-            android:id="@+id/nav_carrito"
-            android:icon="@drawable/ic_profile"
-            android:title="Perfil" />
-        <item
-            android:id="@+id/otra_section"
-            android:title="Otra titulo">
-            <menu>
-                <item
-                    android:id="@+id/nav_otro_item"
-                    android:icon="@drawable/ic_message_square"
-                    android:title="otro item" />
-            </menu>
-        </item>
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/exit" />
+
     </group>
 </menu>
+
+    <!--android:checked="true"-->
