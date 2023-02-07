@@ -20,6 +20,7 @@ class SignUp : AppCompatActivity() {
     lateinit var password: EditText
     lateinit var repassword: EditText
     lateinit var fStore: FirebaseFirestore
+    lateinit var fAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -30,6 +31,7 @@ class SignUp : AppCompatActivity() {
         password = findViewById(R.id.password)
         repassword = findViewById(R.id.repassword)
         fStore = FirebaseFirestore.getInstance()
+        fAuth = FirebaseAuth.getInstance()
 
         val signup = findViewById<Button>(R.id.btnSignUp)
         val cancel = findViewById<Button>(R.id.btncancel)
@@ -65,9 +67,11 @@ class SignUp : AppCompatActivity() {
         }else if (!password.text.toString().equals(repassword.text.toString())){
             showError(repasswordTIL, "Passwords must me the same")
         }else{
-            FirebaseAuth.getInstance()
-                .createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
+            fAuth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
+                        fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                            Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
+                        }
                         prefs.saveEmail(email.text.toString())
                         prefs.savePass(password.text.toString())
                         prefs.saveRePass(repassword.text.toString())
