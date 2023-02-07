@@ -55,9 +55,9 @@ class SignUp : AppCompatActivity() {
         val passwordTIL = findViewById<TextInputLayout>(R.id.etpassword)
         val repasswordTIL = findViewById<TextInputLayout>(R.id.etrepassword)
         if (email.text.isEmpty() && password.text.isEmpty() && repassword.text.isEmpty()){
-            showError(emailTIL, "This field can´t be empty")
-            showError(passwordTIL, "This field can´t be empty")
-            showError(repasswordTIL, "This field can´t be empty")
+            showError(emailTIL, "Email is required")
+            showError(passwordTIL, "Password is required")
+            showError(repasswordTIL, "Repeat password is required")
         }else if (!email.text.contains("@")){
             showError(emailTIL, "Email is not valid.")  //This field can´t be empty
         }else if(!expRegular.matches(password.text.toString())){

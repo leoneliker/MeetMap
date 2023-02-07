@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -31,6 +32,7 @@ class Login : AppCompatActivity() {
     lateinit var password: EditText
     lateinit var emailTIL: TextInputLayout
     lateinit var passwordTIL: TextInputLayout
+    lateinit var resetPass: TextView
     private val GOOGLE_SIGN_IN = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class Login : AppCompatActivity() {
         password = findViewById(R.id.password)
         emailTIL = findViewById(R.id.etemail)
         passwordTIL = findViewById(R.id.etpassword)
+        resetPass = findViewById(R.id.tvresetpass)
 
         val login = findViewById<Button>(R.id.btnlogin)
         val cancel = findViewById<Button>(R.id.btncancel)
@@ -53,6 +56,10 @@ class Login : AppCompatActivity() {
         //btnfacebook.setOnClickListener { loginFacebook() }
         cancel.setOnClickListener{
             val intent = Intent(this, Initial::class.java)
+            startActivity(intent)
+        }
+        resetPass.setOnClickListener {
+            val intent = Intent(this, ResetPassword::class.java)
             startActivity(intent)
         }
         checkUserValues()
@@ -69,8 +76,8 @@ class Login : AppCompatActivity() {
     fun login(){
 
         if (email.text.isEmpty() && password.text.isEmpty()){
-            showError(emailTIL, "This field can´t be empty")
-            showError(passwordTIL, "This field can´t be empty")
+            showError(emailTIL, "Email is required")
+            showError(passwordTIL, "Password is required")
         }else if(!email.text.contains("@")){
             showError(emailTIL, "Email is not valid")
         }else{

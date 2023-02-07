@@ -61,6 +61,17 @@
             android:theme="@style/lineET" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tvresetpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/resetpass"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/etpassword">
+    </TextView>
+
     <Button
         android:id="@+id/btnlogin"
         style="@style/buttonOutlinedRed"
@@ -69,7 +80,7 @@
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/etpassword"
+        app:layout_constraintTop_toBottomOf="@id/tvresetpass"
         />
 
     <Button
@@ -80,17 +91,17 @@
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/btnlogin" />
 
-        <TextView
-            android:id="@+id/tvother"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/other"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/btncancel">
+<!--        <TextView-->
+<!--            android:id="@+id/tvother"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="@string/other"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/rightguide"-->
+<!--            app:layout_constraintStart_toStartOf="@id/leftguide"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/btncancel">-->
 
-        </TextView>
+<!--        </TextView>-->
 
 
 <!--        <ImageButton-->

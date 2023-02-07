@@ -17,6 +17,8 @@
     <string name="title_activity_main_app">MainAppActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="resetpass">Forgot password?</string>
+    <string name="fgPass">RESET PASSWORD</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="description">Your description</string>
     <string name="save">SAVE</string>
