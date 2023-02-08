@@ -24,7 +24,7 @@
     <string name="surname">Surname</string>
     <string name="name">Name</string>
     <string name="logout">LOG OUT</string>
-    <string name="deleteaccount">DELETE ACCOUNT</string>
+    <string name="deleteaccount">Delete account</string>
     <string name="favourites">Favourites</string>
     <string name="home">Home</string>
     <string name="chat">Chat</string>

@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
@@ -194,6 +195,8 @@ class MainAppActivity : AppCompatActivity() {
             builder.setNegativeButton("Cancel"){dialog, which ->}
             builder.show()
         }
+
+
     }
 
         var doubleBackToExitPressedOnce = false

@@ -24,7 +24,7 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="logout">CERRAR SESIÓN</string>
-    <string name="deleteaccount">ELIMINAR CUENTA</string>
+    <string name="deleteaccount">Eliminar cuenta</string>
     <string name="favourites">Favoritos</string>
     <string name="home">Inicio</string>
     <string name="chat">Conversaciones</string>
