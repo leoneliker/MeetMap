@@ -30,7 +30,7 @@ lateinit var binding: FragmentEditProfileBinding
     fun initUI()
     {
         //binding.email.setEnabled(false)
-        binding.btnDeleteAccount.setOnClickListener{
+       /* binding.btnDeleteAccount.setOnClickListener{
             MeetMapApplication.prefs.wipe()
             startActivity(Intent(this.requireContext(), Initial::class.java ))
             Intent(getActivity(), Initial::class.java)
@@ -40,7 +40,7 @@ lateinit var binding: FragmentEditProfileBinding
             startActivity(Intent(this.requireContext(), Login::class.java ))
             Intent(getActivity(), Login::class.java)
 
-        }
+        }*/
 //        binding.apply {
 //            btnlogout.s
 //        }

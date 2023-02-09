@@ -17,7 +17,7 @@
                 android:id="@+id/ivuser"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="60dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/circleiv"
                 android:src="@drawable/cara"
@@ -177,7 +177,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btncancel" />
 
 
-            <Button
+            <!--<Button
                 android:id="@+id/btnlogout"
                 android:layout_width="150dp"
                 style="@style/buttonOutlinedRed"
@@ -199,7 +199,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/rightguide"
 
-                app:layout_constraintHorizontal_bias="1.0" />
+                app:layout_constraintHorizontal_bias="1.0" />-->
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftguide"
