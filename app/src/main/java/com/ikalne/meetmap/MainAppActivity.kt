@@ -16,6 +16,8 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,6 +25,7 @@ import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.navigation.NavigationView
@@ -40,6 +43,9 @@ import com.ikalne.meetmap.fragments.MapFragment
 class MainAppActivity : AppCompatActivity() {
     private lateinit var bottomNavView: BottomNavigationView
     lateinit var binding: ActivityMainAppBinding
+    private lateinit var imageButton: ImageButton
+    private lateinit var frame: FrameLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
@@ -51,6 +57,8 @@ class MainAppActivity : AppCompatActivity() {
         fStore = FirebaseFirestore.getInstance()
         fAuth = FirebaseAuth.getInstance()
         bottomNavView = binding.bottomNavigation
+        imageButton = binding.imageButton
+        frame=binding.frame
 
         var isnavview = false
         val mapFragment = MapFragment()
@@ -61,8 +69,11 @@ class MainAppActivity : AppCompatActivity() {
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
         val btnDeleteAccount = navview.findViewById<Button>(R.id.btnDeleteAccount)
-        val animLeftNav = AnimationUtils.loadAnimation(this, R.anim.slidein)
+        val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
         val slideout = AnimationUtils.loadAnimation(this, R.anim.slideout)
+
+
+
         email = prefs.getEmail()
 
         setThatFragment(mapFragment)
@@ -72,39 +83,73 @@ class MainAppActivity : AppCompatActivity() {
             .into(imagenav)
         bottomNavView.setSelectedItemId(R.id.house)
 
+       frame.setOnClickListener()
+        {
+            if(isnavview)
+            {
+                slideout.interpolator = DecelerateInterpolator()
+                navview.startAnimation(slideout)
+                isnavview = false
+                imageButton.visibility = View.VISIBLE
+            }
+        }
 
+
+        imageButton.setOnClickListener()
+        {
+            binding.navView.isVisible = true
+            isnavview = true
+            slidein.interpolator = DecelerateInterpolator()
+            navview.startAnimation(slidein)
+            imageButton.visibility = View.GONE
+
+        }
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.house -> {
                     binding.navView.isVisible = false
+
                     if (isnavview) {
                         slideout.interpolator = DecelerateInterpolator()
                         navview.startAnimation(slideout)
                         isnavview = false
                     }
+                    imageButton.visibility = View.VISIBLE
                     setThatFragment(mapFragment)
+
                 }
                 R.id.likes -> {
                     binding.navView.isVisible = false
+
                     if (isnavview) {
                         slideout.interpolator = DecelerateInterpolator()
                         navview.startAnimation(slideout)
                         isnavview = false
                     }
+                    imageButton.visibility = View.VISIBLE
                     setThatFragment(favFragment)
                 }
                 R.id.chat -> {
                     binding.navView.isVisible = false
+
                     if (isnavview) {
                         slideout.interpolator = DecelerateInterpolator()
                         navview.startAnimation(slideout)
                         isnavview = false
                     }
+                    imageButton.visibility = View.VISIBLE
                     setThatFragment(chatFragment)
                 }
                 R.id.profile -> {
+                    binding.navView.isVisible = false
+
+                    if (isnavview) {
+                        slideout.interpolator = DecelerateInterpolator()
+                        navview.startAnimation(slideout)
+                        isnavview = false
+                    }
                     //setThatFragment(profileFragment)
-                    binding.navView.isVisible = true
+                   /* binding.navView.isVisible = true
                     if (isnavview) {
                         slideout.interpolator = DecelerateInterpolator()
                         navview.startAnimation(slideout)
@@ -113,7 +158,9 @@ class MainAppActivity : AppCompatActivity() {
                         isnavview = true
                         animLeftNav.interpolator = DecelerateInterpolator()
                         navview.startAnimation(animLeftNav)
-                    }
+                    }*/
+                    imageButton.visibility = View.VISIBLE
+                    setThatFragment(profileFragment)
                 }
             }
             true
@@ -128,6 +175,7 @@ class MainAppActivity : AppCompatActivity() {
                         isnavview = false
                     }
                     setThatFragment(profileFragment)
+                    imageButton.visibility = View.VISIBLE
 
                 }
                 R.id.nav_notifications -> {
@@ -137,6 +185,7 @@ class MainAppActivity : AppCompatActivity() {
                         isnavview = false
                     }
                     //de momento no hace nada ver que pasa con esto
+                    imageButton.visibility = View.VISIBLE
                 }
                 R.id.nav_manusu -> {
                     if (isnavview) {
@@ -146,6 +195,7 @@ class MainAppActivity : AppCompatActivity() {
                     }
                     //de momento no hace nada ver que pasa con esto
                     //crear el manual de usuario
+                    imageButton.visibility = View.VISIBLE
                 }
                 R.id.nav_exit -> {
                     /* MeetMapApplication.prefs.wipe()
