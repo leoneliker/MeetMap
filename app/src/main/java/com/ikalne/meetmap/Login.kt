@@ -5,27 +5,19 @@ import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
 
@@ -67,7 +59,7 @@ class Login : AppCompatActivity() {
 
     fun checkUserValues()
     {
-        if (MeetMapApplication.prefs.getEmail().isNotEmpty())
+        if (PreferencesManager.getDefaultSharedPreferences(this).getEmail().isNotEmpty())
         {
             showMapActivity()
         }
@@ -83,8 +75,8 @@ class Login : AppCompatActivity() {
             FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
-                        MeetMapApplication.prefs.saveEmail(email.text.toString())
-                        MeetMapApplication.prefs.savePass(password.text.toString())
+                        PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
+                        PreferencesManager.getDefaultSharedPreferences(this).savePass(password.text.toString())
                         showMapActivity()
                     }else{
                         //showAlert()

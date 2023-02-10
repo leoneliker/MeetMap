@@ -2,13 +2,9 @@ package com.ikalne.meetmap.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -16,11 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ikalne.meetmap.Initial
 import com.ikalne.meetmap.Login
-import com.ikalne.meetmap.MeetMapApplication
-import com.ikalne.meetmap.MeetMapApplication.Companion.prefs
-import com.ikalne.meetmap.R
+import com.ikalne.meetmap.PreferencesManager
 import com.ikalne.meetmap.databinding.FragmentEditProfileBinding
-import com.ikalne.meetmap.model.User
 
 class EditProfileFragment() : Fragment() {
 
@@ -43,7 +36,7 @@ class EditProfileFragment() : Fragment() {
         fStore = FirebaseFirestore.getInstance()
         fAuth = FirebaseAuth.getInstance()
 
-        email = prefs.getEmail()
+        email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
         binding.mail.setText(email)
         fStore.collection("users").document(email).get().addOnSuccessListener {
             binding.nombre.setText(it.get("name") as String)
@@ -78,15 +71,15 @@ class EditProfileFragment() : Fragment() {
                 fStore.collection("users").document(email).delete()
                 fAuth.currentUser?.delete()
                 Toast.makeText(requireActivity(), "The account has been deleted", Toast.LENGTH_LONG).show()
-                MeetMapApplication.prefs.wipe()
+                PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
                 startActivity(Intent(this.requireContext(), Initial::class.java ))
-                Intent(getActivity(), Initial::class.java)
+                Intent(binding.root.context, Initial::class.java)
             }
             builder.setNegativeButton("Cancel") { dialog, which ->}
             builder.show()
         }
         binding.btnlogout.setOnClickListener{
-            MeetMapApplication.prefs.wipe()
+            PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
             fAuth.signOut()
             startActivity(Intent(this.requireContext(), Login::class.java ))
             Intent(getActivity(), Login::class.java)

@@ -8,8 +8,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import com.google.android.material.textfield.TextInputEditText
-import com.ikalne.meetmap.MeetMapApplication.Companion.prefs
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -63,7 +61,7 @@ class SignUp : AppCompatActivity() {
 
     fun checkUserValues()
     {
-        if(prefs.getEmail().isNotEmpty())
+        if(PreferencesManager.getDefaultSharedPreferences(this).getEmail().isNotEmpty())
         {
             showMapActivity()
         }
@@ -88,7 +86,7 @@ class SignUp : AppCompatActivity() {
                         fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
                             Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
                         }
-                        prefs.saveEmail(email.text.toString())
+                        PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
 //                        prefs.savePass(password.text.toString())
 //                        prefs.saveRePass(repassword.text.toString())
                         fStore.collection("users").document(email.text.toString()).set(
@@ -134,9 +132,9 @@ class SignUp : AppCompatActivity() {
                         if (it.isSuccessful){
                             fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
                                 Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                                //Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
+                                Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
                             }
-                            fAuth.currentUser?.email?.let { it1 -> prefs.saveEmail(it1) }
+                            fAuth.currentUser?.email?.let { it1 -> PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it1) }
                             fAuth.currentUser?.email?.let { it1 ->
                                 fStore.collection("users").document(it1).set(
                                     hashMapOf(
