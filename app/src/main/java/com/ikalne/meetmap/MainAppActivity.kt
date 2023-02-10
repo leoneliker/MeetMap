@@ -1,6 +1,7 @@
 package com.ikalne.meetmap
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ikalne.meetmap.ui.main.SectionsPagerAdapter
@@ -27,6 +29,8 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var bottomNavView : BottomNavigationView
     lateinit var binding: ActivityMainAppBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -80,5 +84,6 @@ class MainAppActivity : AppCompatActivity() {
             replace(R.id.frame, fragment)
             commit()
         }
+
 
 }
