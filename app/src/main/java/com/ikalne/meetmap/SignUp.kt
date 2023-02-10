@@ -132,20 +132,19 @@ class SignUp : AppCompatActivity() {
                         if (it.isSuccessful){
                             fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
                                 Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                                Log.w("QUE", ""+fAuth.currentUser +"com.google.firebase.auth.internal.zzx@b5b75a1")
+                                //Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
                             }
-                            //prefs.saveEmail(email.text.toString())
-                            //prefs.saveEmail("")
-//                            prefs.savePass(password.text.toString())
-//                            prefs.saveRePass(repassword.text.toString())
-//                            fStore.collection("users").document(email.text.toString()).set(
-//                                hashMapOf(
-//                                    "name" to "",
-//                                    "surname" to "",
-//                                    "phone" to "",
-//                                    "description" to "",
-//                                )
-//                            )
+                            fAuth.currentUser?.email?.let { it1 -> prefs.saveEmail(it1) }
+                            fAuth.currentUser?.email?.let { it1 ->
+                                fStore.collection("users").document(it1).set(
+                                    hashMapOf(
+                                        "name" to "",
+                                        "surname" to "",
+                                        "phone" to "",
+                                        "description" to "",
+                                    )
+                                )
+                            }
                             showMapActivity()
                         }else{
                             //showAlert()
@@ -155,7 +154,7 @@ class SignUp : AppCompatActivity() {
                 }
             }catch (e: ApiException){
                 //showAlert(e)
-                Log.w("CAGOENTODO", " " + e)
+                Log.w("ERROR", " " + e)
             }
 
         }
