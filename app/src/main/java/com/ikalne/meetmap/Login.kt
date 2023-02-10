@@ -48,12 +48,10 @@ class Login : AppCompatActivity() {
 
         val login = findViewById<Button>(R.id.btnlogin)
         val cancel = findViewById<Button>(R.id.btncancel)
-        //val btngoogle = findViewById<ImageButton>(R.id.btngoogle)
-        //val btnfacebook = findViewById<ImageButton>(R.id.btnfacebook)
+        val btngoogle = findViewById<ImageButton>(R.id.btngoogle)
 
         login.setOnClickListener { login() }
-        //btngoogle.setOnClickListener { loginGoogle() }
-        //btnfacebook.setOnClickListener { loginFacebook() }
+        btngoogle.setOnClickListener { loginGoogle() }
         cancel.setOnClickListener{
             val intent = Intent(this, Initial::class.java)
             startActivity(intent)
@@ -74,7 +72,6 @@ class Login : AppCompatActivity() {
     }
 
     fun login(){
-
         if (email.text.isEmpty() && password.text.isEmpty()){
             showError(emailTIL, "Email is required")
             showError(passwordTIL, "Password is required")
@@ -97,7 +94,7 @@ class Login : AppCompatActivity() {
 
     fun loginGoogle(){
         val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.app_name))
+            .requestIdToken("570907010994-lq2g37kb3kop7inhocsuft9gpgcd0ofu.apps.googleusercontent.com")
             .requestEmail()
             .build()
         val googleClient = GoogleSignIn.getClient(this, googleConf)
@@ -111,7 +108,6 @@ class Login : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         //Toast.makeText(this, "pasa", Toast.LENGTH_LONG).show()
-        //Log.e("CAGOENTODO", resultCode.toString())
         if (requestCode == GOOGLE_SIGN_IN){
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -120,8 +116,8 @@ class Login : AppCompatActivity() {
                     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            MeetMapApplication.prefs.saveEmail(email.text.toString())
-                            MeetMapApplication.prefs.savePass(password.text.toString())
+//                            MeetMapApplication.prefs.saveEmail(email.text.toString())
+//                            MeetMapApplication.prefs.savePass(password.text.toString())
                             showMapActivity()
                         } else {
                             //showAlert()
@@ -135,10 +131,6 @@ class Login : AppCompatActivity() {
             }
 
         }
-    }
-
-    fun loginFacebook(){
-
     }
 
     private fun showAlert(e: ApiException){

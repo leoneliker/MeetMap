@@ -91,28 +91,27 @@
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/btnlogin" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvother"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="@string/other"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/rightguide"-->
-<!--            app:layout_constraintStart_toStartOf="@id/leftguide"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/btncancel">-->
+        <TextView
+            android:id="@+id/tvother"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/other"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@id/btncancel">
 
-<!--        </TextView>-->
+        </TextView>
 
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/btngoogle"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:background="@drawable/google"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/btnfacebook"-->
-<!--            app:layout_constraintStart_toStartOf="@id/leftguide"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/tvother" />-->
+        <ImageButton
+            android:id="@+id/btngoogle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/google"
+            app:layout_constraintEnd_toStartOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@id/tvother" />
 
 <!--        <ImageButton-->
 <!--            android:id="@+id/btnfacebook"-->

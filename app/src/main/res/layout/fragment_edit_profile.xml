@@ -148,8 +148,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:hint="@string/description"
-                    android:theme="@style/lineET"
-                    android:text="@string/textLarge" />
+                    android:theme="@style/lineET"/>
+                <!--android:text="@string/textLarge"-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
