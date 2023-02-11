@@ -23,11 +23,4 @@
             android:contentDescription="none"
             app:showAsAction="ifRoom"
             />
-        <item
-            android:id="@+id/profile"
-            android:title="@string/profile"
-            android:icon="@drawable/ic_profile"
-            android:contentDescription="none"
-            app:showAsAction="ifRoom"
-            />
     </menu>

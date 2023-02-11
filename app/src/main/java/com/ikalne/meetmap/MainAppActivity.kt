@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -76,6 +77,7 @@ class MainAppActivity : AppCompatActivity() {
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
         val btnDeleteAccount = navview.findViewById<Button>(R.id.btnDeleteAccount)
         val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
+        val handler = Handler()
 
         email = prefs.getEmail()
         transparentButton.visibility = View.GONE
@@ -100,11 +102,11 @@ class MainAppActivity : AppCompatActivity() {
 
         transparentButton.setOnClickListener()
         {
-           /* slideout.interpolator = DecelerateInterpolator()
-            navview.startAnimation(slideout)*/
             isnavview = false
-            buttonsVisibility()
             animateAndHideNavigationView(navview)
+            handler.postAtTime(Runnable {
+                buttonsVisibility()
+            }, SystemClock.uptimeMillis() + 550)
         }
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -139,16 +141,6 @@ class MainAppActivity : AppCompatActivity() {
                     buttonsVisibility()
                     setThatFragment(chatFragment)
                 }
-                R.id.profile -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
-                    setThatFragment(profileFragment)
-                }
             }
             true
         }
@@ -161,7 +153,6 @@ class MainAppActivity : AppCompatActivity() {
                         isnavview = false
                     }
                     setThatFragment(profileFragment)
-                    navview.visibility = View.GONE
                     buttonsVisibility()
                 }
                 R.id.nav_notifications -> {
