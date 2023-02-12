@@ -50,6 +50,7 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var transparentButton: Button
     private lateinit var frame: FrameLayout
     private lateinit var navView :NavigationView
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +78,7 @@ class MainAppActivity : AppCompatActivity() {
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
         val btnDeleteAccount = navview.findViewById<Button>(R.id.btnDeleteAccount)
         val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
-        val handler = Handler()
+
 
         email = prefs.getEmail()
         transparentButton.visibility = View.GONE
@@ -104,9 +105,8 @@ class MainAppActivity : AppCompatActivity() {
         {
             isnavview = false
             animateAndHideNavigationView(navview)
-            handler.postAtTime(Runnable {
-                buttonsVisibility()
-            }, SystemClock.uptimeMillis() + 550)
+            buttonsVisibility()
+
         }
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -223,13 +223,16 @@ class MainAppActivity : AppCompatActivity() {
 
         private fun buttonsVisibility()
         {
-            imageButton.visibility = View.VISIBLE
-            transparentButton.visibility = View.GONE
+            handler.postAtTime(Runnable
+            {
+                imageButton.visibility = View.VISIBLE
+                transparentButton.visibility = View.GONE
+            }, SystemClock.uptimeMillis() + 850)
         }
 
         fun animateAndHideNavigationView(navigationView: NavigationView) {
         val animation = TranslateAnimation(0f, -navigationView.width.toFloat(), 0f, 0f)
-        animation.duration = 500
+        animation.duration = 800
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
 
