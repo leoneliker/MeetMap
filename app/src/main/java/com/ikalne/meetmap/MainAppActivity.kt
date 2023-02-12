@@ -96,7 +96,6 @@ class MainAppActivity : AppCompatActivity() {
             isnavview = true
             slidein.interpolator = DecelerateInterpolator()
             binding.navView.startAnimation(slidein)
-            //binding.navView.menu.setGroupCheckable(0, false, false)
             imageButton.visibility = View.GONE
             transparentButton.visibility = View.VISIBLE
         }
@@ -106,6 +105,10 @@ class MainAppActivity : AppCompatActivity() {
             isnavview = false
             animateAndHideNavigationView(navview)
             buttonsVisibility()
+            /*binding.navView.setCheckedItem(-1)
+            binding.navView.itemIconTintList = null
+            binding.navView.itemTextColor = null
+            binding.navView.menu.setGroupCheckable(0, false, true)*/
 
         }
         bottomNavView.setOnItemSelectedListener {
@@ -182,7 +185,8 @@ class MainAppActivity : AppCompatActivity() {
                 }
             }
             // Indica que el elemento ha sido seleccionado
-            menuItem.isChecked = false
+            binding.navView.setCheckedItem(-1)
+            menuItem.isChecked = true
             true
         }
         btnDeleteAccount.setOnClickListener {

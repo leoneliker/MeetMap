@@ -35,13 +35,13 @@
         <activity
             android:name=".MapsActivity"
             android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar">
+            android:theme="@style/Theme.MeetMap.NoActionBar">
 
         </activity>
         <activity
             android:name=".Initial"
             android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar" />
+            android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
             android:name=".Profile"
             android:exported="false" />
@@ -63,15 +63,15 @@
         <activity
             android:name=".Login"
             android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar" />
+            android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
             android:name=".SignUp"
             android:exported="false"
-            android:theme="@style/MyTheme.NoActionBar" />
+            android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
             android:name=".Splash"
             android:exported="true"
-            android:theme="@style/MyTheme.NoActionBar">
+            android:theme="@style/Theme.MeetMap.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
