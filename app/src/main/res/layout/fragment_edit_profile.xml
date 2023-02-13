@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="fragments.EditProfileFragment">
+        tools:context="fragments.EditProfileFragment"
+    android:id="@+id/fragprofile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -17,7 +16,7 @@
                 android:id="@+id/ivuser"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="60dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/circleiv"
                 android:src="@drawable/cara"
@@ -84,7 +83,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/telefono"
                     android:theme="@style/lineET"
-                    android:inputType="phone" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
            <com.google.android.material.textfield.TextInputLayout
@@ -99,11 +98,36 @@
                 app:hintTextColor="@color/secondary_dark">
 
                 <EditText
-                    android:id="@+id/mail"
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/email"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:cursorVisible="false"
                     android:theme="@style/lineET"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/etpassword"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/rightguide"-->
+<!--                app:layout_constraintStart_toStartOf="@id/leftguide"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/etemail"-->
+<!--                app:hintTextColor="@color/secondary_dark">-->
+
+<!--                <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:editable="false"-->
+<!--                    android:hint="@string/pass"-->
+<!--                    android:inputType="none"-->
+<!--                    android:theme="@style/lineET" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
                     android:focusable="false"
                     android:clickable="false"
                     android:cursorVisible="false"
@@ -130,7 +154,6 @@
                    android:theme="@style/lineET"
                    android:inputType="textPassword" />
            </com.google.android.material.textfield.TextInputLayout>-->
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etdescription"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -179,14 +202,14 @@
                 app:layout_constraintStart_toEndOf="@+id/btncancel" />
 
 
-            <Button
+            <!--<Button
                 android:id="@+id/btnlogout"
                 android:layout_width="150dp"
                 style="@style/buttonOutlinedRed"
                 android:backgroundTint="@color/button_selector"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
-                android:text="LOG OUT"
+                android:text="@string/logout"
                 app:layout_constraintStart_toStartOf="@id/leftguide"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -197,11 +220,11 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/button_selector"
-                android:text="DELETE ACCOUNT"
+                android:text="@string/deleteaccount"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/rightguide"
 
-                app:layout_constraintHorizontal_bias="1.0" />
+                app:layout_constraintHorizontal_bias="1.0" />-->
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftguide"
@@ -218,4 +241,3 @@
                 app:layout_constraintGuide_percent="0.9" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</layout>

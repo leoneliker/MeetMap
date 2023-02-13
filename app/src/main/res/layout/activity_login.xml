@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/concert_one"
         android:text="@string/login"
+        android:gravity="center"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"

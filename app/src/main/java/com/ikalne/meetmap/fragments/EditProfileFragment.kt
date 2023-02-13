@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -31,8 +32,13 @@ class EditProfileFragment() : Fragment() {
 
     ): View? {
         binding = FragmentEditProfileBinding.inflate(inflater, container,false)
-        initUI()
 
+        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
+            .load(R.drawable.cara)
+            .circleCrop()
+            .into(binding.ivuser)
+        return binding.root
+    }
         fStore = FirebaseFirestore.getInstance()
         fAuth = FirebaseAuth.getInstance()
 
