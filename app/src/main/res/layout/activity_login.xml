@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/concert_one"
         android:text="@string/login"
+        android:gravity="center"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
@@ -61,6 +62,17 @@
             android:theme="@style/lineET" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tvresetpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/resetpass"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/etpassword">
+    </TextView>
+
     <Button
         android:id="@+id/btnlogin"
         style="@style/buttonOutlinedRed"
@@ -69,7 +81,7 @@
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/etpassword"
+        app:layout_constraintTop_toBottomOf="@id/tvresetpass"
         />
 
     <Button
@@ -80,48 +92,47 @@
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/btnlogin" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvother"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="15dp"-->
-    <!--        android:text="@string/other"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/rightguide"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/leftguide"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/btncancel">-->
+        <TextView
+            android:id="@+id/tvother"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/other"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@id/btncancel">
 
-    <!--    </TextView>-->
+        </TextView>
 
+        <ImageButton
+            android:id="@+id/btngoogle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/google"
+            app:layout_constraintEnd_toStartOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@id/tvother" />
 
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/btngoogle"-->
-    <!--        android:layout_width="30dp"-->
-    <!--        android:layout_height="30dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:background="@drawable/google"-->
-    <!--        app:layout_constraintEnd_toStartOf="@id/btnfacebook"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/leftguide"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tvother" />-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnfacebook"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/facebook"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/btnapple"-->
+<!--            app:layout_constraintStart_toEndOf="@id/btngoogle"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvother" />-->
 
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/btnfacebook"-->
-    <!--        android:layout_width="30dp"-->
-    <!--        android:layout_height="30dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:background="@drawable/facebook"-->
-    <!--        app:layout_constraintEnd_toStartOf="@id/btnapple"-->
-    <!--        app:layout_constraintStart_toEndOf="@id/btngoogle"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tvother" />-->
-
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/btnapple"-->
-    <!--        android:layout_width="30dp"-->
-    <!--        android:layout_height="30dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:background="@drawable/apple"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/rightguide"-->
-    <!--        app:layout_constraintStart_toEndOf="@id/btnfacebook"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tvother" />-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnapple"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/apple"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/rightguide"-->
+<!--            app:layout_constraintStart_toEndOf="@id/btnfacebook"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvother" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftguide"

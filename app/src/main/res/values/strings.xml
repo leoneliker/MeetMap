@@ -8,7 +8,8 @@
     <string name="repass">Repeat password</string>
     <string name="cancel">Cancel</string>
     <string name="other">or sign up with</string>
-    <string name="create">Create Account</string>
+    <string name="or">or </string>
+    <string name="create">Sign Up</string>
     <string name="slide1">Bienvenido a MeetMap</string>
     <string name="slide2">Encuentra las actividades más cercanas</string>
     <string name="slide3">Apuntate a ellas y contacta con otros usuarios!</string>
@@ -17,14 +18,30 @@
     <string name="title_activity_main_app">MainAppActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="resetpass">Forgot password?</string>
+    <string name="fgPass">RESET PASSWORD</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="description">Your description</string>
     <string name="save">SAVE</string>
     <string name="telefono">Telephone number</string>
     <string name="surname">Surname</string>
     <string name="name">Name</string>
-    <string name="textLarge">Lorem fistrum ese hombree hasta luego Lucas va usté muy cargadoo sexuarl de la pradera a wan ahorarr apetecan. La caidita la caidita te va a hasé pupitaa pecador ese pedazo de caballo blanco caballo negroorl quietooor. Jarl hasta luego Lucas papaar papaar tiene musho peligro se calle ustée te voy a borrar el cerito mamaar qué dise usteer.</string>
-    <string name="large_text">
+    <string name="logout">LOG OUT</string>
+    <string name="deleteaccount">Delete account</string>
+    <string name="favourites">Favourites</string>
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
+    <string name="favfragment">FAVOURITES FRAGMENT</string>
+    <string name="chatfragment">CHAT FRAGMENT</string>
+    <string name="exit">Log Out</string>
+    <string name="editProfile">Edit profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="manusu">User manual</string>
+    <string name="faqs">FAQs</string>
+    <string name="createplan">New plan</string>
+    <string name="textLarge" translatable="false">Lorem fistrum ese hombree hasta luego Lucas va usté muy cargadoo sexuarl de la pradera a wan ahorarr apetecan. La caidita la caidita te va a hasé pupitaa pecador ese pedazo de caballo blanco caballo negroorl quietooor. Jarl hasta luego Lucas papaar papaar tiene musho peligro se calle ustée te voy a borrar el cerito mamaar qué dise usteer.</string>
+    <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
