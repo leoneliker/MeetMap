@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MeetMap</string>
-    <string name="login">INICIAR SESION</string>
+    <string name="login">INICIAR SESIÓN</string>
     <string name="newaccount">REGISTRARSE</string>
     <string name="usu">Nombre usuario</string>
     <string name="email">Correo electrónico</string>
@@ -9,7 +9,7 @@
     <string name="repass">Repita contraseña</string>
     <string name="cancel">Cancelar</string>
     <string name="other">O reistrese con</string>
-    <string name="create">Crear Cuenta</string>
+    <string name="create">Registrarse</string>
     <string name="description">Tu descripción</string>
     <string name="save">GUARDAR</string>
     <string name="telefono">Número de teléfono</string>
@@ -36,4 +36,6 @@
     <string name="editProfile">Editar perfil</string>
     <string name="manusu">Manual Usuario</string>
     <string name="createplan">Nuevo plan</string>
+    <string name="or" translatable="false">o</string>
+    <string name="faqs">Preguntas frecuentes</string>
 </resources>

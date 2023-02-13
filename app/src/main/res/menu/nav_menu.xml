@@ -4,27 +4,22 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_usuario"
-            android:textColor="@color/nav_item_text_color_selector"
             android:title="@string/editProfile" />
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
-            android:textColor="@color/nav_item_text_color_selector"
             android:title="@string/notifications" />
         <item
             android:id="@+id/nav_createplan"
             android:icon="@drawable/ic_createplan"
-            android:textColor="@color/nav_item_text_color_selector"
             android:title="@string/createplan" />
         <item
             android:id="@+id/nav_manusu"
             android:icon="@drawable/ic_manusu"
-            android:textColor="@color/nav_item_text_color_selector"
-            android:title="@string/manusu" />
+            android:title="@string/faqs" />
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_logout"
-            android:textColor="@color/nav_item_text_color_selector"
             android:title="@string/exit" />
 
     </group>
