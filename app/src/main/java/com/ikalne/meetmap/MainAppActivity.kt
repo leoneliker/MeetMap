@@ -5,14 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
-import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -25,24 +18,17 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ikalne.meetmap.MeetMapApplication.Companion.prefs
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
-import com.ikalne.meetmap.ui.main.SectionsPagerAdapter
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
 import com.ikalne.meetmap.fragments.ChatFragment
 import com.ikalne.meetmap.fragments.EditProfileFragment
 import com.ikalne.meetmap.fragments.FavouritesFragment
 import com.ikalne.meetmap.fragments.MapFragment
-import com.ikalne.meetmap.model.User
 
 
 class MainAppActivity : AppCompatActivity() {
@@ -82,7 +68,7 @@ class MainAppActivity : AppCompatActivity() {
         val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
 
 
-        email = prefs.getEmail()
+        email = PreferencesManager.getDefaultSharedPreferences(this).getEmail()
         transparentButton.visibility = View.GONE
 
         setThatFragment(mapFragment)
@@ -180,7 +166,7 @@ class MainAppActivity : AppCompatActivity() {
                     buttonsVisibility()
                 }
                 R.id.nav_exit -> {
-                    MeetMapApplication.prefs.wipe()
+                    PreferencesManager.getDefaultSharedPreferences(this).wipe()
                     fAuth.signOut()
                     val intent = Intent(this, Login::class.java)
                     startActivity(intent)
@@ -201,7 +187,7 @@ class MainAppActivity : AppCompatActivity() {
                 fAuth.currentUser?.delete()
                 //Log.e("AAAAAAA", "Entra en fStore")
                 Toast.makeText(this, "The account has been deleted", Toast.LENGTH_LONG).show()
-                MeetMapApplication.prefs.wipe()
+                PreferencesManager.getDefaultSharedPreferences(this).wipe()
                 startActivity(Intent(this, Initial::class.java))
             }
             builder.setNegativeButton("Cancel"){dialog, which ->}

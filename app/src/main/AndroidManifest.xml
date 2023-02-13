@@ -49,18 +49,6 @@
             android:exported="false"
             android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
-            android:name=".Profile"
-            android:exported="false" />
-        <activity
-            android:name=".EditProfile"
-            android:exported="false" />
-        <activity
-            android:name=".Chat"
-            android:exported="false" />
-        <activity
-            android:name=".ChatList"
-            android:exported="false" />
-        <activity
             android:name=".InfoActivity"
             android:exported="false" />
         <activity
