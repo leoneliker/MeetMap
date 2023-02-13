@@ -23,6 +23,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="Theme.MeetMap.NoActionBar.Splash">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/primary</item>
+    </style>
 
     <style name="Theme.MeetMap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
