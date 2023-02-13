@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MeetMap" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.MeetMap" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/secondary</item>
@@ -28,6 +28,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@color/primary</item>
     </style>
+
     <style name="Theme.MeetMap.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MeetMap.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
