@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "570907010994",
+    "firebase_url": "https://meetmap-1856b-default-rtdb.firebaseio.com",
     "project_id": "meetmap-1856b",
     "storage_bucket": "meetmap-1856b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:570907010994:android:be76478d4776f242a926ab",
+        "mobilesdk_app_id": "1:570907010994:android:fd4b6394e4ddccf0a926ab",
         "android_client_info": {
           "package_name": "com.ikalne.meetmap"
         }
@@ -22,7 +23,7 @@
           }
         },
         {
-          "client_id": "570907010994-q3e4um7s784pm476d93d66n8giapdrst.apps.googleusercontent.com",
+          "client_id": "570907010994-lq2g37kb3kop7inhocsuft9gpgcd0ofu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "570907010994-q3e4um7s784pm476d93d66n8giapdrst.apps.googleusercontent.com",
+              "client_id": "570907010994-lq2g37kb3kop7inhocsuft9gpgcd0ofu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

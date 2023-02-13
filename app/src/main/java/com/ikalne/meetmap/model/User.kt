@@ -1,5 +1,7 @@
 package com.ikalne.meetmap.model
 
+import com.google.firebase.auth.FirebaseUser
+
 data class User (
     var id: String = "",
     var name: String = "",

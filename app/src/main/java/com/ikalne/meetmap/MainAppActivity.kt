@@ -35,12 +35,14 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ikalne.meetmap.MeetMapApplication.Companion.prefs
+import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import com.ikalne.meetmap.ui.main.SectionsPagerAdapter
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
 import com.ikalne.meetmap.fragments.ChatFragment
 import com.ikalne.meetmap.fragments.EditProfileFragment
 import com.ikalne.meetmap.fragments.FavouritesFragment
 import com.ikalne.meetmap.fragments.MapFragment
+import com.ikalne.meetmap.model.User
 
 
 class MainAppActivity : AppCompatActivity() {
@@ -52,7 +54,7 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var navView :NavigationView
     private val handler = Handler()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)

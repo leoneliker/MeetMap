@@ -4,10 +4,9 @@
     package="com.ikalne.meetmap">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".MeetMapApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,8 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_meetmap_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMap"
-
         tools:targetApi="33">
+        
+        <activity
+            android:name=".ResetPassword"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".MainAppActivity"
             android:exported="false"
@@ -30,7 +36,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"

@@ -1,17 +1,23 @@
 package com.ikalne.meetmap
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.animation.Animation
+import android.os.Looper
+import android.util.Log
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
 
         openApp()
 
@@ -26,24 +32,22 @@ class Splash : AppCompatActivity() {
 
     }
 
-    fun checkUserValues()
-    {
-        var intent = Intent(this@Splash, Initial::class.java)
-        if (MeetMapApplication.prefs.getEmail().isNotEmpty())
-        {
-            intent = Intent(this, MainAppActivity::class.java)
-        }else{
+    private fun openApp() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            PreferencesManager.getDefaultSharedPreferences(this).apply {
+                intent = if (getEmail().isNotEmpty()) {
+                    Intent(this@Splash, MainAppActivity::class.java)
+                } else {
+                    Intent(this@Splash, Initial::class.java)
 
-        }
-        startActivity(intent)
+                }
+                startActivity(intent)
+            }
+        }, 3000)
     }
 
-    private fun openApp() {
-        val handler = Handler()
-        handler.postDelayed(Runnable {
-            checkUserValues()
-
-
-        }, 3000)
+    override fun onPause() {
+        super.onPause()
+        Log.i("Pito","Pito")
     }
 }
