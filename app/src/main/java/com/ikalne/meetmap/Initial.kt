@@ -29,6 +29,7 @@ class Initial : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
         requestLocationPermission()

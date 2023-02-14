@@ -35,7 +35,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButton
 
     var Madrid = LatLng(40.401490, -3.708010)
     override fun onCreateView(
-
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         StrictMode.setThreadPolicy(
@@ -44,7 +43,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButton
                 .build()
         )
         val v: View = inflater.inflate(com.ikalne.meetmap.R.layout.fragment_map, container, false)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         requestLocationPermission()
         val mMapFragment =
@@ -52,6 +50,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButton
         mMapFragment.getMapAsync(this)
         return v
     }
+
+
 
 
     override fun onMapReady(googleMap: GoogleMap) {

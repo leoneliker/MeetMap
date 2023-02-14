@@ -8,7 +8,7 @@
     <string name="pass">Contraseña</string>
     <string name="repass">Repita contraseña</string>
     <string name="cancel">Cancelar</string>
-    <string name="other">O reistrese con</string>
+    <string name="other">O reigstrese con</string>
     <string name="create">Registrarse</string>
     <string name="description">Tu descripción</string>
     <string name="save">GUARDAR</string>
@@ -38,4 +38,5 @@
     <string name="createplan">Nuevo plan</string>
     <string name="or" translatable="false">o</string>
     <string name="faqs">Preguntas frecuentes</string>
+    <string name="resetpass">¿Has olvidado la contraseña?</string>
 </resources>

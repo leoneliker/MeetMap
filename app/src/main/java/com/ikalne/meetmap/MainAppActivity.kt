@@ -41,6 +41,7 @@ class MainAppActivity : AppCompatActivity() {
     private val handler = Handler()
 
      override fun onCreate(savedInstanceState: Bundle?) {
+         forceLightMode()
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)

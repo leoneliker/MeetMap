@@ -32,6 +32,7 @@ class SignUp : AppCompatActivity() {
     private val GOOGLE_SIGN_IN = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
