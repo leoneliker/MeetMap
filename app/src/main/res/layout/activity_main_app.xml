@@ -63,12 +63,13 @@
         android:id="@+id/image_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        style="@style/RoundImageButtonStyle"
-        android:src="@drawable/ic_hamburger"
+        android:background="@drawable/ic_hamburger"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="20dp"
         android:contentDescription="@string/repass" />
+        <!--style="@style/RoundImageButtonStyle"-->
+
     <Button
         android:id="@+id/btntransparent"
         android:layout_width="130dp"
