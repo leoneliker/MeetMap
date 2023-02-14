@@ -25,10 +25,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
-import com.ikalne.meetmap.fragments.ChatFragment
-import com.ikalne.meetmap.fragments.EditProfileFragment
-import com.ikalne.meetmap.fragments.FavouritesFragment
-import com.ikalne.meetmap.fragments.MapFragment
+import com.ikalne.meetmap.fragments.*
 
 
 class MainAppActivity : AppCompatActivity() {
@@ -62,6 +59,7 @@ class MainAppActivity : AppCompatActivity() {
         val favFragment = FavouritesFragment()
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
+        val faqsFragment = FaqsFragment()
         val navview = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
@@ -163,7 +161,7 @@ class MainAppActivity : AppCompatActivity() {
                     }
                     //de momento no hace nada ver que pasa con esto
                     //crear el manual de usuario
-                    navview.visibility = View.GONE
+                    setThatFragment(faqsFragment)
                     buttonsVisibility()
                 }
                 R.id.nav_exit -> {

@@ -14,7 +14,7 @@
         android:fontFamily="@font/concert_one"
         android:text="@string/login"
         android:gravity="center"
-        android:textSize="60sp"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toTopOf="@id/topguide"
@@ -37,8 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/email"
-            android:theme="@style/lineET"
-            android:inputType="textMultiLine"/>
+            android:theme="@style/lineET" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

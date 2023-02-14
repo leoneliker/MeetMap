@@ -9,11 +9,11 @@
     <string name="cancel">Cancel</string>
     <string name="other">or sign up with</string>
     <string name="or">or </string>
-    <string name="create">Sign Up</string>
-    <string name="slide1">Bienvenido a MeetMap</string>
-    <string name="slide2">Encuentra las actividades más cercanas</string>
-    <string name="slide3">Apuntate a ellas y contacta con otros usuarios!</string>
-    <string name="slide4">Entabla amistades y forja nuevas aventuras</string>
+    <string name="create">SIGN UP</string>
+    <string name="slide1">Welcome to MeetMap</string>
+    <string name="slide2">Live new experiences with us</string>
+    <string name="slide3">Connect with new people and create moments.</string>
+    <string name="slide4">Experience together, remember together</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_main_app">MainAppActivity</string>
     <string name="tab_text_1">Tab 1</string>
