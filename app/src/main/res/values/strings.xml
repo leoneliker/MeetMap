@@ -40,6 +40,27 @@
     <string name="manusu">User manual</string>
     <string name="faqs">FAQs</string>
     <string name="createplan">New plan</string>
+    <string name="question1">1. How does the app work?</string>
+    <string name="answer1">The application has a main view of the location where you are and the closest plans, you can select any of them and a new window opens with all the information of that plan: name, place, date, price and a link to the web to be able to register</string>
+    <string name="question2">2. How can I find activities and events near my location?</string>
+    <string name="answer2">You must have the location of your mobile device activated and you will see some hand-shaped markers that indicate the places on the map where the plans are located</string>
+    <string name="question3">3. How can I reserve a place in an event or activity?</string>
+    <string name="answer3">When you find the plan you want, you can click on the map and it will take you to a window that provides you with all the information and a link to the website where you can reserve a place or sign up for the plan.</string>
+    <string name="question4">4. Is there a reservation limit per event or activity?</string>
+    <string name="answer4">The entity that makes them is in charge of managing the reservations and which can be accessed through the link of each plan that is offered from our application.</string>
+    <string name="question5">5. How can I see the plans I like?</string>
+    <string name="answer5"></string>
+    <string name="question6">6. How can I unroll from a plan?</string>
+    <string name="answer6"></string>
+    <string name="question7">7. How can I make a suggestion or report a problem?</string>
+    <string name="answer7"></string>
+    <string name="question8">8. Does using the app cost money?</string>
+    <string name="answer8"></string>
+    <string name="question9">9. Is the application available in my city/country?</string>
+    <string name="answer9"></string>
+    <string name="question10">10. Can I contact the people who are signed up for the activity?</string>
+    <string name="answer10"></string>
+    <string name="contactus">Contact us</string>
     <string name="textLarge" translatable="false">Lorem fistrum ese hombree hasta luego Lucas va usté muy cargadoo sexuarl de la pradera a wan ahorarr apetecan. La caidita la caidita te va a hasé pupitaa pecador ese pedazo de caballo blanco caballo negroorl quietooor. Jarl hasta luego Lucas papaar papaar tiene musho peligro se calle ustée te voy a borrar el cerito mamaar qué dise usteer.</string>
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"

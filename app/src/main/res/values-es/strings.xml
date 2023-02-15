@@ -40,4 +40,26 @@
     <string name="faqs">Preguntas frecuentes</string>
     <string name="resetpass">¿Has olvidado la contraseña?</string>
     <string name="fgPass">RESETEAR CONTRASEÑA</string>
+    <string name="question1">1. ¿Cómo funciona la aplicación?</string>
+    <string name="answer1">La aplicación tien una vista principal de la ubicación donde te encuentras y los planes más cercanos, puedes seleccionar cualquiera de ellos y se abre una nueva ventana con toda la información de ese plan: nombre, lugar, fecha, precio y un enlace a la web para poder inscribirse</string>
+    <string name="question2">2. ¿Cómo puedo encontrar actividades y eventos cerca de mi ubicación?</string>
+    <string name="answer2">Debes tener la ubicación de tu dispositivo móvil activada y podrás ver unos marcadores en forma de mano que señalan los lugares del mapa donde se sitúan los planes</string>
+    <string name="question3">3. ¿Cómo puedo reservar plaza en un evento o actividad?</string>
+    <string name="answer3">Cuando encuentras el plan que quieres puedes clicar en el mapa y te lleva a una ventana que te proporciona toda la información y un enlace a la web donde se puede reservar la plaza o inscribirse en el plan</string>
+    <string name="question4">4. ¿Hay un límite de reservas por evento o actividad?</string>
+    <string name="answer4">De la gestión de las reservas se encarga la entidad que la realiza y a la que se puede acceder mediante el enlace de cada plan que se ofrece desde nuestra aplicación</string>
+    <string name="question5">5. ¿Cómo puedo ver los planes que me gustan?</string>
+    <string name="answer5">This app has the possibility of saving in favorites (click on the heart of each activity) the activities that you like the most and you can access that list in the favorites button in the lower menu of the application</string>
+    <string name="question6">6. ¿Cómo puedo desapuntarme de un plan?</string>
+    <string name="answer6"></string>
+    <string name="question7">7. ¿Cómo puedo hacer una sugerencia o reportar un problema?</string>
+    <string name="answer7"></string>
+    <string name="question8">8. ¿Usar la aplicación cuesta dinero?</string>
+    <string name="answer8"></string>
+    <string name="question9">9. ¿La aplicación está disponible en mi ciudad/país?</string>
+    <string name="answer9"></string>
+    <string name="question10">10. ¿Puedo contactar con las personas que están apuntadas a la actividad?</string>
+    <string name="answer10"></string>
+    <string name="contactus">Contacte con nosotros</string>
+
 </resources>

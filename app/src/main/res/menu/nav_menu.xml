@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_manusu"
             android:title="@string/faqs" />
         <item
+            android:id="@+id/contactus"
+            android:icon="@drawable/ic_email"
+            android:title="@string/contactus" />
+        <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_logout"
             android:title="@string/exit" />
