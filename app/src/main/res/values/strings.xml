@@ -49,17 +49,17 @@
     <string name="question4">4. Is there a reservation limit per event or activity?</string>
     <string name="answer4">The entity that makes them is in charge of managing the reservations and which can be accessed through the link of each plan that is offered from our application.</string>
     <string name="question5">5. How can I see the plans I like?</string>
-    <string name="answer5"></string>
+    <string name="answer5">This app has the possibility of saving in favorites (click on the heart of each activity) the activities that you like the most and you can access that list in the favorites button in the lower menu of the application</string>
     <string name="question6">6. How can I unroll from a plan?</string>
-    <string name="answer6"></string>
+    <string name="answer6">Each activity is managed by a different entity and it is that entity that should be contacted to consult the possibilities of canceling the plan or unsubscribing from the activity</string>
     <string name="question7">7. How can I make a suggestion or report a problem?</string>
-    <string name="answer7"></string>
-    <string name="question8">8. Does using the app cost money?</string>
-    <string name="answer8"></string>
+    <string name="answer7">In the application there is a drop-down menu in the upper left part of the screen where an option to contact us is shown and you can write to us whenever you have a problem or a suggestion, we will attend to you as soon as possible trying to solve your problem or improve the app with your suggestions</string>
+    <string name="question8">8. Does using the application have any cost?</string>
+    <string name="answer8">The use of the application is free of charge. There is also no premium version or additional payments to have access to some extra functionality of the application. It is 100% free for all users</string>
     <string name="question9">9. Is the application available in my city/country?</string>
-    <string name="answer9"></string>
+    <string name="answer9">Currently the application is only available for the city of Madrid, although in the not too distant future we plan to be present in more cities and countries. If you want it to be in your region, do not hesitate to contact us to send us your request!</string>
     <string name="question10">10. Can I contact the people who are signed up for the activity?</string>
-    <string name="answer10"></string>
+    <string name="answer10">In the first versions of the app the chat is not yet available, as soon as possible you will have a chat available to contact all the people who are signed up for the activity and want to have conversations with the attendees of the activity or event</string>
     <string name="contactus">Contact us</string>
     <string name="textLarge" translatable="false">Lorem fistrum ese hombree hasta luego Lucas va usté muy cargadoo sexuarl de la pradera a wan ahorarr apetecan. La caidita la caidita te va a hasé pupitaa pecador ese pedazo de caballo blanco caballo negroorl quietooor. Jarl hasta luego Lucas papaar papaar tiene musho peligro se calle ustée te voy a borrar el cerito mamaar qué dise usteer.</string>
     <string name="large_text" translatable="false">

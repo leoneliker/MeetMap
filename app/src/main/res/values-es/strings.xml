@@ -49,17 +49,17 @@
     <string name="question4">4. ¿Hay un límite de reservas por evento o actividad?</string>
     <string name="answer4">De la gestión de las reservas se encarga la entidad que la realiza y a la que se puede acceder mediante el enlace de cada plan que se ofrece desde nuestra aplicación</string>
     <string name="question5">5. ¿Cómo puedo ver los planes que me gustan?</string>
-    <string name="answer5">This app has the possibility of saving in favorites (click on the heart of each activity) the activities that you like the most and you can access that list in the favorites button in the lower menu of the application</string>
+    <string name="answer5">Esta app tiene la posibilidad de guardar en favoritos (haz clic en el corazón de cada actividad) las actividades que más te gustan y puedes acceder a esa lista en el botón de favoritos en el menú inferior de la aplicación</string>
     <string name="question6">6. ¿Cómo puedo desapuntarme de un plan?</string>
-    <string name="answer6"></string>
+    <string name="answer6">Cada actividad está gestionada por una entidad diferente y es a esa entidad a quien hay que dirigirse para consultar las posibilidades de anular el plan o darse de baja de la actividad</string>
     <string name="question7">7. ¿Cómo puedo hacer una sugerencia o reportar un problema?</string>
-    <string name="answer7"></string>
-    <string name="question8">8. ¿Usar la aplicación cuesta dinero?</string>
-    <string name="answer8"></string>
+    <string name="answer7">En la aplicación existe un menú desplegable en la parte superior izquierda de la pantalla donde se muestra una opción de contactar con nosotros y podrá escribirnos siempre que tenga un problema o una sugerencia, le atenderemos a la mayor brevedad posible intentando dar solución a su problema o mejorar la aplicación con sus sugerencias </string>
+    <string name="question8">8. ¿Usar la aplicación tiene algún coste?</string>
+    <string name="answer8">El uso de la aplicación no tiene ningún coste. Tampoco existe ninguna versión premium ni pagos adicionales para tener acceso a alguna funcionalidad extra de la aplicación. Es 100% gratuita para todos los usuarios</string>
     <string name="question9">9. ¿La aplicación está disponible en mi ciudad/país?</string>
-    <string name="answer9"></string>
+    <string name="answer9">Actualmente la aplicación solo está disponible para la ciudad de Madrid, aunque en un futuro no muy lejano tenemos previsto estar presente en más ciudades y países. Si quieres que esté en tu región, ¡no dudes en contactar con nosotros para hacernos llegar tu petición!</string>
     <string name="question10">10. ¿Puedo contactar con las personas que están apuntadas a la actividad?</string>
-    <string name="answer10"></string>
+    <string name="answer10">En las primeras versiones de la app el chat todavía no está disponible, a la mayor brevedad posible tendrá a su disposición un chat para poder contactar con todas las personas que están apuntadas en la actividad y quieran tener conversaciones con los asistentes a la actividad o evento</string>
     <string name="contactus">Contacte con nosotros</string>
 
 </resources>
