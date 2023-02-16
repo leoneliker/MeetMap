@@ -60,6 +60,7 @@ class MainAppActivity : AppCompatActivity() {
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
         val faqsFragment = FaqsFragment()
+        val contactUsFragment = ConctactUsFragment()
         val navview = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
@@ -163,6 +164,11 @@ class MainAppActivity : AppCompatActivity() {
                     //crear el manual de usuario
                     setThatFragment(faqsFragment)
                     buttonsVisibility()
+                }
+                R.id.contactus -> {
+
+                    setThatFragment(contactUsFragment)
+
                 }
                 R.id.nav_exit -> {
                     PreferencesManager.getDefaultSharedPreferences(this).wipe()
