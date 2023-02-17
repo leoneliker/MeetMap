@@ -63,5 +63,6 @@
     <string name="contactus">Contáctanos</string>
     <string name="suggestion">Sugerencia o Incidencia</string>
     <string name="send">ENVIAR</string>
+    <string name="infocontactus">Responderemos a la mayor brevedad posible, revise el correo que facilita en este formulario</string>
 
 </resources>
