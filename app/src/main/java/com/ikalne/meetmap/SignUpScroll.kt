@@ -1,8 +1,6 @@
 package com.ikalne.meetmap
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,7 +8,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -18,8 +16,12 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import com.ikalne.meetmap.databinding.ActivitySignUpScrollBinding
 
-class SignUp : AppCompatActivity() {
+class SignUpScroll : AppCompatActivity() {
 
     lateinit var email: EditText
     lateinit var password: EditText
@@ -30,13 +32,14 @@ class SignUp : AppCompatActivity() {
     lateinit var fStore: FirebaseFirestore
     lateinit var fAuth: FirebaseAuth
     private val GOOGLE_SIGN_IN = 1
+    private lateinit var binding: ActivitySignUpScrollBinding
+    private var url= ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
+        binding = ActivitySignUpScrollBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         repassword = findViewById(R.id.repassword)
@@ -50,6 +53,10 @@ class SignUp : AppCompatActivity() {
         val cancel = findViewById<Button>(R.id.btncancel)
         val btngoogle = findViewById<ImageButton>(R.id.btngoogle)
 
+//        val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
+//        storageRef.downloadUrl.addOnSuccessListener { uri ->
+//            url = uri.toString()
+//        }
         signup.setOnClickListener{signUp()}
         btngoogle.setOnClickListener { signUpGoogle() }
         cancel.setOnClickListener{
@@ -82,27 +89,24 @@ class SignUp : AppCompatActivity() {
             showError(repasswordTIL, "Passwords must me the same")
         }else{
             fAuth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
-                            Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                        }
-                        PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
+                if (it.isSuccessful){
+                    fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                        Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
+                    }
+                    PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
 //                        prefs.savePass(password.text.toString())
 //                        prefs.saveRePass(repassword.text.toString())
-                        fStore.collection("users").document(email.text.toString()).set(
-                            hashMapOf(
-                                "name" to "",
-                                "surname" to "",
-                                "phone" to "",
-                                "description" to "",
-                            )
-                        )
-                        showMapActivity()
-                    }else{
-                        //showAlert()
-                        showError(emailTIL, "This email already exists")
+                    val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
+                    storageRef.downloadUrl.addOnSuccessListener { uri ->
+                        url = uri.toString()
+                        imgNormal()
                     }
+
+                }else{
+                    //showAlert()
+                    showError(emailTIL, "This email already exists")
                 }
+            }
         }
     }
 
@@ -132,20 +136,14 @@ class SignUp : AppCompatActivity() {
                         if (it.isSuccessful){
                             fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
                                 Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                                Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
+                                //Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
                             }
                             fAuth.currentUser?.email?.let { it1 -> PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it1) }
-                            fAuth.currentUser?.email?.let { it1 ->
-                                fStore.collection("users").document(it1).set(
-                                    hashMapOf(
-                                        "name" to "",
-                                        "surname" to "",
-                                        "phone" to "",
-                                        "description" to "",
-                                    )
-                                )
+                            val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
+                            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                                url = uri.toString()
+                                imgGoogle()
                             }
-                            showMapActivity()
                         }else{
                             //showAlert()
                             showError(emailTIL, "This email already exists")
@@ -175,5 +173,33 @@ class SignUp : AppCompatActivity() {
     private fun showMapActivity(){
         val intent = Intent(this, MainAppActivity::class.java)
         startActivity(intent)
+    }
+    private fun imgGoogle(){
+        fAuth.currentUser?.email?.let { it1 ->
+            fStore.collection("users").document(it1).set(
+                hashMapOf(
+                    "name" to "",
+                    "surname" to "",
+                    "phone" to "",
+                    "description" to "",
+                    "img" to url,
+
+                    )
+            )
+            Log.w("kapasao", "slihfsil")
+        }
+        showMapActivity()
+    }
+    private fun imgNormal(){
+        fStore.collection("users").document(email.text.toString()).set(
+            hashMapOf(
+                "name" to "",
+                "surname" to "",
+                "phone" to "",
+                "description" to "",
+                "img" to url,
+                )
+        )
+        showMapActivity()
     }
 }

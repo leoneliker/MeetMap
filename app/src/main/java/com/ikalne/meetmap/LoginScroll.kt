@@ -1,25 +1,20 @@
 package com.ikalne.meetmap
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.ikalne.meetmap.databinding.ActivityLoginScrollBinding
 
-class Login : AppCompatActivity() {
+class LoginScroll : AppCompatActivity() {
 
     lateinit var email: EditText
     lateinit var password: EditText
@@ -27,18 +22,21 @@ class Login : AppCompatActivity() {
     lateinit var passwordTIL: TextInputLayout
     lateinit var resetPass: TextView
     private val GOOGLE_SIGN_IN = 1
+    lateinit var fAuth: FirebaseAuth
+    private lateinit var binding: ActivityLoginScrollBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+
+        binding = ActivityLoginScrollBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         emailTIL = findViewById(R.id.etemail)
         passwordTIL = findViewById(R.id.etpassword)
         resetPass = findViewById(R.id.tvresetpass)
+        fAuth = FirebaseAuth.getInstance()
 
         val login = findViewById<Button>(R.id.btnlogin)
         val cancel = findViewById<Button>(R.id.btncancel)
@@ -72,8 +70,7 @@ class Login : AppCompatActivity() {
         }else if(!email.text.contains("@")){
             showError(emailTIL, "Email is not valid")
         }else{
-            FirebaseAuth.getInstance()
-                .signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
+            fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
                         PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
                         PreferencesManager.getDefaultSharedPreferences(this).savePass(password.text.toString())
@@ -94,9 +91,6 @@ class Login : AppCompatActivity() {
         val googleClient = GoogleSignIn.getClient(this, googleConf)
         googleClient.signOut()
         startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-//        googleClient.signInIntent.also {
-//            startActivityForResult(it, GOOGLE_SIGN_IN)
-//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,15 +102,16 @@ class Login : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
                     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-                        if (it.isSuccessful) {
-//                            MeetMapApplication.prefs.saveEmail(email.text.toString())
-//                            MeetMapApplication.prefs.savePass(password.text.toString())
-                            showMapActivity()
-                        } else {
-                            //showAlert()
-                            showError(emailTIL, "Incorrect email or password")
+                    if(fAuth.currentUser?.email != null){
+                        fAuth.signInWithCredential(credential).addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                fAuth.currentUser?.email?.let { it1 -> PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it1)}
+                                showMapActivity()
+                            }
                         }
+                    }else{
+                        Toast.makeText(this, "The account does`t exist. Please register.", Toast.LENGTH_LONG).show()
+                        register()
                     }
                 }
             }catch (e: ApiException){
@@ -143,6 +138,10 @@ class Login : AppCompatActivity() {
 
     private fun showMapActivity(){
         val intent = Intent(this, MainAppActivity::class.java)
+        startActivity(intent)
+    }
+    private fun register(){
+        val intent = Intent(this, SignUpScroll::class.java)
         startActivity(intent)
     }
 

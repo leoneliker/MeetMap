@@ -26,6 +26,17 @@
                 app:layout_constraintStart_toStartOf="@id/leftguide"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/btnedit"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/edit"
+                app:layout_constraintEnd_toStartOf="@id/rightguide"
+                app:layout_constraintHorizontal_bias="0.084"
+                app:layout_constraintStart_toEndOf="@id/ivuser"
+                app:layout_constraintTop_toTopOf="@id/ivuser" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etname"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -216,6 +227,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.9" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/centerguide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -28,7 +28,7 @@ class ResetPassword : AppCompatActivity() {
         val cancel = findViewById<Button>(R.id.btncancel)
 
         cancel.setOnClickListener{
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, LoginScroll::class.java)
             startActivity(intent)
         }
         resetPass.setOnClickListener {resetPassword()}

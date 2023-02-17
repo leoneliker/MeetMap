@@ -29,8 +29,6 @@ class Initial : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
         requestLocationPermission()
@@ -53,11 +51,11 @@ class Initial : AppCompatActivity() {
 
 
         botonC.setOnClickListener {
-            val intent = Intent(this, SignUp::class.java)
+            val intent = Intent(this, SignUpScroll::class.java)
             startActivity(intent)
         }
         botonL.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, LoginScroll::class.java)
             startActivity(intent)
         }
     }
