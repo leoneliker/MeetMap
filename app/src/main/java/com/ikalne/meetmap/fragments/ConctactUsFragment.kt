@@ -20,7 +20,6 @@ import com.ikalne.meetmap.databinding.FragmentEditProfileBinding
 
 class ConctactUsFragment : Fragment() {
     lateinit var binding: FragmentConctactUsBinding
-    private val handler = Handler()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
