@@ -18,7 +18,6 @@
             android:layout_marginTop="60dp"
             android:scaleType="centerCrop"
             android:background="@drawable/circleiv"
-            android:src="@drawable/cara"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@id/leftguide"
@@ -34,7 +33,7 @@
                 app:layout_constraintHorizontal_bias="0.084"
                 app:layout_constraintStart_toEndOf="@id/ivuser"
                 app:layout_constraintTop_toTopOf="@id/ivuser" />
-        
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etname"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

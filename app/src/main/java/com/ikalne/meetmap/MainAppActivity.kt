@@ -24,6 +24,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
 import com.ikalne.meetmap.fragments.*
 
@@ -35,6 +37,7 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var transparentButton: Button
     private lateinit var frame: FrameLayout
     private lateinit var navView :NavigationView
+    lateinit var fStorage: StorageReference
     private val handler = Handler()
 
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,7 @@ class MainAppActivity : AppCompatActivity() {
         lateinit var fAuth: FirebaseAuth
         lateinit var email: String
         supportActionBar?.hide()
+        fStorage = FirebaseStorage.getInstance().getReference()
         fStore = FirebaseFirestore.getInstance()
         fAuth = FirebaseAuth.getInstance()
         bottomNavView = binding.bottomNavigation
@@ -173,10 +177,10 @@ class MainAppActivity : AppCompatActivity() {
                     buttonsVisibility()
                 }
                 R.id.nav_exit -> {
-                    PreferencesManager.getDefaultSharedPreferences(this).wipe()
+                    PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
                     fAuth.signOut()
-                    val intent = Intent(this, LoginScroll::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, Initial::class.java ))
+                    Intent(this, Initial::class.java)
                 }
             }
             // Indica que el elemento ha sido seleccionado
@@ -190,14 +194,14 @@ class MainAppActivity : AppCompatActivity() {
             builder.setMessage("Are you sure you want to delete the account")
             builder.setPositiveButton("Accept") { dialog, which ->
                 fStore.collection("users").document(email).delete()
-                //Log.e("EEEEE", "Entra en fStore")
                 fAuth.currentUser?.delete()
-                //Log.e("AAAAAAA", "Entra en fStore")
+                fStorage.child("img").child(email).delete()
                 Toast.makeText(this, "The account has been deleted", Toast.LENGTH_LONG).show()
-                PreferencesManager.getDefaultSharedPreferences(this).wipe()
-                startActivity(Intent(this, Initial::class.java))
+                PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
+                startActivity(Intent(this, Initial::class.java ))
+                Intent(binding.root.context, Initial::class.java)
             }
-            builder.setNegativeButton("Cancel"){dialog, which ->}
+            builder.setNegativeButton("Cancel") { dialog, which ->}
             builder.show()
         }
     }

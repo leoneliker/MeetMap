@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/concert_one"
             android:text="@string/newaccount"
-            android:textSize="60sp"
+            android:textSize="50sp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             app:layout_constraintTop_toTopOf="@id/topguide"/>
