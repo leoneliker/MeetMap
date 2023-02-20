@@ -24,6 +24,27 @@
             app:layout_constraintStart_toStartOf="@id/leftguide"
             app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/btnedit"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/edit"
+                app:layout_constraintEnd_toStartOf="@id/rightguide"
+                app:layout_constraintHorizontal_bias="0.084"
+                app:layout_constraintStart_toEndOf="@id/ivuser"
+                app:layout_constraintTop_toTopOf="@id/ivuser" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etname"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toBottomOf="@id/ivuser"
+                app:hintTextColor="@color/secondary_dark">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etname"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
