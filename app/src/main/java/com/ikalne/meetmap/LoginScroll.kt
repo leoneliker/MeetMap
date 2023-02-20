@@ -26,6 +26,7 @@ class LoginScroll : AppCompatActivity() {
     private lateinit var binding: ActivityLoginScrollBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginScrollBinding.inflate(layoutInflater)
@@ -146,4 +147,9 @@ class LoginScroll : AppCompatActivity() {
     }
 
 
+    override fun onBackPressed() {
+        // Ir a una actividad específica
+        val intent = Intent(this, Initial::class.java)
+        startActivity(intent)
+    }
 }

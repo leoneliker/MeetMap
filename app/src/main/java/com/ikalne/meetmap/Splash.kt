@@ -13,8 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 

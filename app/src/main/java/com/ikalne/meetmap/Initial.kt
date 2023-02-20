@@ -29,6 +29,7 @@ class Initial : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
         requestLocationPermission()
@@ -87,7 +88,7 @@ class Initial : AppCompatActivity() {
         for (i in 0 until size) {
             dots.add(TextView(this))
             dots[i].text = Html.fromHtml("•")
-            dots[i].textSize = 35f
+            dots[i].textSize = 25f
             dots.get(i).setTextColor(resources.getColor(R.color.dark_gray))
             dotsLL.addView(dots[i])
         }

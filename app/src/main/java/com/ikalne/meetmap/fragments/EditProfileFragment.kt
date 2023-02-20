@@ -21,6 +21,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.ikalne.meetmap.Initial
 import com.ikalne.meetmap.PreferencesManager
+import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.FragmentEditProfileBinding
 
 class EditProfileFragment() : Fragment() {
@@ -44,7 +45,7 @@ class EditProfileFragment() : Fragment() {
         //fStore: FirebaseFirestore
 
     ): View? {
-        binding = FragmentEditProfileBinding.inflate(inflater, container,false)
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         initUI()
 
         fStore = FirebaseFirestore.getInstance()
@@ -55,9 +56,15 @@ class EditProfileFragment() : Fragment() {
 
         GALLERY_INTENT = 1
 
+        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
+            .load(R.drawable.cara)
+            .circleCrop()
+            .into(binding.ivuser)
+
+
+
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
-        Log.w("QUE-EMAIL", ""+email)
-        binding.mail.setText(email)
+        binding.email.setText(email)
         fStore.collection("users").document(email).get().addOnSuccessListener {
             binding.nombre.setText(it.get("name") as String)
             binding.surnombre.setText(it.get("surname") as String)
@@ -73,9 +80,9 @@ class EditProfileFragment() : Fragment() {
 
         return binding.root
     }
-    fun initUI()
-    {
-        binding.btnsave.setOnClickListener{
+
+    fun initUI() {
+        binding.btnsave.setOnClickListener {
             //binding.mail.setText(email)
             fStore.collection("users").document(email).set(
                 hashMapOf(
@@ -90,31 +97,31 @@ class EditProfileFragment() : Fragment() {
             Toast.makeText(requireActivity(), "Updated data", Toast.LENGTH_LONG).show()
 
         }
-        binding.btnDeleteAccount.setOnClickListener{
-            val builder = AlertDialog.Builder(requireActivity())
-            builder.setTitle("Delete account")
-            builder.setMessage("Are you sure you want to delete the account")
-            builder.setPositiveButton("Accept") { dialog, which ->
-                fStore.collection("users").document(email).delete()
-                fAuth.currentUser?.delete()
-                fStorage.child("img").child(email).delete()
-                Toast.makeText(requireActivity(), "The account has been deleted", Toast.LENGTH_LONG).show()
-                PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
-                startActivity(Intent(this.requireContext(), Initial::class.java ))
-                Intent(binding.root.context, Initial::class.java)
-            }
-            builder.setNegativeButton("Cancel") { dialog, which ->}
-            builder.show()
-        }
-        binding.btnlogout.setOnClickListener{
-            PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
-            fAuth.signOut()
-            startActivity(Intent(this.requireContext(), Initial::class.java ))
-            Intent(getActivity(), Initial::class.java)
-
-        }
-        binding.btncancel.setOnClickListener{
-            binding.mail.setText(email)
+//        binding.btnDeleteAccount.setOnClickListener{
+//            val builder = AlertDialog.Builder(requireActivity())
+//            builder.setTitle("Delete account")
+//            builder.setMessage("Are you sure you want to delete the account")
+//            builder.setPositiveButton("Accept") { dialog, which ->
+//                fStore.collection("users").document(email).delete()
+//                fAuth.currentUser?.delete()
+//                fStorage.child("img").child(email).delete()
+//                Toast.makeText(requireActivity(), "The account has been deleted", Toast.LENGTH_LONG).show()
+//                PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
+//                startActivity(Intent(this.requireContext(), Initial::class.java ))
+//                Intent(binding.root.context, Initial::class.java)
+//            }
+//            builder.setNegativeButton("Cancel") { dialog, which ->}
+//            builder.show()
+//        }
+//        binding.btnlogout.setOnClickListener{
+//            PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
+//            fAuth.signOut()
+//            startActivity(Intent(this.requireContext(), Initial::class.java ))
+//            Intent(getActivity(), Initial::class.java)
+//
+//        }
+        binding.btncancel.setOnClickListener {
+            binding.email.setText(email)
             fStore.collection("users").document(email).get().addOnSuccessListener {
                 binding.nombre.setText(it.get("name") as String)
                 binding.surnombre.setText(it.get("surname") as String)

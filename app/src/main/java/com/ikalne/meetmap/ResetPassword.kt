@@ -17,6 +17,7 @@ class ResetPassword : AppCompatActivity() {
     lateinit var fAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 

@@ -36,6 +36,7 @@ class SignUpScroll : AppCompatActivity() {
     private var url= ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
 
         binding = ActivitySignUpScrollBinding.inflate(layoutInflater)
