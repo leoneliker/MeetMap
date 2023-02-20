@@ -12,8 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/concert_one"
-        android:text="@string/newaccount"
-        android:textSize="60sp"
+        android:text="@string/create"
+        android:textSize="50sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toTopOf="@id/topguide"/>
@@ -35,8 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/email"
-            android:theme="@style/lineET"
-            android:inputType="textMultiLine"/>
+            android:theme="@style/lineET" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

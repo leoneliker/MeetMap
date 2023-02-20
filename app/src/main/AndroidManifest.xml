@@ -19,7 +19,8 @@
         
         <activity
             android:name=".ResetPassword"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -28,7 +29,8 @@
             android:name=".MainAppActivity"
             android:exported="false"
             android:label="@string/title_activity_main_app"
-            android:theme="@style/Theme.MeetMap.NoActionBar">
+            android:theme="@style/Theme.MeetMap.NoActionBar"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -36,30 +38,37 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key"
+            />
 
         <activity
             android:name=".Initial"
             android:exported="false"
-            android:theme="@style/Theme.MeetMap.NoActionBar" />
+            android:theme="@style/Theme.MeetMap.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".InfoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ActivitiesList"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Login"
             android:exported="false"
-            android:theme="@style/Theme.MeetMap.NoActionBar" />
+            android:theme="@style/Theme.MeetMap.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SignUp"
             android:exported="false"
-            android:theme="@style/Theme.MeetMap.NoActionBar" />
+            android:theme="@style/Theme.MeetMap.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Splash"
             android:exported="true"
-            android:theme="@style/Theme.MeetMap.NoActionBar.Splash">
+            android:theme="@style/Theme.MeetMap.NoActionBar.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

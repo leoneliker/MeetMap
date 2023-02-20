@@ -25,10 +25,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
-import com.ikalne.meetmap.fragments.ChatFragment
-import com.ikalne.meetmap.fragments.EditProfileFragment
-import com.ikalne.meetmap.fragments.FavouritesFragment
-import com.ikalne.meetmap.fragments.MapFragment
+import com.ikalne.meetmap.fragments.*
 
 
 class MainAppActivity : AppCompatActivity() {
@@ -62,6 +59,9 @@ class MainAppActivity : AppCompatActivity() {
         val favFragment = FavouritesFragment()
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
+        val faqsFragment = FaqsFragment()
+        val contactUsFragment = ConctactUsFragment()
+        val notificationsFragment = NotificationsFragment()
         val navview = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
@@ -152,8 +152,7 @@ class MainAppActivity : AppCompatActivity() {
                         animateAndHideNavigationView(navview)
                         isnavview = false
                     }
-                    //de momento no hace nada ver que pasa con esto
-                    navview.visibility = View.GONE
+                    setThatFragment(notificationsFragment)
                     buttonsVisibility()
                 }
                 R.id.nav_manusu -> {
@@ -161,9 +160,16 @@ class MainAppActivity : AppCompatActivity() {
                         animateAndHideNavigationView(navview)
                         isnavview = false
                     }
-                    //de momento no hace nada ver que pasa con esto
-                    //crear el manual de usuario
-                    navview.visibility = View.GONE
+
+                    setThatFragment(faqsFragment)
+                    buttonsVisibility()
+                }
+                R.id.contactus -> {
+                    if (isnavview) {
+                        animateAndHideNavigationView(navview)
+                        isnavview = false
+                    }
+                    setThatFragment(contactUsFragment)
                     buttonsVisibility()
                 }
                 R.id.nav_exit -> {

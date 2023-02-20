@@ -9,11 +9,11 @@
     <string name="cancel">Cancel</string>
     <string name="other">or sign up with</string>
     <string name="or">or </string>
-    <string name="create">Sign Up</string>
-    <string name="slide1">Bienvenido a MeetMap</string>
-    <string name="slide2">Encuentra las actividades más cercanas</string>
-    <string name="slide3">Apuntate a ellas y contacta con otros usuarios!</string>
-    <string name="slide4">Entabla amistades y forja nuevas aventuras</string>
+    <string name="create">SIGN UP</string>
+    <string name="slide1">Welcome to MeetMap</string>
+    <string name="slide2">Live new experiences with us</string>
+    <string name="slide3">Connect with new people and create moments.</string>
+    <string name="slide4">Experience together, remember together</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_main_app">MainAppActivity</string>
     <string name="tab_text_1">Tab 1</string>
@@ -40,7 +40,32 @@
     <string name="manusu">User manual</string>
     <string name="faqs">FAQs</string>
     <string name="createplan">New plan</string>
+    <string name="question1">1. How does the app work?</string>
+    <string name="answer1">The application has a main view of the location where you are and the closest plans, you can select any of them and a new window opens with all the information of that plan: name, place, date, price and a link to the web to be able to register</string>
+    <string name="question2">2. How can I find activities and events near my location?</string>
+    <string name="answer2">You must have the location of your mobile device activated and you will see some hand-shaped markers that indicate the places on the map where the plans are located</string>
+    <string name="question3">3. How can I reserve a place in an event or activity?</string>
+    <string name="answer3">When you find the plan you want, you can click on the map and it will take you to a window that provides you with all the information and a link to the website where you can reserve a place or sign up for the plan.</string>
+    <string name="question4">4. Is there a reservation limit per event or activity?</string>
+    <string name="answer4">The entity that makes them is in charge of managing the reservations and which can be accessed through the link of each plan that is offered from our application.</string>
+    <string name="question5">5. How can I see the plans I like?</string>
+    <string name="answer5">This app has the possibility of saving in favorites (click on the heart of each activity) the activities that you like the most and you can access that list in the favorites button in the lower menu of the application</string>
+    <string name="question6">6. How can I unroll from a plan?</string>
+    <string name="answer6">Each activity is managed by a different entity and it is that entity that should be contacted to consult the possibilities of canceling the plan or unsubscribing from the activity</string>
+    <string name="question7">7. How can I make a suggestion or report a problem?</string>
+    <string name="answer7">In the application there is a drop-down menu in the upper left part of the screen where an option to contact us is shown and you can write to us whenever you have a problem or a suggestion, we will attend to you as soon as possible trying to solve your problem or improve the app with your suggestions</string>
+    <string name="question8">8. Does using the application have any cost?</string>
+    <string name="answer8">The use of the application is free of charge. There is also no premium version or additional payments to have access to some extra functionality of the application. It is 100% free for all users</string>
+    <string name="question9">9. Is the application available in my city/country?</string>
+    <string name="answer9">Currently the application is only available for the city of Madrid, although in the not too distant future we plan to be present in more cities and countries. If you want it to be in your region, do not hesitate to contact us to send us your request!</string>
+    <string name="question10">10. Can I contact the people who are signed up for the activity?</string>
+    <string name="answer10">In the first versions of the app the chat is not yet available, as soon as possible you will have a chat available to contact all the people who are signed up for the activity and want to have conversations with the attendees of the activity or event</string>
+    <string name="contactus">Contact us</string>
+    <string name="suggestion">Suggestion or Incidence</string>
+    <string name="send">SEND</string>
+    <string name="infocontactus">We will respond as soon as possible, check the email you provide in this form</string>
     <string name="textLarge" translatable="false">Lorem fistrum ese hombree hasta luego Lucas va usté muy cargadoo sexuarl de la pradera a wan ahorarr apetecan. La caidita la caidita te va a hasé pupitaa pecador ese pedazo de caballo blanco caballo negroorl quietooor. Jarl hasta luego Lucas papaar papaar tiene musho peligro se calle ustée te voy a borrar el cerito mamaar qué dise usteer.</string>
+
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
 
@@ -130,4 +155,6 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+
 </resources>
