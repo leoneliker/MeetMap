@@ -175,7 +175,7 @@ class MainAppActivity : AppCompatActivity() {
                 R.id.nav_exit -> {
                     PreferencesManager.getDefaultSharedPreferences(this).wipe()
                     fAuth.signOut()
-                    val intent = Intent(this, Login::class.java)
+                    val intent = Intent(this, LoginScroll::class.java)
                     startActivity(intent)
                 }
             }

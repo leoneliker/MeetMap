@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
-import com.ikalne.meetmap.Login
 import com.ikalne.meetmap.MainAppActivity
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.FragmentConctactUsBinding
