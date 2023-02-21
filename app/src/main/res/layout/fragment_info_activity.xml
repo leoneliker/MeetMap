@@ -18,12 +18,19 @@
             android:background="@drawable/friends"
             app:layout_constraintTop_toTopOf="parent" />
 
-
+        <ImageButton
+            android:id="@+id/btnedit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_heart_event"
+            app:layout_constraintEnd_toStartOf="@id/rightguide"
+            app:layout_constraintTop_toBottomOf="@id/ivevent" />
         <TextView
             android:id="@+id/titulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
             android:text="TEATRO CON AMIGOS"
             android:gravity="center"
             android:textSize="30sp"
