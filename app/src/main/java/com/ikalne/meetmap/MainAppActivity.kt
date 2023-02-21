@@ -140,6 +140,7 @@ class MainAppActivity : AppCompatActivity() {
                 R.id.nav_manusu -> {
                     closeNav()
                     navview.visibility = View.GONE
+                }
                 R.id.contactus -> {
                     closeNav()
                     navview.visibility = View.GONE
