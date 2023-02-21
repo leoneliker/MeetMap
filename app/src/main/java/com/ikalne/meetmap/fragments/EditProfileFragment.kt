@@ -19,9 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import com.ikalne.meetmap.Initial
-import com.ikalne.meetmap.PreferencesManager
-import com.ikalne.meetmap.R
+import com.ikalne.meetmap.*
 import com.ikalne.meetmap.databinding.FragmentEditProfileBinding
 
 class EditProfileFragment() : Fragment() {
@@ -56,13 +54,10 @@ class EditProfileFragment() : Fragment() {
 
         GALLERY_INTENT = 1
 
-        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
-            .load(R.drawable.cara)
-            .circleCrop()
-            .into(binding.ivuser)
-
-
-
+//        Glide.with(this)
+//            .load(R.drawable.cara)
+//            .circleCrop()
+//            .into(binding.ivuser)
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
         binding.email.setText(email)
         fStore.collection("users").document(email).get().addOnSuccessListener {
@@ -76,26 +71,22 @@ class EditProfileFragment() : Fragment() {
                 .circleCrop()
                 .into(img)
         }
-
-
         return binding.root
     }
 
     fun initUI() {
         binding.btnsave.setOnClickListener {
             //binding.mail.setText(email)
-            fStore.collection("users").document(email).set(
-                hashMapOf(
-                    "name" to binding.nombre.text.toString(),
-                    "surname" to binding.surnombre.text.toString(),
-                    "phone" to binding.phone.text.toString(),
-                    "description" to binding.description.text.toString(),
-                    "img" to uri,
-                )
+            val updates = hashMapOf<String, Any>(
+                "name" to binding.nombre.text.toString(),
+                "surname" to binding.surnombre.text.toString(),
+                "phone" to binding.phone.text.toString(),
+                "description" to binding.description.text.toString(),
             )
+            fStore.collection("users").document(email).update(updates)
             //fAuth.currentUser?.updatePassword(binding.password.text.toString())
             Toast.makeText(requireActivity(), "Updated data", Toast.LENGTH_LONG).show()
-
+            startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
         }
 //        binding.btnDeleteAccount.setOnClickListener{
 //            val builder = AlertDialog.Builder(requireActivity())
@@ -129,6 +120,8 @@ class EditProfileFragment() : Fragment() {
                 binding.description.setText(it.get("description") as String)
                 //binding.mail.setText(email)
             }
+            startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
+
         }
         binding.btnedit.setOnClickListener{
             //binding.ivuser

@@ -1,5 +1,6 @@
 package com.ikalne.meetmap
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -96,32 +97,49 @@ class LoginScroll : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //Toast.makeText(this, "pasa", Toast.LENGTH_LONG).show()
-        if (requestCode == GOOGLE_SIGN_IN){
+        if (requestCode == GOOGLE_SIGN_IN && data != null) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                    if(fAuth.currentUser?.email != null){
-                        fAuth.signInWithCredential(credential).addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                fAuth.currentUser?.email?.let { it1 -> PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it1)}
-                                showMapActivity()
+                // Obtiene la dirección de correo electrónico del usuario desde la cuenta de Google
+                val email = account.email
+                // Verifica si el correo electrónico ya está registrado en Firebase
+                if (email != null) {
+                    fAuth.fetchSignInMethodsForEmail(email)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Obtiene los métodos de inicio de sesión disponibles para el correo electrónico
+                                val signInMethods = task.result?.signInMethods ?: emptyList<String>()
+                                if (signInMethods.isEmpty()) {
+                                    // El correo electrónico no está registrado en Firebase
+                                    Toast.makeText(this, "The account does not exist. Please register.", Toast.LENGTH_LONG).show()
+                                    //register()
+                                } else {
+                                    // El correo electrónico ya está registrado en Firebase
+                                    // Continúa con el inicio de sesión
+                                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                                    fAuth.signInWithCredential(credential)
+                                        .addOnCompleteListener { authTask ->
+                                            if (authTask.isSuccessful) {
+                                                fAuth.currentUser?.email?.let { PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it) }
+                                                showMapActivity()
+                                            }
+                                        }
+                                }
+                            } else {
+                                // Error al verificar el correo electrónico en Firebase
+                                Log.w(TAG, "Error fetching sign-in methods for email", task.exception)
                             }
                         }
-                    }else{
-                        Toast.makeText(this, "The account does`t exist. Please register.", Toast.LENGTH_LONG).show()
-                        register()
-                    }
                 }
-            }catch (e: ApiException){
-                //showAlert(e)
-                Log.w("CAGOENTODO", " " + e)
-            }
 
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
+                //showAlert(e)
+            }
         }
     }
+
 
     private fun showAlert(e: ApiException){
         val builder = AlertDialog.Builder(this)
