@@ -144,14 +144,16 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     }
 
     override fun onInfoWindowClick(marker: Marker) {
-        Toast.makeText(
-            activity, "Info window clicked " + marker.id,
-            Toast.LENGTH_SHORT
-        ).show()
-//        val fragmentTransaction = activity
-//            ?.supportFragmentManager?.beginTransaction()
-//        fragmentTransaction?.replace(R.id.info_activity, InfoFragment)
-//        fragmentTransaction?.commit()
+
+
+        val infoFragment = InfoActivityFragment()
+        infoFragment.setMarker(marker,locatorList)
+
+        val fragmentManager = activity?.supportFragmentManager
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.frame, infoFragment)
+        fragmentTransaction?.addToBackStack(null)
+        fragmentTransaction?.commit()
     }
 
 

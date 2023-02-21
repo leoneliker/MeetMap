@@ -21,22 +21,30 @@ class CustomInfoWindowAdapter(val inflater: LayoutInflater, val locatorsList: Li
         return null
     }
 
-    init {
-        Log.i("assssjhgvhgvgh", "$locatorsList")
-    }
-
     override fun getInfoWindow(m: Marker): View? {
 
 
         val idInfo = MapFragment.madridMap[m.title]
         locatorsList.forEach {
             if (it.id == idInfo) {
+
                 val v: View = inflater.inflate(R.layout.infowindow_layout, null)
-                val info = m.title.split("&").toTypedArray()
-                val url = m.snippet
-                (v.findViewById(R.id.info_window_nombre) as TextView).text = it.title
-                (v.findViewById(R.id.info_window_placas) as TextView).text = "${it.dstart.split(" ")[0]}-${it.dfinish.split(" ")[0]}"
-                (v.findViewById(R.id.info_window_estado) as TextView).text = it.time
+                (v.findViewById(R.id.nombre) as TextView).text = it.title
+
+                val date = if (it.dstart.split(" ")[0]==it.dfinish.split(" ")[0]){
+                    it.dstart.split(" ")[0]
+                }else if(it.dstart.isEmpty() && it.dfinish.isEmpty()){
+                    "No hay fecha establecida"
+                }
+                else{
+                    it.dstart.split(" ")[0]+" - "+it.dfinish.split(" ")[0]
+                }
+                (v.findViewById(R.id.fechas) as TextView).text = date
+
+                val hora = it.time.ifEmpty {
+                    "No hay hora establecida"
+                }
+                (v.findViewById(R.id.horas) as TextView).text = hora
                 return v
             }
         }
