@@ -39,6 +39,9 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var navView :NavigationView
     lateinit var fStorage: StorageReference
     private val handler = Handler()
+    private var isnavview = false
+    private lateinit var navview : NavigationView
+
 
      override fun onCreate(savedInstanceState: Bundle?) {
          forceLightMode()
@@ -58,15 +61,15 @@ class MainAppActivity : AppCompatActivity() {
         frame=binding.frame
         navView=binding.navView
 
-        var isnavview = false
+
         val mapFragment = MapFragment()
         val favFragment = FavouritesFragment()
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
+        navview = findViewById<NavigationView>(R.id.nav_view)
         val faqsFragment = FaqsFragment()
         val contactUsFragment = ConctactUsFragment()
         val notificationsFragment = NotificationsFragment()
-        val navview = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
         val btnDeleteAccount = navview.findViewById<Button>(R.id.btnDeleteAccount)
@@ -107,34 +110,16 @@ class MainAppActivity : AppCompatActivity() {
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.house -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
+                    closeNav()
                     setThatFragment(mapFragment)
 
                 }
                 R.id.likes -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
+                    closeNav()
                     setThatFragment(favFragment)
                 }
                 R.id.chat -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
+                    closeNav()
                     setThatFragment(chatFragment)
                 }
             }
@@ -144,37 +129,20 @@ class MainAppActivity : AppCompatActivity() {
         navview.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_profile -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
+                    closeNav()
                     setThatFragment(profileFragment)
-                    buttonsVisibility()
+
                 }
                 R.id.nav_notifications -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    setThatFragment(notificationsFragment)
-                    buttonsVisibility()
+                    closeNav()
+                    navview.visibility = View.GONE
                 }
                 R.id.nav_manusu -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-
-                    setThatFragment(faqsFragment)
-                    buttonsVisibility()
-                }
+                    closeNav()
+                    navview.visibility = View.GONE
                 R.id.contactus -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    setThatFragment(contactUsFragment)
-                    buttonsVisibility()
+                    closeNav()
+                    navview.visibility = View.GONE
                 }
                 R.id.nav_exit -> {
                     PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
@@ -205,7 +173,18 @@ class MainAppActivity : AppCompatActivity() {
             builder.show()
         }
     }
-        var doubleBackToExitPressedOnce = false
+
+    private fun closeNav() {
+        binding.navView.isVisible = false
+
+        if (isnavview) {
+            animateAndHideNavigationView(navview)
+            isnavview = false
+        }
+        buttonsVisibility()
+    }
+
+    var doubleBackToExitPressedOnce = false
         override fun onBackPressed() {
             if (doubleBackToExitPressedOnce) {
                 finishAffinity()
