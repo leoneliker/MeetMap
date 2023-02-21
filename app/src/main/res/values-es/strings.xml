@@ -64,5 +64,7 @@
     <string name="suggestion">Sugerencia o Incidencia</string>
     <string name="send">ENVIAR</string>
     <string name="infocontactus">Responderemos a la mayor brevedad posible, revise el correo que facilita en este formulario</string>
-
+    <string name="date">Fecha: </string>
+    <string name="schedule">Horario: </string>
+    <string name="place">Lugar: </string>
 </resources>

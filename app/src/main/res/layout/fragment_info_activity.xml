@@ -52,7 +52,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             app:layout_constraintTop_toBottomOf="@id/titulo" />
-
+        <TextView
+            android:id="@+id/tvfecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="25dp"
+            android:text="@string/date"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintEnd_toStartOf="@id/fecha"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            />
         <TextView
             android:id="@+id/fecha"
             android:layout_width="0dp"
@@ -63,6 +74,19 @@
             android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toEndOf="@id/tvfecha"
+            />
+
+        <TextView
+            android:id="@+id/tvhorario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="25dp"
+            android:text="@string/schedule"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tvfecha"
+            app:layout_constraintEnd_toStartOf="@id/horario"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             />
         <TextView
@@ -75,20 +99,33 @@
             android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@id/fecha"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toEndOf="@id/tvhorario"
+            />
+        <TextView
+            android:id="@+id/tvlugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="25dp"
+            android:text="@string/place"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tvhorario"
+            app:layout_constraintEnd_toStartOf="@id/lugar"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             />
+
         <TextView
             android:id="@+id/lugar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Lugar del evento"
             android:gravity="center"
+            android:text="Lugar del evento"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@id/horario"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            />
+            app:layout_constraintStart_toEndOf="@id/tvlugar"
+            app:layout_constraintTop_toBottomOf="@id/horario" />
+
         <TextView
             android:id="@+id/link"
             android:layout_width="0dp"
