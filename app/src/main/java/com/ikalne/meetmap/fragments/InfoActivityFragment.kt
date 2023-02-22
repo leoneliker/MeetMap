@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.Marker
+import com.ikalne.meetmap.R
 import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
 
@@ -76,7 +77,7 @@ class InfoActivityFragment :Fragment() {
                 "No hay lugar establecido"
             }
             lugar.text = lug
-            link.text = "Haz click aquí para redirigirte a la página web"
+            link.text = resources.getString(R.string.link)
             binding.link.setPaintFlags(binding.link.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
             link.setOnClickListener{
                 val url = locatorView.link

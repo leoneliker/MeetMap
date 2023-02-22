@@ -67,4 +67,5 @@
     <string name="date">Fecha: </string>
     <string name="schedule">Horario: </string>
     <string name="place">Lugar: </string>
+    <string name="link">+Info</string>
 </resources>

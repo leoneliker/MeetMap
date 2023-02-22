@@ -68,7 +68,7 @@
     <string name="date">Date: </string>
     <string name="schedule">Schedule: </string>
     <string name="place">Place: </string>
-
+    <string name="link">+Info</string>
 
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
