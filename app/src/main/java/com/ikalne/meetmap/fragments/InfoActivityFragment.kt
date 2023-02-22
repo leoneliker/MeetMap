@@ -78,8 +78,13 @@ class InfoActivityFragment :Fragment() {
             }
             lugar.text = lug
             link.text = resources.getString(R.string.link)
-            binding.link.setPaintFlags(binding.link.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+           //binding.link.setPaintFlags(binding.link.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
             link.setOnClickListener{
+                val url = locatorView.link
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+            info.setOnClickListener{
                 val url = locatorView.link
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
