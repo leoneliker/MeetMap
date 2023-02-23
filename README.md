@@ -41,6 +41,10 @@ Also, you can see an example of edit your profile.
 
 ![Figma prototype](img/figma_prototype.png)
 
+
+## App Development
+
+
 ## [Splash View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/Splash.kt)
 
 
@@ -147,7 +151,7 @@ The app is available in English and Spanish:
 [MeetMap on Youtube](https://www.youtube.com/@meetmap)
 
 
-**App designed and created by Almudena Fernández Cárdenas, Iker Iturralde Tejido y Nerea Ramos Escobar**
+**App designed and created by Almudena Fernández Cárdenas, Iker Iturralde Tejido and Nerea Ramos Escobar**
 
 >This repository is licensed under
 >[Creativecommons Org Licenses By Sa 4](https://creativecommons.org/licenses/by-nc-sa/4.0/)
