@@ -71,6 +71,7 @@ class MainAppActivity : AppCompatActivity() {
         val faqsFragment = FaqsFragment()
         val contactUsFragment = ConctactUsFragment()
         val notificationsFragment = NotificationsFragment()
+        val navview = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
         val username = headerView.findViewById<TextView>(R.id.username)
