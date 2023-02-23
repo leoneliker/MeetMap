@@ -61,8 +61,8 @@
     </FrameLayout>
     <ImageButton
         android:id="@+id/image_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:background="@drawable/ic_hamburger"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

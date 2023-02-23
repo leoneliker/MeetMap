@@ -2,23 +2,19 @@ package com.ikalne.meetmap.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
-import android.text.Spannable
 import android.text.SpannableString
-import android.text.TextPaint
-import android.text.style.ClickableSpan
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.Marker
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
-import org.checkerframework.checker.units.qual.m
 
 class InfoActivityFragment :Fragment() {
 
@@ -81,14 +77,22 @@ class InfoActivityFragment :Fragment() {
                 "No hay lugar establecido"
             }
             lugar.text = lug
-            link.text = "Haz click aquí para redirigirte a la página web"
+            link.text = resources.getString(R.string.link)
+           //binding.link.setPaintFlags(binding.link.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
             link.setOnClickListener{
+                val url = locatorView.link
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+            info.setOnClickListener{
                 val url = locatorView.link
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
         }
     }
+
+
 }
 
 

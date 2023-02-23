@@ -136,10 +136,19 @@ class MainAppActivity : AppCompatActivity() {
                 }
                 R.id.nav_notifications -> {
                     closeNav()
+                    setThatFragment(notificationsFragment)
+                }
+                R.id.nav_manusu -> {
+                    closeNav()
+                    setThatFragment(faqsFragment)
+                }
+                R.id.contactus -> {
+                    closeNav()
                     navview.visibility = View.GONE
                 }
                 R.id.nav_manusu -> {
                     closeNav()
+                    setThatFragment(contactUsFragment)
                     navview.visibility = View.GONE
 
                 }
@@ -175,7 +184,7 @@ class MainAppActivity : AppCompatActivity() {
 
     private fun closeNav() {
         binding.navView.isVisible = false
-
+        navview.visibility = View.GONE
         if (isnavview) {
             animateAndHideNavigationView(navview)
             isnavview = false
