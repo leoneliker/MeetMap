@@ -79,4 +79,8 @@
     <string name="accountNotExists">La cuenta no existe. Por favor registrese</string>
     <string name="checkMail">Compruebe su email para cambiar su contraseña</string>
     <string name="tryAgain">Intentelo otra vez, algo no ha salido bien</string>
+    <string name="date">Fecha: </string>
+    <string name="schedule">Horario: </string>
+    <string name="place">Lugar: </string>
+    <string name="link">+Info</string>
 </resources>
