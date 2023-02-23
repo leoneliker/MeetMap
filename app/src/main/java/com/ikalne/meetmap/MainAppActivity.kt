@@ -135,14 +135,15 @@ class MainAppActivity : AppCompatActivity() {
                 }
                 R.id.nav_notifications -> {
                     closeNav()
-                    navview.visibility = View.GONE
+                    setThatFragment(notificationsFragment)
                 }
                 R.id.nav_manusu -> {
                     closeNav()
-                    navview.visibility = View.GONE
+                    setThatFragment(faqsFragment)
+                }
                 R.id.contactus -> {
                     closeNav()
-                    navview.visibility = View.GONE
+                    setThatFragment(contactUsFragment)
                 }
                 R.id.nav_exit -> {
                     PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
@@ -176,7 +177,7 @@ class MainAppActivity : AppCompatActivity() {
 
     private fun closeNav() {
         binding.navView.isVisible = false
-
+        navview.visibility = View.GONE
         if (isnavview) {
             animateAndHideNavigationView(navview)
             isnavview = false

@@ -42,7 +42,7 @@ class Splash : AppCompatActivity() {
                 }
                 startActivity(intent)
             }
-        }, 10)
+        }, 3000)
     }
 
     override fun onPause() {
