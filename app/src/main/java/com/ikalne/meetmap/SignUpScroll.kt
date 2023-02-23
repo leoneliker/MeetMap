@@ -54,10 +54,6 @@ class SignUpScroll : AppCompatActivity() {
         val cancel = findViewById<Button>(R.id.btncancel)
         val btngoogle = findViewById<ImageButton>(R.id.btngoogle)
 
-//        val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
-//        storageRef.downloadUrl.addOnSuccessListener { uri ->
-//            url = uri.toString()
-//        }
         signup.setOnClickListener{signUp()}
         btngoogle.setOnClickListener { signUpGoogle() }
         cancel.setOnClickListener{
@@ -79,24 +75,22 @@ class SignUpScroll : AppCompatActivity() {
         val expRegular = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,15}\$")
 
         if (email.text.isEmpty() && password.text.isEmpty() && repassword.text.isEmpty()){
-            showError(emailTIL, "Email is required")
-            showError(passwordTIL, "Password is required")
-            showError(repasswordTIL, "Repeat password is required")
+            showError(emailTIL, resources.getString(R.string.emailRequired))
+            showError(passwordTIL, resources.getString(R.string.passRequired))
+            showError(repasswordTIL, resources.getString(R.string.repassRequired))
         }else if (!email.text.contains("@")){
-            showError(emailTIL, "Email is not valid.")  //This field can´t be empty
+            showError(emailTIL, resources.getString(R.string.emailValid))  //This field can´t be empty
         }else if(!expRegular.matches(password.text.toString())){
-            showError(passwordTIL, "Password needs: Capital letters, small letters, numbers and must be longer than 6 characters")
+            showError(passwordTIL,  resources.getString(R.string.passNeeds))
         }else if (!password.text.toString().equals(repassword.text.toString())){
-            showError(repasswordTIL, "Passwords must me the same")
+            showError(repasswordTIL, resources.getString(R.string.passSame))
         }else{
             fAuth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                 if (it.isSuccessful){
                     fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
-                        Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, resources.getString(R.string.verifyEmail), Toast.LENGTH_LONG).show()
                     }
                     PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
-//                        prefs.savePass(password.text.toString())
-//                        prefs.saveRePass(repassword.text.toString())
                     val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
                     storageRef.downloadUrl.addOnSuccessListener { uri ->
                         url = uri.toString()
@@ -104,8 +98,7 @@ class SignUpScroll : AppCompatActivity() {
                     }
 
                 }else{
-                    //showAlert()
-                    showError(emailTIL, "This email already exists")
+                    showError(emailTIL,  resources.getString(R.string.emailExists))
                 }
             }
         }
@@ -119,14 +112,10 @@ class SignUpScroll : AppCompatActivity() {
         val googleClient = GoogleSignIn.getClient(this, googleConf)
         googleClient.signOut()
         startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-//        googleClient.signInIntent.also {
-//            startActivityForResult(it, GOOGLE_SIGN_IN)
-//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //Toast.makeText(this, "pasa", Toast.LENGTH_LONG).show()
         if (requestCode == GOOGLE_SIGN_IN){
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -136,8 +125,7 @@ class SignUpScroll : AppCompatActivity() {
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
                         if (it.isSuccessful){
                             fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
-                                Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                                //Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
+                                Toast.makeText(this,  resources.getString(R.string.verifyEmail), Toast.LENGTH_LONG).show()
                             }
                             fAuth.currentUser?.email?.let { it1 -> PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it1) }
                             val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
@@ -146,25 +134,15 @@ class SignUpScroll : AppCompatActivity() {
                                 imgGoogle()
                             }
                         }else{
-                            //showAlert()
-                            showError(emailTIL, "This email already exists")
+                            showError(emailTIL,  resources.getString(R.string.emailExists))
                         }
                     }
                 }
             }catch (e: ApiException){
-                //showAlert(e)
                 Log.w("ERROR", " " + e)
             }
 
         }
-    }
-    private fun showAlert(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Se ha producido un error de autenticación al usuario")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
     }
 
     private fun showError(textInputLayout: TextInputLayout, error: String){
@@ -187,7 +165,6 @@ class SignUpScroll : AppCompatActivity() {
 
                     )
             )
-            Log.w("kapasao", "slihfsil")
         }
         showMapActivity()
     }

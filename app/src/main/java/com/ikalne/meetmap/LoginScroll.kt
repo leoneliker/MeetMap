@@ -67,10 +67,10 @@ class LoginScroll : AppCompatActivity() {
 
     fun login(){
         if (email.text.isEmpty() && password.text.isEmpty()){
-            showError(emailTIL, "Email is required")
-            showError(passwordTIL, "Password is required")
+            showError(emailTIL, resources.getString(R.string.emailRequired))
+            showError(passwordTIL, resources.getString(R.string.passRequired))
         }else if(!email.text.contains("@")){
-            showError(emailTIL, "Email is not valid")
+            showError(emailTIL, resources.getString(R.string.emailValid))
         }else{
             fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
@@ -79,7 +79,7 @@ class LoginScroll : AppCompatActivity() {
                         showMapActivity()
                     }else{
                         //showAlert()
-                        showError(emailTIL, "Incorrect email or password")
+                        showError(emailTIL, resources.getString(R.string.incorrectEmailPass))
                     }
                 }
         }
@@ -112,8 +112,7 @@ class LoginScroll : AppCompatActivity() {
                                 val signInMethods = task.result?.signInMethods ?: emptyList<String>()
                                 if (signInMethods.isEmpty()) {
                                     // El correo electrónico no está registrado en Firebase
-                                    Toast.makeText(this, "The account does not exist. Please register.", Toast.LENGTH_LONG).show()
-                                    //register()
+                                    Toast.makeText(this, resources.getString(R.string.accountNotExists), Toast.LENGTH_LONG).show()
                                 } else {
                                     // El correo electrónico ya está registrado en Firebase
                                     // Continúa con el inicio de sesión
@@ -135,20 +134,8 @@ class LoginScroll : AppCompatActivity() {
 
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
-                //showAlert(e)
             }
         }
-    }
-
-
-    private fun showAlert(e: ApiException){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage(e.toString())
-        //builder.setMessage("Se ha producido un error de autenticación al usuario")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
     }
 
     private fun showError(textInputLayout: TextInputLayout, error: String){
@@ -159,11 +146,6 @@ class LoginScroll : AppCompatActivity() {
         val intent = Intent(this, MainAppActivity::class.java)
         startActivity(intent)
     }
-    private fun register(){
-        val intent = Intent(this, SignUpScroll::class.java)
-        startActivity(intent)
-    }
-
 
     override fun onBackPressed() {
         // Ir a una actividad específica

@@ -123,28 +123,6 @@
             app:layout_constraintTop_toBottomOf="@id/tvother"
             android:paddingBottom="30dp"/>
 
-<!--        android:layout_margin="20dp"-->
-
-        <!--        <ImageButton-->
-        <!--            android:id="@+id/btnfacebook"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:background="@drawable/facebook"-->
-        <!--            app:layout_constraintEnd_toStartOf="@id/btnapple"-->
-        <!--            app:layout_constraintStart_toEndOf="@id/btngoogle"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/tvother" />-->
-
-        <!--        <ImageButton-->
-        <!--            android:id="@+id/btnapple"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:background="@drawable/apple"-->
-        <!--            app:layout_constraintEnd_toEndOf="@id/rightguide"-->
-        <!--            app:layout_constraintStart_toEndOf="@id/btnfacebook"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/tvother" />-->
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/leftguide"
             android:layout_width="match_parent"

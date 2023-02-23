@@ -64,5 +64,19 @@
     <string name="suggestion">Sugerencia o Incidencia</string>
     <string name="send">ENVIAR</string>
     <string name="infocontactus">Responderemos a la mayor brevedad posible, revise el correo que facilita en este formulario</string>
-
+    <string name="updatedData">Datos actualizados</string>
+    <string name="emailRequired">Email obligatorio</string>
+    <string name="passRequired">Contraseña obligatoria</string>
+    <string name="repassRequired">Repetir contraseña obligatoria</string>
+    <string name="emailValid">El email no es valido</string>
+    <string name="passNeeds">La contrseña necesita: mayúsculas, minúsculas, números y tiene que tener más de 6 caracteres</string>
+    <string name="passSame">Las contraseñas tienen que ser iguales</string>
+    <string name="verifyEmail">Por favor, verifica tu email</string>
+    <string name="emailExists">Este email ya existe</string>
+    <string name="accept">Aceptar</string>
+    <string name="autenticationError">Se ha producido un error de autenticación al usuario</string>
+    <string name="incorrectEmailPass">Email o contraseña incorrectos</string>
+    <string name="accountNotExists">La cuenta no existe. Por favor registrese</string>
+    <string name="checkMail">Compruebe su email para cambiar su contraseña</string>
+    <string name="tryAgain">Intentelo otra vez, algo no ha salido bien</string>
 </resources>

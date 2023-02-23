@@ -40,8 +40,6 @@ class EditProfileFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
 
-        //fStore: FirebaseFirestore
-
     ): View? {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         initUI()
@@ -54,10 +52,6 @@ class EditProfileFragment() : Fragment() {
 
         GALLERY_INTENT = 1
 
-//        Glide.with(this)
-//            .load(R.drawable.cara)
-//            .circleCrop()
-//            .into(binding.ivuser)
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
         binding.email.setText(email)
         fStore.collection("users").document(email).get().addOnSuccessListener {
@@ -76,7 +70,6 @@ class EditProfileFragment() : Fragment() {
 
     fun initUI() {
         binding.btnsave.setOnClickListener {
-            //binding.mail.setText(email)
             val updates = hashMapOf<String, Any>(
                 "name" to binding.nombre.text.toString(),
                 "surname" to binding.surnombre.text.toString(),
@@ -84,33 +77,9 @@ class EditProfileFragment() : Fragment() {
                 "description" to binding.description.text.toString(),
             )
             fStore.collection("users").document(email).update(updates)
-            //fAuth.currentUser?.updatePassword(binding.password.text.toString())
-            Toast.makeText(requireActivity(), "Updated data", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireActivity(), resources.getString(R.string.updatedData), Toast.LENGTH_LONG).show()
             startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
         }
-//        binding.btnDeleteAccount.setOnClickListener{
-//            val builder = AlertDialog.Builder(requireActivity())
-//            builder.setTitle("Delete account")
-//            builder.setMessage("Are you sure you want to delete the account")
-//            builder.setPositiveButton("Accept") { dialog, which ->
-//                fStore.collection("users").document(email).delete()
-//                fAuth.currentUser?.delete()
-//                fStorage.child("img").child(email).delete()
-//                Toast.makeText(requireActivity(), "The account has been deleted", Toast.LENGTH_LONG).show()
-//                PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
-//                startActivity(Intent(this.requireContext(), Initial::class.java ))
-//                Intent(binding.root.context, Initial::class.java)
-//            }
-//            builder.setNegativeButton("Cancel") { dialog, which ->}
-//            builder.show()
-//        }
-//        binding.btnlogout.setOnClickListener{
-//            PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
-//            fAuth.signOut()
-//            startActivity(Intent(this.requireContext(), Initial::class.java ))
-//            Intent(getActivity(), Initial::class.java)
-//
-//        }
         binding.btncancel.setOnClickListener {
             binding.email.setText(email)
             fStore.collection("users").document(email).get().addOnSuccessListener {
@@ -118,13 +87,11 @@ class EditProfileFragment() : Fragment() {
                 binding.surnombre.setText(it.get("surname") as String)
                 binding.phone.setText(it.get("phone") as String)
                 binding.description.setText(it.get("description") as String)
-                //binding.mail.setText(email)
             }
             startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
 
         }
         binding.btnedit.setOnClickListener{
-            //binding.ivuser
             val intent = Intent(Intent.ACTION_PICK)
             intent.setType("image/*")
             startActivityForResult(intent, GALLERY_INTENT as Int)
