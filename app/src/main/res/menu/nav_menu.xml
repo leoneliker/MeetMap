@@ -9,14 +9,18 @@
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
             android:title="@string/notifications" />
-        <item
+       <!-- <item
             android:id="@+id/nav_createplan"
             android:icon="@drawable/ic_createplan"
-            android:title="@string/createplan" />
+            android:title="@string/createplan" />-->
         <item
             android:id="@+id/nav_manusu"
             android:icon="@drawable/ic_manusu"
             android:title="@string/faqs" />
+        <item
+            android:id="@+id/contactus"
+            android:icon="@drawable/ic_email"
+            android:title="@string/contactus" />
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_logout"

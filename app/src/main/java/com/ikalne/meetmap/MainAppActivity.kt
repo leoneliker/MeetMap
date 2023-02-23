@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -24,11 +25,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
-import com.ikalne.meetmap.fragments.ChatFragment
-import com.ikalne.meetmap.fragments.EditProfileFragment
-import com.ikalne.meetmap.fragments.FavouritesFragment
-import com.ikalne.meetmap.fragments.MapFragment
+import com.ikalne.meetmap.fragments.*
 
 
 class MainAppActivity : AppCompatActivity() {
@@ -38,9 +38,14 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var transparentButton: Button
     private lateinit var frame: FrameLayout
     private lateinit var navView :NavigationView
+    lateinit var fStorage: StorageReference
     private val handler = Handler()
+    private var isnavview = false
+    private lateinit var navview : NavigationView
+
 
      override fun onCreate(savedInstanceState: Bundle?) {
+         forceLightMode()
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -48,6 +53,7 @@ class MainAppActivity : AppCompatActivity() {
         lateinit var fAuth: FirebaseAuth
         lateinit var email: String
         supportActionBar?.hide()
+        fStorage = FirebaseStorage.getInstance().getReference()
         fStore = FirebaseFirestore.getInstance()
         fAuth = FirebaseAuth.getInstance()
         bottomNavView = binding.bottomNavigation
@@ -56,26 +62,48 @@ class MainAppActivity : AppCompatActivity() {
         frame=binding.frame
         navView=binding.navView
 
-        var isnavview = false
+
         val mapFragment = MapFragment()
         val favFragment = FavouritesFragment()
         val chatFragment = ChatFragment()
         val profileFragment = EditProfileFragment()
-        val navview = findViewById<NavigationView>(R.id.nav_view)
+        navview = findViewById<NavigationView>(R.id.nav_view)
+        val faqsFragment = FaqsFragment()
+        val contactUsFragment = ConctactUsFragment()
+        val notificationsFragment = NotificationsFragment()
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
+        val username = headerView.findViewById<TextView>(R.id.username)
+        val emailuser = headerView.findViewById<TextView>(R.id.email)
         val btnDeleteAccount = navview.findViewById<Button>(R.id.btnDeleteAccount)
         val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
 
 
-        email = PreferencesManager.getDefaultSharedPreferences(this).getEmail()
+        //email = PreferencesManager.getDefaultSharedPreferences(this).getEmail()
         transparentButton.visibility = View.GONE
 
         setThatFragment(mapFragment)
-        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
-            .load(R.drawable.cara)
-            .circleCrop()
-            .into(imagenav)
+//        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
+//            .load(R.drawable.cara)
+//            .circleCrop()
+//            .into(imagenav)
+         Glide.with(this)
+             .load(R.drawable.cara)
+             .circleCrop()
+             .into(imagenav)
+
+
+
+         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
+         emailuser.setText(email)
+         fStore.collection("users").document(email).get().addOnSuccessListener {
+             username.setText(it.get("name") as String)
+             //binding.mail.setText(email)
+             Glide.with(this)
+                 .load(it.get("img")as String)
+                 .circleCrop()
+                 .into(imagenav)
+         }
         bottomNavView.setSelectedItemId(R.id.house)
 
         imageButton.setOnClickListener()
@@ -102,34 +130,16 @@ class MainAppActivity : AppCompatActivity() {
         bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.house -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
+                    closeNav()
                     setThatFragment(mapFragment)
 
                 }
                 R.id.likes -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
+                    closeNav()
                     setThatFragment(favFragment)
                 }
                 R.id.chat -> {
-                    binding.navView.isVisible = false
-
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    buttonsVisibility()
+                    closeNav()
                     setThatFragment(chatFragment)
                 }
             }
@@ -139,37 +149,27 @@ class MainAppActivity : AppCompatActivity() {
         navview.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_profile -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
+                    closeNav()
                     setThatFragment(profileFragment)
-                    buttonsVisibility()
+
                 }
                 R.id.nav_notifications -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    //de momento no hace nada ver que pasa con esto
-                    navview.visibility = View.GONE
-                    buttonsVisibility()
+                    closeNav()
+                    setThatFragment(notificationsFragment)
                 }
                 R.id.nav_manusu -> {
-                    if (isnavview) {
-                        animateAndHideNavigationView(navview)
-                        isnavview = false
-                    }
-                    //de momento no hace nada ver que pasa con esto
-                    //crear el manual de usuario
-                    navview.visibility = View.GONE
-                    buttonsVisibility()
+                    closeNav()
+                    setThatFragment(faqsFragment)
+                }
+                R.id.contactus -> {
+                    closeNav()
+                    setThatFragment(contactUsFragment)
                 }
                 R.id.nav_exit -> {
-                    PreferencesManager.getDefaultSharedPreferences(this).wipe()
+                    PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
                     fAuth.signOut()
-                    val intent = Intent(this, Login::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, Initial::class.java ))
+                    Intent(this, Initial::class.java)
                 }
             }
             // Indica que el elemento ha sido seleccionado
@@ -183,18 +183,29 @@ class MainAppActivity : AppCompatActivity() {
             builder.setMessage("Are you sure you want to delete the account")
             builder.setPositiveButton("Accept") { dialog, which ->
                 fStore.collection("users").document(email).delete()
-                //Log.e("EEEEE", "Entra en fStore")
                 fAuth.currentUser?.delete()
-                //Log.e("AAAAAAA", "Entra en fStore")
+                fStorage.child("img").child(email).delete()
                 Toast.makeText(this, "The account has been deleted", Toast.LENGTH_LONG).show()
-                PreferencesManager.getDefaultSharedPreferences(this).wipe()
-                startActivity(Intent(this, Initial::class.java))
+                PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
+                startActivity(Intent(this, Initial::class.java ))
+                Intent(binding.root.context, Initial::class.java)
             }
-            builder.setNegativeButton("Cancel"){dialog, which ->}
+            builder.setNegativeButton("Cancel") { dialog, which ->}
             builder.show()
         }
     }
-        var doubleBackToExitPressedOnce = false
+
+    private fun closeNav() {
+        binding.navView.isVisible = false
+        navview.visibility = View.GONE
+        if (isnavview) {
+            animateAndHideNavigationView(navview)
+            isnavview = false
+        }
+        buttonsVisibility()
+    }
+
+    var doubleBackToExitPressedOnce = false
         override fun onBackPressed() {
             if (doubleBackToExitPressedOnce) {
                 finishAffinity()

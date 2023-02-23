@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 

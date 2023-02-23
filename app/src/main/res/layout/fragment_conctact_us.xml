@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.ConctactUsFragment">
+
+        <TextView
+            android:id="@+id/tvtittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="64dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/contactus"
+            android:textColor="@color/dark_gray"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/tvinfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="@string/infocontactus"
+            android:textColor="@color/dark_gray"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@id/tvtittle"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@+id/tvinfo"
+            app:hintTextColor="@color/secondary_dark">
+
+            <EditText
+
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:theme="@style/lineET" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etemail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/etname"
+        app:hintTextColor="@color/secondary_dark">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/email"
+            android:theme="@style/lineET"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etsuggestion"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toBottomOf="@id/etemail"
+            app:hintTextColor="@color/secondary_dark">
+
+            <EditText
+                android:id="@+id/suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/suggestion"
+                android:inputType="textMultiLine"
+                android:maxLines="10"
+                android:theme="@style/lineET" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btncancel"
+            android:layout_width="150dp"
+            style="@style/buttonOutlinedRed"
+            android:backgroundTint="@color/button_selector"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/cancel"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Button
+            android:id="@+id/btnsend"
+            style="@style/buttonOutlinedRed"
+            android:layout_width="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/button_selector"
+            android:text="@string/send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btncancel" />
+
+
+        <!--<Button
+            android:id="@+id/btnlogout"
+            android:layout_width="150dp"
+            style="@style/buttonOutlinedRed"
+            android:backgroundTint="@color/button_selector"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/logout"
+            app:layout_constraintStart_toStartOf="@id/leftguide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnDeleteAccount"
+            style="@style/buttonOutlinedRed"
+            android:layout_width="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/button_selector"
+            android:text="@string/deleteaccount"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+
+            app:layout_constraintHorizontal_bias="1.0" />-->
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftguide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightguide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>

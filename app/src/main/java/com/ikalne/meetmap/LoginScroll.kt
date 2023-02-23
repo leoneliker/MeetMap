@@ -1,25 +1,21 @@
 package com.ikalne.meetmap
 
+import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.ikalne.meetmap.databinding.ActivityLoginScrollBinding
 
-class Login : AppCompatActivity() {
+class LoginScroll : AppCompatActivity() {
 
     lateinit var email: EditText
     lateinit var password: EditText
@@ -27,16 +23,22 @@ class Login : AppCompatActivity() {
     lateinit var passwordTIL: TextInputLayout
     lateinit var resetPass: TextView
     private val GOOGLE_SIGN_IN = 1
+    lateinit var fAuth: FirebaseAuth
+    private lateinit var binding: ActivityLoginScrollBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+
+        binding = ActivityLoginScrollBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         emailTIL = findViewById(R.id.etemail)
         passwordTIL = findViewById(R.id.etpassword)
         resetPass = findViewById(R.id.tvresetpass)
+        fAuth = FirebaseAuth.getInstance()
 
         val login = findViewById<Button>(R.id.btnlogin)
         val cancel = findViewById<Button>(R.id.btncancel)
@@ -65,20 +67,19 @@ class Login : AppCompatActivity() {
 
     fun login(){
         if (email.text.isEmpty() && password.text.isEmpty()){
-            showError(emailTIL, "Email is required")
-            showError(passwordTIL, "Password is required")
+            showError(emailTIL, resources.getString(R.string.emailRequired))
+            showError(passwordTIL, resources.getString(R.string.passRequired))
         }else if(!email.text.contains("@")){
-            showError(emailTIL, "Email is not valid")
+            showError(emailTIL, resources.getString(R.string.emailValid))
         }else{
-            FirebaseAuth.getInstance()
-                .signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
+            fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
                         PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
                         PreferencesManager.getDefaultSharedPreferences(this).savePass(password.text.toString())
                         showMapActivity()
                     }else{
                         //showAlert()
-                        showError(emailTIL, "Incorrect email or password")
+                        showError(emailTIL, resources.getString(R.string.incorrectEmailPass))
                     }
                 }
         }
@@ -92,47 +93,49 @@ class Login : AppCompatActivity() {
         val googleClient = GoogleSignIn.getClient(this, googleConf)
         googleClient.signOut()
         startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-//        googleClient.signInIntent.also {
-//            startActivityForResult(it, GOOGLE_SIGN_IN)
-//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //Toast.makeText(this, "pasa", Toast.LENGTH_LONG).show()
-        if (requestCode == GOOGLE_SIGN_IN){
+        if (requestCode == GOOGLE_SIGN_IN && data != null) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-                        if (it.isSuccessful) {
-//                            MeetMapApplication.prefs.saveEmail(email.text.toString())
-//                            MeetMapApplication.prefs.savePass(password.text.toString())
-                            showMapActivity()
-                        } else {
-                            //showAlert()
-                            showError(emailTIL, "Incorrect email or password")
+                // Obtiene la dirección de correo electrónico del usuario desde la cuenta de Google
+                val email = account.email
+                // Verifica si el correo electrónico ya está registrado en Firebase
+                if (email != null) {
+                    fAuth.fetchSignInMethodsForEmail(email)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Obtiene los métodos de inicio de sesión disponibles para el correo electrónico
+                                val signInMethods = task.result?.signInMethods ?: emptyList<String>()
+                                if (signInMethods.isEmpty()) {
+                                    // El correo electrónico no está registrado en Firebase
+                                    Toast.makeText(this, resources.getString(R.string.accountNotExists), Toast.LENGTH_LONG).show()
+                                } else {
+                                    // El correo electrónico ya está registrado en Firebase
+                                    // Continúa con el inicio de sesión
+                                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                                    fAuth.signInWithCredential(credential)
+                                        .addOnCompleteListener { authTask ->
+                                            if (authTask.isSuccessful) {
+                                                fAuth.currentUser?.email?.let { PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it) }
+                                                showMapActivity()
+                                            }
+                                        }
+                                }
+                            } else {
+                                // Error al verificar el correo electrónico en Firebase
+                                Log.w(TAG, "Error fetching sign-in methods for email", task.exception)
+                            }
                         }
-                    }
                 }
-            }catch (e: ApiException){
-                //showAlert(e)
-                Log.w("CAGOENTODO", " " + e)
+
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
             }
-
         }
-    }
-
-    private fun showAlert(e: ApiException){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage(e.toString())
-        //builder.setMessage("Se ha producido un error de autenticación al usuario")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
     }
 
     private fun showError(textInputLayout: TextInputLayout, error: String){
@@ -143,6 +146,7 @@ class Login : AppCompatActivity() {
         val intent = Intent(this, MainAppActivity::class.java)
         startActivity(intent)
     }
+
     override fun onBackPressed() {
         // Ir a una actividad específica
         val intent = Intent(this, Initial::class.java)

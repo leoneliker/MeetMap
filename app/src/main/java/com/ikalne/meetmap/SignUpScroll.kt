@@ -1,8 +1,6 @@
 package com.ikalne.meetmap
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,7 +8,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -18,8 +16,12 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import com.ikalne.meetmap.databinding.ActivitySignUpScrollBinding
 
-class SignUp : AppCompatActivity() {
+class SignUpScroll : AppCompatActivity() {
 
     lateinit var email: EditText
     lateinit var password: EditText
@@ -30,11 +32,15 @@ class SignUp : AppCompatActivity() {
     lateinit var fStore: FirebaseFirestore
     lateinit var fAuth: FirebaseAuth
     private val GOOGLE_SIGN_IN = 1
+    private lateinit var binding: ActivitySignUpScrollBinding
+    private var url= ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
+        binding = ActivitySignUpScrollBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         repassword = findViewById(R.id.repassword)
@@ -69,38 +75,32 @@ class SignUp : AppCompatActivity() {
         val expRegular = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,15}\$")
 
         if (email.text.isEmpty() && password.text.isEmpty() && repassword.text.isEmpty()){
-            showError(emailTIL, "Email is required")
-            showError(passwordTIL, "Password is required")
-            showError(repasswordTIL, "Repeat password is required")
+            showError(emailTIL, resources.getString(R.string.emailRequired))
+            showError(passwordTIL, resources.getString(R.string.passRequired))
+            showError(repasswordTIL, resources.getString(R.string.repassRequired))
         }else if (!email.text.contains("@")){
-            showError(emailTIL, "Email is not valid.")  //This field can´t be empty
+            showError(emailTIL, resources.getString(R.string.emailValid))  //This field can´t be empty
         }else if(!expRegular.matches(password.text.toString())){
-            showError(passwordTIL, "Password needs: Capital letters, small letters, numbers and must be longer than 6 characters")
+            showError(passwordTIL,  resources.getString(R.string.passNeeds))
         }else if (!password.text.toString().equals(repassword.text.toString())){
-            showError(repasswordTIL, "Passwords must me the same")
+            showError(repasswordTIL, resources.getString(R.string.passSame))
         }else{
             fAuth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
-                            Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                        }
-                        PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
-//                        prefs.savePass(password.text.toString())
-//                        prefs.saveRePass(repassword.text.toString())
-                        fStore.collection("users").document(email.text.toString()).set(
-                            hashMapOf(
-                                "name" to "",
-                                "surname" to "",
-                                "phone" to "",
-                                "description" to "",
-                            )
-                        )
-                        showMapActivity()
-                    }else{
-                        //showAlert()
-                        showError(emailTIL, "This email already exists")
+                if (it.isSuccessful){
+                    fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                        Toast.makeText(this, resources.getString(R.string.verifyEmail), Toast.LENGTH_LONG).show()
                     }
+                    PreferencesManager.getDefaultSharedPreferences(this).saveEmail(email.text.toString())
+                    val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
+                    storageRef.downloadUrl.addOnSuccessListener { uri ->
+                        url = uri.toString()
+                        imgNormal()
+                    }
+
+                }else{
+                    showError(emailTIL,  resources.getString(R.string.emailExists))
                 }
+            }
         }
     }
 
@@ -112,14 +112,10 @@ class SignUp : AppCompatActivity() {
         val googleClient = GoogleSignIn.getClient(this, googleConf)
         googleClient.signOut()
         startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-//        googleClient.signInIntent.also {
-//            startActivityForResult(it, GOOGLE_SIGN_IN)
-//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //Toast.makeText(this, "pasa", Toast.LENGTH_LONG).show()
         if (requestCode == GOOGLE_SIGN_IN){
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -129,41 +125,24 @@ class SignUp : AppCompatActivity() {
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
                         if (it.isSuccessful){
                             fAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
-                                Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show()
-                                Log.w("QUE", ""+fAuth.currentUser?.email +" -> com.google.firebase.auth.internal.zzx@b5b75a1")
+                                Toast.makeText(this,  resources.getString(R.string.verifyEmail), Toast.LENGTH_LONG).show()
                             }
                             fAuth.currentUser?.email?.let { it1 -> PreferencesManager.getDefaultSharedPreferences(this).saveEmail(it1) }
-                            fAuth.currentUser?.email?.let { it1 ->
-                                fStore.collection("users").document(it1).set(
-                                    hashMapOf(
-                                        "name" to "",
-                                        "surname" to "",
-                                        "phone" to "",
-                                        "description" to "",
-                                    )
-                                )
+                            val storageRef = Firebase.storage.reference.child("img/predeterminado.png")
+                            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                                url = uri.toString()
+                                imgGoogle()
                             }
-                            showMapActivity()
                         }else{
-                            //showAlert()
-                            showError(emailTIL, "This email already exists")
+                            showError(emailTIL,  resources.getString(R.string.emailExists))
                         }
                     }
                 }
             }catch (e: ApiException){
-                //showAlert(e)
                 Log.w("ERROR", " " + e)
             }
 
         }
-    }
-    private fun showAlert(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Se ha producido un error de autenticación al usuario")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
     }
 
     private fun showError(textInputLayout: TextInputLayout, error: String){
@@ -173,5 +152,32 @@ class SignUp : AppCompatActivity() {
     private fun showMapActivity(){
         val intent = Intent(this, MainAppActivity::class.java)
         startActivity(intent)
+    }
+    private fun imgGoogle(){
+        fAuth.currentUser?.email?.let { it1 ->
+            fStore.collection("users").document(it1).set(
+                hashMapOf(
+                    "name" to "",
+                    "surname" to "",
+                    "phone" to "",
+                    "description" to "",
+                    "img" to url,
+
+                    )
+            )
+        }
+        showMapActivity()
+    }
+    private fun imgNormal(){
+        fStore.collection("users").document(email.text.toString()).set(
+            hashMapOf(
+                "name" to "",
+                "surname" to "",
+                "phone" to "",
+                "description" to "",
+                "img" to url,
+                )
+        )
+        showMapActivity()
     }
 }

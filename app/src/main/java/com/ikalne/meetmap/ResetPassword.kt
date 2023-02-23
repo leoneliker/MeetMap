@@ -17,6 +17,7 @@ class ResetPassword : AppCompatActivity() {
     lateinit var fAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 
@@ -28,25 +29,24 @@ class ResetPassword : AppCompatActivity() {
         val cancel = findViewById<Button>(R.id.btncancel)
 
         cancel.setOnClickListener{
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, LoginScroll::class.java)
             startActivity(intent)
         }
         resetPass.setOnClickListener {resetPassword()}
-
     }
 
     fun resetPassword(){
         if (email.text.isEmpty()){
-            showError(emailTIL, "Email is required")
+            showError(emailTIL, resources.getString(R.string.emailRequired))
         }else if(!email.text.contains("@")){
-            showError(emailTIL, "Email is not valid")
+            showError(emailTIL, resources.getString(R.string.emailValid))
         }else{
             fAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener(
                 OnCompleteListener {
                     if (it.isSuccessful){
-                        Toast.makeText(this, "Check your email to reset your password", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, resources.getString(R.string.checkMail), Toast.LENGTH_LONG).show()
                     }else{
-                        Toast.makeText(this, "Try again, something wrong happened", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, resources.getString(R.string.tryAgain), Toast.LENGTH_LONG).show()
                     }
 
 
