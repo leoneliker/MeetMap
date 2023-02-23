@@ -144,13 +144,7 @@ class MainAppActivity : AppCompatActivity() {
                 }
                 R.id.contactus -> {
                     closeNav()
-                    navview.visibility = View.GONE
-                }
-                R.id.nav_manusu -> {
-                    closeNav()
                     setThatFragment(contactUsFragment)
-                    navview.visibility = View.GONE
-
                 }
                 R.id.nav_exit -> {
                     PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
