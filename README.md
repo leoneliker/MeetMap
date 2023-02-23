@@ -15,10 +15,14 @@ Application that allows you to see the next activities in your city and meet peo
 In this map, u will see the nearest activities in the zone (actually just in Madrid). You can select any and sing up to do them.
 Additionaly, the user will be able to search something in a bar, or filter the activities.
 Once the user select one of the activities, he will see something like that:
+
+
 ![Activity](img/activity.png)
 
 
 As you can see, the activity will show some info, a button for save it and another button which show the people who is already sing up. If you click that button, you will see a list with that people, something like that:
+
+
 ![List](img/List.png)
 
 The user can click in any of this people to chat with them, of course, any user can block his appearence in this list.
@@ -61,7 +65,7 @@ Also, you can see an example of edit your profile.
 Login and SignUp connected to the database and with verification of the fields. Option to sign up and log in with Google account
 
 
-[![Login](img/Login.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/LoginScroll.kt)  [![SignUp](img/signUp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/SignUpScroll.kt)
+[![Login](img/Login.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/LoginScroll.kt) [![SignUp](img/signUp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/SignUpScroll.kt)
 
 
 ## [Fragments Main View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/MainAppActivity.kt)
@@ -81,7 +85,7 @@ Connects with device location for geolocation:
 Each marker has information that can be consulted:
 
 
-[![Map](img/mapApp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/MapFragment.kt)  [![Map Activity](img/mapActivity.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/InfoActivityFragment.kt)
+[![Map](img/mapApp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/MapFragment.kt) [![Map Activity](img/mapActivity.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/InfoActivityFragment.kt)
 
 
 The user's profile is a [scrollable view](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/EditProfileFragment.kt) it has a rounded photo of the person, fields with their personal data and two buttons: cancel and save.
@@ -130,13 +134,13 @@ email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).get
 The app is available in English and Spanish:
 
 
-![Sign up in English](img/signUp.png)  ![Registro in Spanish](img/regsitroEsp.png)
+![Sign up in English](img/signUp.png)![Registro in Spanish](img/registroEsp.png)
 
 
-![Navigation View in English](img/navViewEng.png)  ![Navigation View in Spanish](img/navViewEsp.png)
+![Navigation View in English](img/navViewEng.png)![Navigation View in Spanish](img/navViewEsp.png)
 
 
-![Contact us in English](img/contactEng.png)  ![Contactanos in Spanish](img/contactoEsp.png)
+![Contact us in English](img/contactEng.png)![Contactanos in Spanish](img/contactoEsp.png)
 
 
 
