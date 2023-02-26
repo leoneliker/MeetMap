@@ -9,6 +9,7 @@
     <string name="repass">Repita contraseña</string>
     <string name="cancel">Cancelar</string>
     <string name="other">O registrese con</string>
+    <string name="other2">O inicie sesión con</string>
     <string name="create">REGISTRO</string>
     <string name="description">Tu descripción</string>
     <string name="save">GUARDAR</string>
@@ -83,4 +84,15 @@
     <string name="schedule">Horario: </string>
     <string name="place">Lugar: </string>
     <string name="link">+Info</string>
+    <string name="formSubmit">El formulario se ha enviado correctamente</string>
+    <string name="noHayInfo">La empresa de la actividad no ofrece mayor información, dirigete al centro o a la web para encontrarla</string>
+    <string name="dateInfo">No hay fecha establecida</string>
+    <string name="hourInfo">No hay hora establecida</string>
+    <string name="placeInfo">No hay lugar establecido</string>
+    <string name="location">Ve a los ajuntes y acepta los permisos de localización</string>
+    <string name="backAgain">Por favor pulse ATRÁS otra vez para salir</string>
+    <string name="deleteAccountQuestion">¿Está seguro que desea eliminar la cuenta?</string>
+    <string name="deleteAccountSuccesful">La cuenta se ha eliminado</string>
+
+
 </resources>
