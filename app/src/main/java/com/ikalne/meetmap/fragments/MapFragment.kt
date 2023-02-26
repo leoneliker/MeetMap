@@ -109,7 +109,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         ) {
             Toast.makeText(
                 activity,
-                "GO TO SETTINGS AND ACCEPT THE LOCATION PERMISSION",
+                resources.getString(R.string.location),
                 Toast.LENGTH_SHORT
             ).show()
         } else {

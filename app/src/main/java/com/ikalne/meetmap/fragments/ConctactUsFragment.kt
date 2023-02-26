@@ -33,10 +33,10 @@ class ConctactUsFragment : Fragment() {
         clearFields()
         binding.btnsend.setOnClickListener {
             if (!binding.email.text.contains("@")) {
-                showError(binding.etemail, "Email is not valid")
+                showError(binding.etemail, resources.getString(R.string.emailValid))
             }
             else {
-                Toast.makeText(requireActivity(), "Form submitted successfully", Toast.LENGTH_LONG)
+                Toast.makeText(requireActivity(), resources.getString(R.string.formSubmit), Toast.LENGTH_LONG)
                 .show()
                 changeActivity()
             }

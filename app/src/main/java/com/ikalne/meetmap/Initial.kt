@@ -69,7 +69,7 @@ class Initial : AppCompatActivity() {
         ) {
             Toast.makeText(
                 this,
-                "GO TO SETTINGS AND ACCEPT THE LOCATION PERMISSION",
+                resources.getString(R.string.location),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
@@ -104,7 +104,7 @@ class Initial : AppCompatActivity() {
         }
 
         doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, resources.getString(R.string.backAgain), Toast.LENGTH_SHORT).show()
 
         Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }

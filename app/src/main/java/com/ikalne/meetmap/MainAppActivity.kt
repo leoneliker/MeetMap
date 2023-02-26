@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -73,19 +74,44 @@ class MainAppActivity : AppCompatActivity() {
         val navview = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navview.getHeaderView(0)
         val imagenav = headerView.findViewById<ImageView>(R.id.circle_image)
+        val username = headerView.findViewById<TextView>(R.id.username)
+        val emailuser = headerView.findViewById<TextView>(R.id.email)
         val btnDeleteAccount = navview.findViewById<Button>(R.id.btnDeleteAccount)
         val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
 
 
-        email = PreferencesManager.getDefaultSharedPreferences(this).getEmail()
+        //email = PreferencesManager.getDefaultSharedPreferences(this).getEmail()
         transparentButton.visibility = View.GONE
 
         setThatFragment(mapFragment)
-        Glide.with(this) //.load("https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
-            .load(R.drawable.cara)
-            .circleCrop()
-            .into(imagenav)
-        bottomNavView.setSelectedItemId(R.id.house)
+
+         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
+         emailuser.setText(email)
+
+         fStore.collection("users").document(email).get().addOnSuccessListener {
+             username.setText(it.get("name") as String)
+             //binding.mail.setText(email)
+             Glide.with(this)
+                 .load(it.get("img")as String)
+                 .circleCrop()
+                 .into(imagenav)
+         }
+
+         fStore.collection("users").document(email).addSnapshotListener { documentSnapshot, e ->
+             if (e != null) {
+                 return@addSnapshotListener
+             }
+             if (documentSnapshot != null && documentSnapshot.exists()) {
+                 // Actualiza la vista con el nuevo valor del nombre
+                 username.setText(documentSnapshot.getString("name"))
+                 Glide.with(this)
+                     .load(documentSnapshot.getString("img"))
+                     .circleCrop()
+                     .into(imagenav)
+             }
+         }
+
+         bottomNavView.setSelectedItemId(R.id.house)
 
         imageButton.setOnClickListener()
         {
@@ -160,18 +186,18 @@ class MainAppActivity : AppCompatActivity() {
         }
         btnDeleteAccount.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("Delete account")
-            builder.setMessage("Are you sure you want to delete the account")
-            builder.setPositiveButton("Accept") { dialog, which ->
+            builder.setTitle(resources.getString(R.string.deleteaccount))
+            builder.setMessage(resources.getString(R.string.deleteAccountQuestion))
+            builder.setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
                 fStore.collection("users").document(email).delete()
                 fAuth.currentUser?.delete()
                 fStorage.child("img").child(email).delete()
-                Toast.makeText(this, "The account has been deleted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, resources.getString(R.string.deleteAccountSuccesful), Toast.LENGTH_LONG).show()
                 PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
                 startActivity(Intent(this, Initial::class.java ))
                 Intent(binding.root.context, Initial::class.java)
             }
-            builder.setNegativeButton("Cancel") { dialog, which ->}
+            builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->}
             builder.show()
         }
     }
@@ -193,7 +219,7 @@ class MainAppActivity : AppCompatActivity() {
                 return
             }
             doubleBackToExitPressedOnce = true
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.backAgain), Toast.LENGTH_SHORT).show()
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 doubleBackToExitPressedOnce = false
             }, 2000)

@@ -52,7 +52,7 @@ class InfoActivityFragment :Fragment() {
             titulo.text = locatorView.title
 
             val desc = if (locatorView.description.isEmpty()){
-                "La empresa de la actividad no ofrece mayor información, dirigete al centro o a la web para encontrarla"
+                resources.getString(R.string.noHayInfo)
             }else{
                 locatorView.description
             }
@@ -61,7 +61,7 @@ class InfoActivityFragment :Fragment() {
             val date = if (locatorView.dstart.split(" ")[0]==locatorView.dfinish.split(" ")[0]){
                 locatorView.dstart.split(" ")[0]
             }else if(locatorView.dstart.isEmpty() && locatorView.dfinish.isEmpty()){
-                "No hay fecha establecida"
+                resources.getString(R.string.dateInfo)
             }
             else{
                 locatorView.dstart.split(" ")[0]+" - "+locatorView.dfinish.split(" ")[0]
@@ -69,12 +69,12 @@ class InfoActivityFragment :Fragment() {
             fecha.text = date.toString()
 
             val hora = locatorView.time.ifEmpty {
-                "No hay hora establecida"
+                resources.getString(R.string.hourInfo)
             }
             horario.text = hora
 
             val lug = locatorView.event_location.ifEmpty {
-                "No hay lugar establecido"
+                resources.getString(R.string.placeInfo)
             }
             lugar.text = lug
             link.text = resources.getString(R.string.link)
