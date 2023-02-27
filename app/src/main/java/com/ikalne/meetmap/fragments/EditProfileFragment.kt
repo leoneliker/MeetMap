@@ -4,13 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -64,21 +62,16 @@ class EditProfileFragment() : Fragment() {
                 .load(it.get("img")as String)
                 .circleCrop()
                 .into(img)
+
         }
         return binding.root
     }
 
     fun initUI() {
         binding.btnsave.setOnClickListener {
-            val updates = hashMapOf<String, Any>(
-                "name" to binding.nombre.text.toString(),
-                "surname" to binding.surnombre.text.toString(),
-                "phone" to binding.phone.text.toString(),
-                "description" to binding.description.text.toString(),
-            )
-            fStore.collection("users").document(email).update(updates)
+            saveImg()
             Toast.makeText(requireActivity(), resources.getString(R.string.updatedData), Toast.LENGTH_LONG).show()
-            startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
+            goBack()
         }
         binding.btncancel.setOnClickListener {
             binding.email.setText(email)
@@ -88,8 +81,7 @@ class EditProfileFragment() : Fragment() {
                 binding.phone.setText(it.get("phone") as String)
                 binding.description.setText(it.get("description") as String)
             }
-            startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
-
+            goBack()
         }
         binding.btnedit.setOnClickListener{
             val intent = Intent(Intent.ACTION_PICK)
@@ -111,18 +103,34 @@ class EditProfileFragment() : Fragment() {
                 .load(uri)
                 .circleCrop()
                 .into(img)
-            val storageRef = Firebase.storage.reference.child("img/"+fAuth.currentUser?.email)
-            storageRef.downloadUrl.addOnSuccessListener { uri ->
-                url = uri.toString()
-                updateimg()
-            }
+            saveImg()
         }
     }
+    fun saveImg(){
 
-    fun updateimg(){
+        val storageRef = Firebase.storage.reference.child("img/"+fAuth.currentUser?.email)
+        storageRef.downloadUrl.addOnSuccessListener { uri ->
+            url = uri.toString()
+            updateData()
+        }
+    }
+//    fun updateimg(){
+//        val updates = hashMapOf<String, Any>(
+//            "img" to url
+//        )
+//        fStore.collection("users").document(email).update(updates)
+//    }
+    fun updateData(){
         val updates = hashMapOf<String, Any>(
+            "name" to binding.nombre.text.toString(),
+            "surname" to binding.surnombre.text.toString(),
+            "phone" to binding.phone.text.toString(),
+            "description" to binding.description.text.toString(),
             "img" to url
         )
         fStore.collection("users").document(email).update(updates)
+    }
+    fun goBack(){
+        startActivity(Intent(this.requireContext(), MainAppActivity::class.java ))
     }
 }

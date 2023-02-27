@@ -8,6 +8,7 @@
     <string name="repass">Repeat password</string>
     <string name="cancel">Cancel</string>
     <string name="other">or sign up with</string>
+    <string name="other2">or log in with</string>
     <string name="or">or </string>
     <string name="create">SIGN UP</string>
     <string name="slide1">Welcome to MeetMap</string>
@@ -84,5 +85,14 @@
     <string name="schedule">Schedule: </string>
     <string name="place">Place: </string>
     <string name="link">+Info</string>
+    <string name="formSubmit">Form submitted successfully</string>
+    <string name="noHayInfo">The company of the activity does not offer more information, go to the center or the web to find it</string>
+    <string name="dateInfo">No date set</string>
+    <string name="hourInfo">No set time</string>
+    <string name="placeInfo">No place set</string>
+    <string name="location">Go to settings and accept the location permision</string>
+    <string name="backAgain">Please click BACK again to exit</string>
+    <string name="deleteAccountQuestion">Are you sure you want to delete the account?</string>
+    <string name="deleteAccountSuccesful">The account has been deleted</string>
 
 </resources>

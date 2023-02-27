@@ -47,6 +47,5 @@ class Splash : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        Log.i("Pito","Pito")
     }
 }
