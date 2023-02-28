@@ -69,7 +69,7 @@ Also, you can see an example of edit your profile.
 Login and SignUp connected to the database and with verification of the fields. Option to sign up and log in with Google account
 
 
-[![Login](img/Login.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/LoginScroll.kt) [![SignUp](img/signUp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/SignUpScroll.kt)
+[![Login](img/Login.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/LoginScroll.kt)  [![SignUp](img/signUp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/SignUpScroll.kt)
 
 
 ## [Fragments Main View](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/MainAppActivity.kt)
@@ -89,7 +89,7 @@ Connects with device location for geolocation:
 Each marker has information that can be consulted:
 
 
-[![Map](img/mapApp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/MapFragment.kt) [![Map Activity](img/mapActivity.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/InfoActivityFragment.kt)
+[![Map](img/mapApp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/MapFragment.kt)   [![Map Activity](img/mapActivity.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/InfoActivityFragment.kt)
 
 
 The user's profile is a [scrollable view](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/fragments/EditProfileFragment.kt) it has a rounded photo of the person, fields with their personal data and two buttons: cancel and save.
@@ -104,7 +104,7 @@ The user's profile is a [scrollable view](https://github.com/leoneliker/MeetMap/
 The information and the photo can be edited and the changes are observed in that same view and in the drop-down side menu
 
 
-[![Navigation View first photo ](img/navViewEspFoto1.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/res/layout/activity_main_app.xml)  [![Navigation View photo changed](img/navViewEsp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/MainAppActivity.kt)
+[![Navigation View first photo ](img/navViewEspFoto1.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/res/layout/activity_main_app.xml)    [![Navigation View photo changed](img/navViewEsp.png)](https://github.com/leoneliker/MeetMap/blob/master/app/src/main/java/com/ikalne/meetmap/MainAppActivity.kt)
 
 ``` kotlin
 email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
@@ -138,13 +138,13 @@ email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).get
 The app is available in English and Spanish:
 
 
-![Sign up in English](img/signUp.png)![Registro in Spanish](img/registroEsp.png)
+![Sign up in English](img/signUp.png)   ![Registro in Spanish](img/registroEsp.png)
 
 
-![Navigation View in English](img/navViewEng.png)![Navigation View in Spanish](img/navViewEsp.png)
+![Navigation View in English](img/navViewEng.png)   ![Navigation View in Spanish](img/navViewEsp.png)
 
 
-![Contact us in English](img/contactEng.png)![Contactanos in Spanish](img/contactoEsp.png)
+![Contact us in English](img/contactEng.png)   ![Contactanos in Spanish](img/contactoEsp.png)
 
 
 
