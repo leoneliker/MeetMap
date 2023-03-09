@@ -15,7 +15,6 @@
             android:id="@+id/ivevent"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/friends"
             app:layout_constraintTop_toTopOf="parent" />
 
 
