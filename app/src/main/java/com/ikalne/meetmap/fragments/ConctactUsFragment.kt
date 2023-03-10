@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.text.Html
 import android.text.TextUtils.replace
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.ikalne.meetmap.MainAppActivity
 import com.ikalne.meetmap.R
@@ -30,35 +33,19 @@ class ConctactUsFragment : Fragment() {
     }
 
     fun initUI() {
-        clearFields()
-        binding.btnsend.setOnClickListener {
-            if (!binding.email.text.contains("@")) {
-                showError(binding.etemail, resources.getString(R.string.emailValid))
-            }
-            else {
-                Toast.makeText(requireActivity(), resources.getString(R.string.formSubmit), Toast.LENGTH_LONG)
-                .show()
-                changeActivity()
-            }
-        }
-        binding.btncancel.setOnClickListener {
-            changeActivity()
-        }
+        Glide.with(this)
+            .load(R.drawable.almu_meetmap)
+            .circleCrop()
+            .into(binding.ivAlmu)
+
+        Glide.with(this)
+            .load(R.drawable.nerea_meetmap)
+            .circleCrop()
+            .into(binding.ivNerea)
+
+        binding.tvGitAlmulink.text = Html.fromHtml("<a href=\"https://github.com/AlmuFerCar\">AlmuFerCar</a>")
+        binding.tvGitAlmulink.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun changeActivity()
-    {
-        val intent = Intent(requireActivity(), MainAppActivity::class.java)
-        startActivity(intent)
-    }
-    fun clearFields()
-    {
-        binding.nombre.text.clear()
-        binding.email.text.clear()
-        binding.suggestion.text.clear()
-    }
 
-    private fun showError(textInputLayout: TextInputLayout, error: String) {
-        textInputLayout.error = error
-    }
 }
