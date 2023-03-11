@@ -57,28 +57,33 @@ class InfoActivityFragment :Fragment() {
         binding.apply {
 
             imgLayout = binding.ivevent
+            val options = listOf(
+                resources.getDrawable(R.drawable.amigos, null),
+                resources.getDrawable(R.drawable.amigoscielo, null)
+            )
             val res = when(locatorView.category.split("/")[6]) {
-                "Musica" -> resources.getDrawable(R.drawable.friends, null)
-                "DanzaBaile" -> resources.getDrawable(R.drawable.friends, null)
-                "CursosTalleres" -> resources.getDrawable(R.drawable.friends, null)
-                "TeatroPerformance" -> resources.getDrawable(R.drawable.friends, null)
-                "ActividadesCalleArteUrbano" -> resources.getDrawable(R.drawable.friends, null)
-                "CuentacuentosTiteresMarionetas" -> resources.getDrawable(R.drawable.friends, null)
-                "ProgramacionDestacadaAgendaCultura" -> resources.getDrawable(R.drawable.friends, null)
-                "ComemoracionesHomenajes" -> resources.getDrawable(R.drawable.friends, null)
-                "ConferenciasColoquios" -> resources.getDrawable(R.drawable.friends, null)
-                "1ciudad21distritos" -> resources.getDrawable(R.drawable.friends, null)
-                "ExcursionesItinerariosVisitas" -> resources.getDrawable(R.drawable.friends, null)
-                "ItinerariosOtrasActividadesAmbientales" -> resources.getDrawable(R.drawable.friends, null)
-                "ClubesLectura" -> resources.getDrawable(R.drawable.friends, null)
-                "RecitalesPresentacionesActosLiterarios" -> resources.getDrawable(R.drawable.friends, null)
-                "Exposiciones" -> resources.getDrawable(R.drawable.friends, null)
-                "Campamentos" -> resources.getDrawable(R.drawable.friends, null)
-                "CineActividadesAudiovisuales" -> resources.getDrawable(R.drawable.friends, null)
-                "CircoMagia" -> resources.getDrawable(R.drawable.friends, null)
-                "FiestasSemanaSanta" -> resources.getDrawable(R.drawable.friends, null)
+                "Musica" -> resources.getDrawable(R.drawable.musica, null)
+                "DanzaBaile" -> resources.getDrawable(R.drawable.danzabaile, null)
+                "CursosTalleres" -> resources.getDrawable(R.drawable.cursotalleres, null)
+                "TeatroPerformance" -> resources.getDrawable(R.drawable.teatro, null)
+                "ActividadesCalleArteUrbano" -> resources.getDrawable(R.drawable.arteurbano, null)
+                "CuentacuentosTiteresMarionetas" -> resources.getDrawable(R.drawable.cuentacuentos, null)
+                //"ProgramacionDestacadaAgendaCultura" -> resources.getDrawable(R.drawable.destacada, null)
+                "ComemoracionesHomenajes" -> resources.getDrawable(R.drawable.homenajes, null)
+                "ConferenciasColoquios" -> resources.getDrawable(R.drawable.conferencias, null)
+                "1ciudad21distritos" -> resources.getDrawable(R.drawable.distritos, null)
+                "ExcursionesItinerariosVisitas" -> resources.getDrawable(R.drawable.excursiones, null)
+                "ItinerariosOtrasActividadesAmbientales" -> resources.getDrawable(R.drawable.ambientales, null)
+                "ClubesLectura" -> resources.getDrawable(R.drawable.lectura, null)
+                "RecitalesPresentacionesActosLiterarios" -> resources.getDrawable(R.drawable.recitales, null)
+                "Exposiciones" -> resources.getDrawable(R.drawable.exposiciones, null)
+                "Campamentos" -> resources.getDrawable(R.drawable.campamentos, null)
+                "CineActividadesAudiovisuales" -> resources.getDrawable(R.drawable.cine, null)
+                "CircoMagia" -> resources.getDrawable(R.drawable.circo, null)
+                "FiestasSemanaSanta" -> resources.getDrawable(R.drawable.semanasanta, null)
 
-                else -> resources.getDrawable(R.drawable.workin, null)
+                else -> options.random()
+                //Hacer un random para poner sino amigos cielo
             }
 
 
