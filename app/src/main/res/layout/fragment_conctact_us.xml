@@ -49,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         android:text="Almudena Fernández Cárdenas"
         android:textSize="13sp"
+        android:textStyle="bold"
         />
     <TextView
         android:id="@+id/tvGitAlmu"
@@ -93,19 +94,32 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         android:text="Iker Iturralde Tejido"
         android:textSize="13sp"
+        android:textStyle="bold"
         />
     <TextView
         android:id="@+id/tvGitIker"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintStart_toEndOf="@id/ivIker"
         app:layout_constraintTop_toBottomOf="@id/tvIker"
-        app:layout_constraintEnd_toEndOf="@id/rightguide"
-        android:text="Follow on GitHub leoneliker"
+        app:layout_constraintEnd_toStartOf="@id/tvGitIkerlink"
+        android:text="Follow on GitHub "
         android:textSize="13sp"
         />
+    <TextView
+        android:id="@+id/tvGitIkerlink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvGitIker"
+        app:layout_constraintTop_toBottomOf="@id/tvIker"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="leoneliker"
+        android:textSize="13sp"
+        />
+
     <ImageView
         android:id="@+id/ivNerea"
         android:layout_width="96dp"
@@ -126,20 +140,31 @@
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         android:text="Nerea Ramos Escobar"
         android:textSize="13sp"
+        android:textStyle="bold"
         />
     <TextView
-        android:layout_width="0dp"
+        android:id="@+id/tvGitNerea"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintStart_toEndOf="@id/ivNerea"
         app:layout_constraintTop_toBottomOf="@id/tvNerea"
-        app:layout_constraintEnd_toEndOf="@id/rightguide"
-        android:text="Follow on GitHub Nereare4"
+        app:layout_constraintEnd_toStartOf="@id/tvGitNerealink"
+        android:text="Follow on GitHub "
         android:textSize="13sp"
         />
-
-
+    <TextView
+        android:id="@+id/tvGitNerealink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvGitNerea"
+        app:layout_constraintTop_toBottomOf="@id/tvNerea"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Nereare4"
+        android:textSize="13sp"
+        />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/leftguide"
