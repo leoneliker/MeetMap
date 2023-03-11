@@ -11,11 +11,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
         <TextView
             android:id="@+id/tvtittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="64dp"
+            android:paddingTop="48dp"
             android:fontFamily="@font/roboto"
             android:text="@string/contactus"
             android:textColor="@color/dark_gray"
@@ -27,113 +28,150 @@
             app:layout_constraintStart_toStartOf="@id/leftguide"
             app:layout_constraintTop_toTopOf="parent"
             />
-        <TextView
-            android:id="@+id/tvinfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="@string/infocontactus"
-            android:textColor="@color/dark_gray"
-            android:gravity="center"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/tvtittle"
-            />
+    <ImageView
+        android:id="@+id/ivAlmu"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circleiv"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/tvtittle" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etname"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@+id/tvinfo"
-            app:hintTextColor="@color/secondary_dark">
-
-            <EditText
-
-                android:id="@+id/nombre"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/name"
-                android:inputType="text"
-                android:theme="@style/lineET" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etemail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <TextView
+        android:id="@+id/tvAlmu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivAlmu"
+        app:layout_constraintTop_toBottomOf="@id/tvtittle"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Almudena Fernández Cárdenas"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvGitAlmu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivAlmu"
+        app:layout_constraintTop_toBottomOf="@id/tvAlmu"
+        app:layout_constraintEnd_toStartOf="@id/tvGitAlmulink"
+        android:text="Follow on GitHub "
+        android:textSize="13sp"
+        />
+    <TextView
+        android:id="@+id/tvGitAlmulink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvGitAlmu"
+        app:layout_constraintTop_toBottomOf="@id/tvAlmu"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="AlmuFerCar"
+        android:textSize="13sp"
+        />
+    <ImageView
+        android:id="@+id/ivIker"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circleiv"
         app:layout_constraintStart_toStartOf="@id/leftguide"
-        app:layout_constraintTop_toBottomOf="@id/etname"
-        app:hintTextColor="@color/secondary_dark">
+        app:layout_constraintTop_toBottomOf="@id/ivAlmu" />
+    <TextView
+        android:id="@+id/tvIker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivIker"
+        app:layout_constraintTop_toBottomOf="@id/ivAlmu"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Iker Iturralde Tejido"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvGitIker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivIker"
+        app:layout_constraintTop_toBottomOf="@id/tvIker"
+        app:layout_constraintEnd_toStartOf="@id/tvGitIkerlink"
+        android:text="Follow on GitHub "
+        android:textSize="13sp"
+        />
+    <TextView
+        android:id="@+id/tvGitIkerlink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvGitIker"
+        app:layout_constraintTop_toBottomOf="@id/tvIker"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="leoneliker"
+        android:textSize="13sp"
+        />
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/email"
-            android:theme="@style/lineET"
-            android:inputType="textMultiLine" />
-    </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etsuggestion"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/etemail"
-            app:hintTextColor="@color/secondary_dark">
-
-            <EditText
-                android:id="@+id/suggestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/suggestion"
-                android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:theme="@style/lineET" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btncancel"
-            android:layout_width="0dp"
-            style="@style/buttonOutlinedWhite"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/cancel"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/etsuggestion"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <Button
-            android:id="@+id/btnsend"
-            style="@style/buttonOutlinedRed"
-            android:layout_width="0dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/button_selector"
-            android:text="@string/send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintTop_toBottomOf="@+id/etsuggestion" />
-
-
+    <ImageView
+        android:id="@+id/ivNerea"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circleiv"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/ivIker" />
+    <TextView
+        android:id="@+id/tvNerea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivNerea"
+        app:layout_constraintTop_toBottomOf="@id/ivIker"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Nerea Ramos Escobar"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvGitNerea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivNerea"
+        app:layout_constraintTop_toBottomOf="@id/tvNerea"
+        app:layout_constraintEnd_toStartOf="@id/tvGitNerealink"
+        android:text="Follow on GitHub "
+        android:textSize="13sp"
+        />
+    <TextView
+        android:id="@+id/tvGitNerealink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvGitNerea"
+        app:layout_constraintTop_toBottomOf="@id/tvNerea"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Nereare4"
+        android:textSize="13sp"
+        />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/leftguide"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/rightguide"
