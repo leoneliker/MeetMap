@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,6 +71,10 @@ class EditProfileFragment() : Fragment() {
     fun initUI() {
         binding.btnsave.setOnClickListener {
             saveImg()
+            Handler().postDelayed({
+                saveImg()
+            }, 2000)
+
             Toast.makeText(requireActivity(), resources.getString(R.string.updatedData), Toast.LENGTH_LONG).show()
             goBack()
         }

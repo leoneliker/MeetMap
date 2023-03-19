@@ -4,10 +4,12 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -33,10 +35,13 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener {
     private lateinit var map: GoogleMap
+    private lateinit var loadingSpinner: ProgressBar
+    private lateinit var dimView: View
     private var locatorList = listOf<LocatorView>()
     private val viewModel: MadridViewModel by lazy {
         ViewModelProvider(this)[MadridViewModel::class.java]
     }
+
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var userLocation: LatLng?=null
@@ -49,9 +54,13 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        observe()
-
         val v: View = inflater.inflate(R.layout.fragment_map, container, false)
+        dimView = v.findViewById(R.id.dim_view)
+        dimView.setOnClickListener(null)
+        dimView.visibility = View.VISIBLE
+        loadingSpinner = v.findViewById(R.id.loading_spinner)
+        loadingSpinner.visibility = View.VISIBLE
+        observe()
         requestLocationPermission()
         val mMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -86,6 +95,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             locatorList = locators
             map.setInfoWindowAdapter(CustomInfoWindowAdapter(LayoutInflater.from(activity),locatorList));
             map.setOnInfoWindowClickListener(this)
+            loadingSpinner.visibility = View.GONE
+            dimView.visibility = View.GONE
         }
     }
 
@@ -98,8 +109,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         enableLocation()
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             location?.let {
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                Log.i("Localizacion", currentLatLng.toString())
+                //val currentLatLng = LatLng(location.latitude, location.longitude)
+                val currentLatLng = LatLng(40.419460, -3.693644)
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             }
         }
