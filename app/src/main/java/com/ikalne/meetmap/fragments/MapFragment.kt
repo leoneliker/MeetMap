@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -35,6 +38,9 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         ViewModelProvider(this)[MadridViewModel::class.java]
     }
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var userLocation: LatLng?=null
+
     companion object {
         const val REQUEST_CODE_LOCATION = 0
         val madridMap = hashMapOf<String, String>()
@@ -44,13 +50,17 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         observe()
+
         val v: View = inflater.inflate(R.layout.fragment_map, container, false)
         requestLocationPermission()
         val mMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mMapFragment.getMapAsync(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return v
     }
+
+
 
     fun observe() {
         viewModel.locators.observe(viewLifecycleOwner) { locators ->
@@ -86,11 +96,20 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         map.setOnMyLocationButtonClickListener(this)
         map.setOnMyLocationClickListener(this)
         enableLocation()
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let {
+                val currentLatLng = LatLng(location.latitude, location.longitude)
+                Log.i("Localizacion", currentLatLng.toString())
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+            }
+        }
 
-        val Madrid = LatLng(40.401490, -3.708010)
-        map.moveCamera(
-            CameraUpdateFactory.newLatLngZoom(Madrid, 14f)
-        )
+
+//        val ownLocation = LatLng(40.401490, -3.708010)
+//        userLocation?.let { map.moveCamera(CameraUpdateFactory.newLatLngZoom(it,15f)) }
+//        map.moveCamera(
+//            CameraUpdateFactory.newLatLngZoom(ownLocation, 14f)
+//        )
 
         map.setOnMarkerClickListener {// on marker click we are getting the title of our marker
             false
