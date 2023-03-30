@@ -2,6 +2,7 @@ package com.ikalne.meetmap.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.Marker
 import com.ikalne.meetmap.R
@@ -21,6 +23,8 @@ class InfoActivityFragment :Fragment() {
     private lateinit var binding : FragmentInfoActivityBinding
     private lateinit var marker: Marker
     private lateinit var locatorsList: List<LocatorView>
+    private lateinit var imgbtn : ImageButton
+
 
     fun setMarker(marker: Marker, locatorsList: List<LocatorView>) {
         this.marker = marker
@@ -40,8 +44,24 @@ class InfoActivityFragment :Fragment() {
 
         val idInfo = MapFragment.madridMap[marker.title]
 
+        imgbtn = binding.btnedit
+        var isGreen = false
+        imgbtn.setOnClickListener {
+            if (isGreen) {
+                imgbtn.setBackgroundResource(R.drawable.love2);
+                isGreen = false
+            } else {
+                imgbtn.setBackgroundResource(R.drawable.love);
+                isGreen = true
+            }
+        }
+
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
 
+        if(isGreen){
+
+
+        }
         return binding.root
     }
 
