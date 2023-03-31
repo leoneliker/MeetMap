@@ -25,7 +25,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.ikalne.meetmap.MainAppActivity
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.FragmentConctactUsBinding
-import com.ikalne.meetmap.databinding.FragmentEditProfileBinding
 
 
 class ConctactUsFragment : Fragment() {
