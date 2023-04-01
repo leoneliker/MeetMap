@@ -75,7 +75,7 @@
         android:textSize="13sp"
         />
     <ImageView
-        android:id="@+id/ivIker"
+        android:id="@+id/ivDani"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="60dp"
@@ -84,13 +84,58 @@
         app:layout_constraintStart_toStartOf="@id/leftguide"
         app:layout_constraintTop_toBottomOf="@id/ivAlmu" />
     <TextView
+        android:id="@+id/tvDani"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivDani"
+        app:layout_constraintTop_toBottomOf="@id/ivAlmu"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Daniel García Ayala"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvGitDani"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivDani"
+        app:layout_constraintTop_toBottomOf="@id/tvDani"
+        app:layout_constraintEnd_toStartOf="@id/tvGitDanilink"
+        android:text="Follow on GitHub "
+        android:textSize="13sp"
+        />
+    <TextView
+        android:id="@+id/tvGitDanilink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvGitDani"
+        app:layout_constraintTop_toBottomOf="@id/tvDani"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        android:text="Daniel García"
+        android:textSize="13sp"
+        />
+    <ImageView
+        android:id="@+id/ivIker"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circleiv"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@id/ivDani" />
+    <TextView
         android:id="@+id/tvIker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintStart_toEndOf="@id/ivIker"
-        app:layout_constraintTop_toBottomOf="@id/ivAlmu"
+        app:layout_constraintTop_toBottomOf="@id/ivDani"
         app:layout_constraintEnd_toEndOf="@id/rightguide"
         android:text="Iker Iturralde Tejido"
         android:textSize="13sp"
@@ -119,7 +164,6 @@
         android:text="leoneliker"
         android:textSize="13sp"
         />
-
     <ImageView
         android:id="@+id/ivNerea"
         android:layout_width="96dp"
