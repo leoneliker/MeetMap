@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface ContactDao {
+interface EventDaoDao {
     @Query("SELECT * FROM event_table ORDER BY ev_date ASC")
     fun getAlphabetizedContact(): LiveData<List<Event>>
 
