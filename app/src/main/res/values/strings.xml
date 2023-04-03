@@ -94,5 +94,6 @@
     <string name="backAgain">Please click BACK again to exit</string>
     <string name="deleteAccountQuestion">Are you sure you want to delete the account?</string>
     <string name="deleteAccountSuccesful">The account has been deleted</string>
+    <string name="messagechat">Message</string>
 
 </resources>

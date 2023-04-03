@@ -93,6 +93,7 @@
     <string name="backAgain">Por favor pulse ATRÁS otra vez para salir</string>
     <string name="deleteAccountQuestion">¿Está seguro que desea eliminar la cuenta?</string>
     <string name="deleteAccountSuccesful">La cuenta se ha eliminado</string>
+    <string name="messagechat">Mensaje</string>
 
 
 </resources>
