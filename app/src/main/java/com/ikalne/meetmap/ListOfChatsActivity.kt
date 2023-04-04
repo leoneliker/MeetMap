@@ -39,6 +39,8 @@ class ListOfChatsActivity : AppCompatActivity() {
                 chatSelected(chat)
             }
 
+
+
         val userRef = db.collection("users").document(user)
 
         userRef.collection("chats")
@@ -60,6 +62,8 @@ class ListOfChatsActivity : AppCompatActivity() {
                 }
             }
     }
+
+
 
     private fun chatSelected(chat: Chat){
         val intent = Intent(this, ChatActivity::class.java)
