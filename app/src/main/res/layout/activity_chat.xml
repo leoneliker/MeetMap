@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         tools:context=".fragments.ChatFragment">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +71,7 @@
             app:layout_constraintBottom_toTopOf="@+id/messageTextField"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:listitem="@layout/item_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

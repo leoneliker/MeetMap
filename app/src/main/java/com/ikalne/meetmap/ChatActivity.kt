@@ -1,6 +1,8 @@
 package com.ikalne.meetmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ikalne.meetmap.adapters.MessageAdapter
 import com.ikalne.meetmap.models.Message
@@ -12,8 +14,11 @@ import com.ikalne.meetmap.databinding.ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
     lateinit var binding: ActivityChatBinding
+    private var toolbar: Toolbar? = null
     private var chatId = ""
     private var user = ""
+    private var name = ""
+
 
     private var db = Firebase.firestore
 
@@ -22,8 +27,20 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+
         intent.getStringExtra("chatId")?.let { chatId = it }
         intent.getStringExtra("user")?.let { user = it }
+
+        name = intent.getStringExtra("name").toString()
+
+        // Ahora puedes usar la variable name como una cadena en tu actividad
+        Log.d("TAG", "El nombre es $name")
+
+
+
 
         if(chatId.isNotEmpty() && user.isNotEmpty()) {
             initViews()
@@ -33,7 +50,7 @@ class ChatActivity : AppCompatActivity() {
     private fun initViews(){
         binding.messagesRecylerView.layoutManager = LinearLayoutManager(this)
         binding.messagesRecylerView.adapter = MessageAdapter(user)
-
+        supportActionBar?.title = "Chat con $name"
         binding.sendMessageButton.setOnClickListener { sendMessage() }
 
         val chatRef = db.collection("chats").document(chatId)
