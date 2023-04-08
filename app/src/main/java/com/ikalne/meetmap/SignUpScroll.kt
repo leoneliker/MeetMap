@@ -158,6 +158,7 @@ class SignUpScroll : AppCompatActivity() {
             fStore.collection("users").document(it1).set(
                 hashMapOf(
                     "name" to "",
+                    "email" to PreferencesManager.getDefaultSharedPreferences(this).getEmail(),
                     "surname" to "",
                     "phone" to "",
                     "description" to "",
@@ -172,6 +173,7 @@ class SignUpScroll : AppCompatActivity() {
         fStore.collection("users").document(email.text.toString()).set(
             hashMapOf(
                 "name" to "",
+                "email" to PreferencesManager.getDefaultSharedPreferences(this).getEmail(),
                 "surname" to "",
                 "phone" to "",
                 "description" to "",

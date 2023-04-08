@@ -2,6 +2,7 @@ package com.ikalne.meetmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ikalne.meetmap.adapters.MessageAdapter
@@ -30,6 +31,8 @@ class ChatActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         intent.getStringExtra("chatId")?.let { chatId = it }
         intent.getStringExtra("user")?.let { user = it }
@@ -50,8 +53,9 @@ class ChatActivity : AppCompatActivity() {
     private fun initViews(){
         binding.messagesRecylerView.layoutManager = LinearLayoutManager(this)
         binding.messagesRecylerView.adapter = MessageAdapter(user)
-        supportActionBar?.title = "Chat con $name"
+        binding.toolbar.title = "Chat con $name"
         binding.sendMessageButton.setOnClickListener { sendMessage() }
+
 
         val chatRef = db.collection("chats").document(chatId)
 
@@ -71,6 +75,15 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun sendMessage(){

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,6 +86,7 @@ class EditProfileFragment() : Fragment() {
                 binding.surnombre.setText(it.get("surname") as String)
                 binding.phone.setText(it.get("phone") as String)
                 binding.description.setText(it.get("description") as String)
+                binding.email.setText(email)
             }
             goBack()
         }
@@ -118,6 +120,12 @@ class EditProfileFragment() : Fragment() {
             url = uri.toString()
             updateData()
         }
+            .addOnFailureListener { exception ->
+                // Manejar el error aquí
+                url ="https://firebasestorage.googleapis.com/v0/b/meetmap-1856b.appspot.com/o/img%2Fpredeterminado.png?alt=media&token=3bda85a1-f7d2-4bbb-86f1-c96cad24bebd"
+                updateData()
+                Log.e("TAG", "Error al descargar la imagen: ${exception.message}")
+            }
     }
 //    fun updateimg(){
 //        val updates = hashMapOf<String, Any>(
@@ -131,7 +139,9 @@ class EditProfileFragment() : Fragment() {
             "surname" to binding.surnombre.text.toString(),
             "phone" to binding.phone.text.toString(),
             "description" to binding.description.text.toString(),
-            "img" to url
+            "img" to url,
+
+
         )
         fStore.collection("users").document(email).update(updates)
     }

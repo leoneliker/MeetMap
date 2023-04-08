@@ -32,6 +32,13 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
 
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+        if(user!=chats[position].name){
+            holder.binding.chatNameText.text = chats[position].name
+        }
+        else
+        {
+            holder.binding.chatNameText.text = chats[position].users[0]
+        }
         holder.binding.chatNameText.text = chats[position].name
         holder.binding.usersTextView.text = chats[position].users.toString()
 
@@ -39,18 +46,18 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
             chatClick(chats[position])
         }
 
-       /* holder.itemView.setOnLongClickListener {
+       holder.itemView.setOnLongClickListener {
             chatid=chats[holder.adapterPosition].id
             removeItem(holder.adapterPosition)
             true
-        }*/
+        }
     }
 
     override fun getItemCount(): Int {
         return chats.size
     }
 
-   /* fun removeItem(position: Int) {
+   fun removeItem(position: Int) {
 
         chats = chats.filterIndexed { index, _ -> index != position }
         notifyItemRemoved(position)
@@ -60,7 +67,7 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
         val userRef = db.collection("users").document(user)
         val chatRef = userRef.collection("chats").document(chatid)
         chatRef.delete()
-    }*/
+    }
 
     class ChatViewHolder(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root)
 }
