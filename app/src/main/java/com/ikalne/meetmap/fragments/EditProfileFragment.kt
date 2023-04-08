@@ -121,10 +121,10 @@ class EditProfileFragment() : Fragment() {
             updateData()
         }
             .addOnFailureListener { exception ->
-                // Manejar el error aquí
+                Log.e("TAG", "Error al descargar la imagen: ${exception.message}")
                 url ="https://firebasestorage.googleapis.com/v0/b/meetmap-1856b.appspot.com/o/img%2Fpredeterminado.png?alt=media&token=3bda85a1-f7d2-4bbb-86f1-c96cad24bebd"
                 updateData()
-                Log.e("TAG", "Error al descargar la imagen: ${exception.message}")
+
             }
     }
 //    fun updateimg(){
