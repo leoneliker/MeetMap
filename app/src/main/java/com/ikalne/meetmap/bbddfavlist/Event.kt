@@ -1,6 +1,5 @@
 package com.ikalne.meetmap.bbddfavlist
 
-import android.support.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,7 +9,7 @@ import java.io.Serializable
 data class Event(
     @PrimaryKey
     @ColumnInfo(name = "ev_id")
-    var event_id: String,
+    var event_id: Int,
     @ColumnInfo(name = "ev_name")
     var event_name: String,
     @ColumnInfo(name = "ev_date")
