@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.ChatActivity
@@ -105,20 +106,11 @@ class ChatFragment : Fragment() {
                 for (document in documents) {
                     Toast.makeText(requireContext(),"EL USUARIO ESTÁ DADO DE ALTA EN LA APP", Toast.LENGTH_LONG).show()
                 }
-                Log.w("TAG", "despues comprobar si el usuario esta dado de alta: ")
                 //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
                 chatsRef.get()
                     .addOnSuccessListener { documents ->
-                        Log.w("TAG", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ")
-                        Log.w("INIT", "INITaaaaa=  $init")
-                        Log.w("USER", "USERaaaaa=  $user")
-                        Log.w("OTHERUSER", "OTHERUSERaaaaa=  $otherUser")
                         if (documents.isEmpty) {
                             init = true
-                            Log.w("TAG", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: ")
-                            Log.w("INIT", "INITbbbbb=  $init")
-                            Log.w("USER", "USERbbbbbbbbbb=  $user")
-                            Log.w("OTHERUSER", "OTHERUSERbbbbbbbb=  $otherUser")
                             chatUp(otherUser, chatId)
                         } else {
                             chatsRef.whereArrayContains("users", user).get()
@@ -127,25 +119,17 @@ class ChatFragment : Fragment() {
                                         val usersList = document.get("users") as? List<String>
                                         if (usersList != null && usersList.contains(otherUser)) {
                                             init = false
-                                            Log.w("INIT", "INITdddd1=  $init")
-                                            Log.w("TAG", "LOS USUARIOS ESTÁN EN EL MISMO CHAT")
-                                            Log.w("INIT", "INITdddddd2=  $init")
-                                            Log.w("USER", "USERddddddddd=  $user")
-                                            Log.w("OTHERUSER", "OTHERUSERddddddddddddd=  $otherUser")
-                                            Log.w("TAG", "dddddddddddddddddddddddddddddddddddddddddddddddddddd ")
-                                            Log.w("INIT", "INITddddd3=  $init")
                                             val idChat = document.id
+                                            val nameChat=document.getString("name")?: "Chat"
                                             Log.w("CHATID", "CHATID=  $idChat")
+                                            val chat = Chat(idChat, nameChat, listOf(user, otherUser))
+                                            chatSelected(chat)
                                             break
                                             //ABRIR ESE CHAT????????
                                             //Buscar en el recyclerView ese ID y mostrar solo ese item del recyclerview para que se pueda clicar y abrir
+                                            //O abrir directamente ese chat
                                         } else {
                                             init = true
-                                            Log.w("TAG", "LOS USUARIOS NO TIENEN UN CHAT EN COMUN")
-                                            Log.w("TAG", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ")
-                                            Log.w("USER", "USEReeeeeeeee=  $user")
-                                            Log.w("OTHERUSER", "OTHERUSEReeeeeeeee=  $otherUser")
-
                                         }
                                     }
                                     if(init){
@@ -175,9 +159,6 @@ class ChatFragment : Fragment() {
 
     private fun chatUp(otherUser: String, chatId: String)
     {
-        Log.w("TAG", "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc: ")
-        Log.w("USER", "USERccccccc=  $user")
-        Log.w("OTHERUSER", "OTHERUSERcccccccccc=  $otherUser")
         val users = listOf(user, otherUser)
 
         val chat = Chat(
@@ -196,6 +177,8 @@ class ChatFragment : Fragment() {
         intent.putExtra("name", "Chat con $otherUser")
         startActivity(intent)
     }
+
+
 }
 
 

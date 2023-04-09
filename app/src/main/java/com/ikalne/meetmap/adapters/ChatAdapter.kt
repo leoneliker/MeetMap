@@ -71,6 +71,10 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
     fun getItemPosition(chatId: String): Int {
         return chats.indexOfFirst { chat -> chat.id == chatId }
     }
+    fun filterChatById(chatId: String) {
+        chats = chats.filter { it.id == chatId }
+        notifyDataSetChanged()
+    }
 
     class ChatViewHolder(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root)
 }
