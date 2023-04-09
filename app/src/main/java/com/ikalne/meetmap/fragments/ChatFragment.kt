@@ -96,20 +96,88 @@ class ChatFragment : Fragment() {
         val chatId = UUID.randomUUID().toString()
         val otherUser = binding.newChatText.text.toString()
         val  users_ref= db.collection("users")
+        val  chatsRef= db.collection("chats")
         val query= users_ref.whereEqualTo("email",otherUser)
+        var init=true
         query.get().addOnSuccessListener { documents ->
             if (documents.size() > 0) {
                 // Se encontraron documentos que coinciden con la consulta
                 for (document in documents) {
-                    Toast.makeText(requireContext(),"YA EXISTE EL USUARIO", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),"EL USUARIO ESTÁ DADO DE ALTA EN LA APP", Toast.LENGTH_LONG).show()
                 }
-            } else {
+                Log.w("TAG", "despues comprobar si el usuario esta dado de alta: ")
+                //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
+                chatsRef.get()
+                    .addOnSuccessListener { documents ->
+                        Log.w("TAG", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ")
+                        Log.w("INIT", "INITaaaaa=  $init")
+                        Log.w("USER", "USERaaaaa=  $user")
+                        Log.w("OTHERUSER", "OTHERUSERaaaaa=  $otherUser")
+                        if (documents.isEmpty) {
+                            init = true
+                            Log.w("TAG", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: ")
+                            Log.w("INIT", "INITbbbbb=  $init")
+                            Log.w("USER", "USERbbbbbbbbbb=  $user")
+                            Log.w("OTHERUSER", "OTHERUSERbbbbbbbb=  $otherUser")
+                            chatUp(otherUser, chatId)
+                        } else {
+                            chatsRef.whereArrayContains("users", user).get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        val usersList = document.get("users") as? List<String>
+                                        if (usersList != null && usersList.contains(otherUser)) {
+                                            init = false
+                                            Log.w("INIT", "INITdddd1=  $init")
+                                            Log.w("TAG", "LOS USUARIOS ESTÁN EN EL MISMO CHAT")
+                                            Log.w("INIT", "INITdddddd2=  $init")
+                                            Log.w("USER", "USERddddddddd=  $user")
+                                            Log.w("OTHERUSER", "OTHERUSERddddddddddddd=  $otherUser")
+                                            Log.w("TAG", "dddddddddddddddddddddddddddddddddddddddddddddddddddd ")
+                                            Log.w("INIT", "INITddddd3=  $init")
+                                            val idChat = document.id
+                                            Log.w("CHATID", "CHATID=  $idChat")
+                                            break
+                                            //ABRIR ESE CHAT????????
+                                            //Buscar en el recyclerView ese ID y mostrar solo ese item del recyclerview para que se pueda clicar y abrir
+                                        } else {
+                                            init = true
+                                            Log.w("TAG", "LOS USUARIOS NO TIENEN UN CHAT EN COMUN")
+                                            Log.w("TAG", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ")
+                                            Log.w("USER", "USEReeeeeeeee=  $user")
+                                            Log.w("OTHERUSER", "OTHERUSEReeeeeeeee=  $otherUser")
+
+                                        }
+                                    }
+                                    if(init){
+                                        chatUp(otherUser, chatId)
+                                    }
+                                }
+                                .addOnFailureListener { exception ->
+                                    Log.w("TAG", "Error al buscar en la lista ", exception)
+                                }
+                        }
+
+
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("TAG", "Error al buscar EN CHATS ", exception)
+                    }
+
+            }
+            else {
                 // No se encontraron documentos que coinciden con la consulta
                 Toast.makeText(requireContext(),"noooo EXISTE EL USUARIO", Toast.LENGTH_LONG).show()
             }
-        }.addOnFailureListener { exception ->
-            Log.w("TAG", "Error getting documents: ", exception)
         }
+            .addOnFailureListener {exception ->
+    Log.w("TAG", "Error getting documents: ", exception) }
+    }
+
+    private fun chatUp(otherUser: String, chatId: String)
+    {
+        Log.w("TAG", "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc: ")
+        Log.w("USER", "USERccccccc=  $user")
+        Log.w("OTHERUSER", "OTHERUSERcccccccccc=  $otherUser")
         val users = listOf(user, otherUser)
 
         val chat = Chat(
@@ -128,6 +196,6 @@ class ChatFragment : Fragment() {
         intent.putExtra("name", "Chat con $otherUser")
         startActivity(intent)
     }
-
-
 }
+
+

@@ -34,6 +34,10 @@ class EditProfileFragment() : Fragment() {
     lateinit var filePath: StorageReference
     lateinit var img: ImageView
     private var url= ""
+    companion object{
+        const val PRED_URL="https://firebasestorage.googleapis.com/v0/b/meetmap-1856b.appspot.com/o/img%2Fpredeterminado.png?alt=media&token=3bda85a1-f7d2-4bbb-86f1-c96cad24bebd"
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,7 +126,7 @@ class EditProfileFragment() : Fragment() {
         }
             .addOnFailureListener { exception ->
                 Log.e("TAG", "Error al descargar la imagen: ${exception.message}")
-                url ="https://firebasestorage.googleapis.com/v0/b/meetmap-1856b.appspot.com/o/img%2Fpredeterminado.png?alt=media&token=3bda85a1-f7d2-4bbb-86f1-c96cad24bebd"
+                url =PRED_URL
                 updateData()
 
             }

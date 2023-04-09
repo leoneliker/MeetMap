@@ -68,6 +68,9 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
         val chatRef = userRef.collection("chats").document(chatid)
         chatRef.delete()
     }
+    fun getItemPosition(chatId: String): Int {
+        return chats.indexOfFirst { chat -> chat.id == chatId }
+    }
 
     class ChatViewHolder(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root)
 }
