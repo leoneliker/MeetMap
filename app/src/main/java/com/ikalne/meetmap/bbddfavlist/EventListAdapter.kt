@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ikalne.meetmap.R
 
 class ContactListAdapter(private val listener: View.OnClickListener) :
-    ListAdapter<Event, EventViewHolder>(EventDiffCallback()) {
+    ListAdapter<Event,EventViewHolder>(EventDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recyclerview_item, parent, false)
+            .inflate(R.layout.favlist_item, parent, false)
         view.setOnClickListener(listener)
-        return ContactViewHolder.create(view)
+        return EventViewHolder.create(view)
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
@@ -29,10 +29,10 @@ class ContactListAdapter(private val listener: View.OnClickListener) :
     }
 
     class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameItemView: TextView = itemView.findViewById(R.id.name)
-        private val dateItemView: TextView = itemView.findViewById(R.id.date)
-        private val timeItemView: TextView = itemView.findViewById(R.id.time)
-        private val placeItemView: TextView = itemView.findViewById(R.id.place)
+        private val nameItemView: TextView = itemView.findViewById(R.id.nameView)
+        private val dateItemView: TextView = itemView.findViewById(R.id.dateView)
+        private val timeItemView: TextView = itemView.findViewById(R.id.timeView)
+        private val placeItemView: TextView = itemView.findViewById(R.id.placeView)
 
         fun bind(name: String?, date: String?, time: String?, place: String?) {
             nameItemView.text = name
@@ -44,7 +44,7 @@ class ContactListAdapter(private val listener: View.OnClickListener) :
         companion object {
             fun create(parent: ViewGroup): EventViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recyclerview_item, parent, false)
+                    .inflate(R.layout.favlist_item, parent, false)
                 return EventViewHolder(view)
             }
         }
@@ -56,7 +56,7 @@ class ContactListAdapter(private val listener: View.OnClickListener) :
         }
 
         override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean {
-            return oldItem.ev_id == newItem.ev_id
+            return oldItem.event_name == newItem.event_name && oldItem.event_date == newItem.event_date && oldItem.event_place == newItem.event_place && oldItem.event_time == newItem.event_time;
         }
     }
 }

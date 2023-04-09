@@ -5,11 +5,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ikalne.meetmap.R
 
-class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val nameItemView: TextView = itemView.findViewById(R.id.name)
-    private val dateItemView: TextView = itemView.findViewById(R.id.date)
-    private val timeItemView: TextView = itemView.findViewById(R.id.time)
-    private val placeItemView: TextView = itemView.findViewById(R.id.place)
+class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val nameItemView: TextView = itemView.findViewById(R.id.nameView)
+    private val dateItemView: TextView = itemView.findViewById(R.id.dateView)
+    private val timeItemView: TextView = itemView.findViewById(R.id.timeView)
+    private val placeItemView: TextView = itemView.findViewById(R.id.placeView)
 
     fun bind(name: String?, date: String?, time: String?, place: String?) {
         nameItemView.text = name
@@ -19,8 +19,8 @@ class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     companion object {
-        fun create(view: View): ContactViewHolder {
-            return ContactViewHolder(view)
+        fun create(view: View): EventViewHolder {
+            return EventViewHolder(view)
         }
     }
 }

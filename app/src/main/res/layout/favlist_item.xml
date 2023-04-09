@@ -33,7 +33,7 @@
                     android:layout_alignRight="@+id/ev_time"
                     android:background="@color/secondary_light" />
                 <TextView
-                    android:id="@+id/ev_time"
+                    android:id="@+id/timeView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignLeft="@+id/dateView"
