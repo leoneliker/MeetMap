@@ -3,10 +3,11 @@ package com.ikalne.meetmap.bbddfavlist
 import android.app.Application
 import androidx.lifecycle.LiveData
 
+
 class EventRepository(application: Application) {
 
     private val mEventDao: EventDao
-    val allEvents: LiveData<List<Event>>
+    private val allEvents: LiveData<List<Event>>
 
     init {
         val db = EventRoomDatabase.getDatabase(application)
@@ -26,7 +27,7 @@ class EventRepository(application: Application) {
 
     fun delete(event: Event) {
         EventRoomDatabase.databaseWriteExecutor.execute {
-            mEventDao.delete(event.event_id.toString())
+            mEventDao.delete(event.event_id)
         }
     }
 }

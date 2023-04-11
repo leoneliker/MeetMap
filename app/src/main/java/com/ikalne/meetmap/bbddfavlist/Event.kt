@@ -7,7 +7,7 @@ import java.io.Serializable
 
 @Entity(tableName = "event_table")
 data class Event(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ev_id")
     var event_id: Int,
     @ColumnInfo(name = "ev_name")
