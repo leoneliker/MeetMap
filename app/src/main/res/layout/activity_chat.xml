@@ -43,7 +43,7 @@
 
             />
 
-        <Button
+        <ImageButton
             android:id="@+id/sendMessageButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -51,7 +51,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/chatbutton"
-            android:drawableLeft="@drawable/ic_chatsend"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
