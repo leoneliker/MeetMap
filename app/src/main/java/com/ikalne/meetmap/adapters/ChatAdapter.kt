@@ -59,10 +59,10 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, chats.size)
 
-       /* val db = Firebase.firestore
+        val db = Firebase.firestore
         val userRef = db.collection("users").document(user)
         val chatRef = userRef.collection("chats").document(chatid)
-        chatRef.delete()*/
+        chatRef.delete()
     }
     fun getItemPosition(chatId: String): Int {
         return chats.indexOfFirst { chat -> chat.id == chatId }
