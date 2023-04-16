@@ -66,13 +66,15 @@ class InfoActivityFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
-        //System.out.println(plAct.titulo);
+        System.out.println(plAct.titulo);
+
 
         if (firebaseAuth.currentUser != null) {
             checkIsFavourite(plAct)
         }
 
         binding.btnedit.setOnClickListener() {
+            checkIsFavourite(plAct)
             if (firebaseAuth.currentUser == null) {
                // Toast.makeText(this, "You're not logged in", Toast.LENGTH_SHORT).show()
             } else {
@@ -198,10 +200,10 @@ class InfoActivityFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         IsInMyFavourite = true
-                        binding.btnedit.setBackgroundResource(R.drawable.love)
+                        binding.btnedit.setBackgroundResource(R.drawable.love2)
                     } else {
                         IsInMyFavourite = false
-                        binding.btnedit.setBackgroundResource(R.drawable.love2)
+                        binding.btnedit.setBackgroundResource(R.drawable.love)
                     }
                 }
 
