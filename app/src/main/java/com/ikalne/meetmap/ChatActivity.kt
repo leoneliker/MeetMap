@@ -53,7 +53,8 @@ class ChatActivity : AppCompatActivity() {
     private fun initViews(){
         binding.messagesRecylerView.layoutManager = LinearLayoutManager(this)
         binding.messagesRecylerView.adapter = MessageAdapter(user)
-        binding.toolbar.title = "Chat con $name"
+        val text= name.substringBefore("@")
+        binding.toolbar.title = "Chat con $text"
         binding.sendMessageButton.setOnClickListener { sendMessage() }
 
 

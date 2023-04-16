@@ -32,14 +32,10 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
 
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        if(user!=chats[position].name){
-            holder.binding.chatNameText.text = chats[position].name
-        }
-        else
-        {
-            holder.binding.chatNameText.text = chats[position].users[0]
-        }
-        holder.binding.chatNameText.text = chats[position].name
+        val currentUser = PreferencesManager.getDefaultSharedPreferences(holder.itemView.context).getEmail()
+        val chat = chats[position]
+        val otherUser = if (chat.users[0] == currentUser) chat.users[1] else chat.users[0]
+        holder.binding.chatNameText.text = otherUser.substringBefore("@")
         holder.binding.usersTextView.text = chats[position].users.toString()
 
         holder.itemView.setOnClickListener {
@@ -63,10 +59,10 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, chats.size)
 
-        val db = Firebase.firestore
+       /* val db = Firebase.firestore
         val userRef = db.collection("users").document(user)
         val chatRef = userRef.collection("chats").document(chatid)
-        chatRef.delete()
+        chatRef.delete()*/
     }
     fun getItemPosition(chatId: String): Int {
         return chats.indexOfFirst { chat -> chat.id == chatId }

@@ -174,7 +174,7 @@ class ChatFragment : Fragment() {
         val intent = Intent(requireContext(), ChatActivity::class.java)
         intent.putExtra("chatId", chatId)
         intent.putExtra("user", user)
-        intent.putExtra("name", "Chat con $otherUser")
+        intent.putExtra("name", otherUser)
         startActivity(intent)
     }
 
