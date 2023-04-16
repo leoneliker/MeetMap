@@ -77,32 +77,34 @@ class AdapterFLI: RecyclerView.Adapter<AdapterFLI.HolderFLI> {
     private fun loadActDetails(model: FLI, holder: AdapterFLI.HolderFLI) {
         val ActID = model.id
 
-        val ref = FirebaseDatabase.getInstance().getReference("users/favourites")
-        ref.child(ActID)
-            .addListenerForSingleValueEvent(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val title = "${snapshot.child("Title").value}"
-                    val date = "${snapshot.child("Date").value}"
-                    val time = "${snapshot.child("Time").value}"
-                    val place = "${snapshot.child("Place").value}"
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+        currentUserUid?.let {
+            val ref = FirebaseDatabase.getInstance().getReference("users/$it/Favourites")
+            ref.child(ActID)
+                .addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val title = "${snapshot.child("Title").value}"
+                        val date = "${snapshot.child("Date").value}"
+                        val time = "${snapshot.child("Time").value}"
+                        val place = "${snapshot.child("Place").value}"
 
-                    model.isFav = true
-                    model.titulo = title
-                    model.lugar = place
-                    model.fecha = date
-                    model.horario = time
-                    model.id = ActID
+                        model.isFav = true
+                        model.titulo = title
+                        model.lugar = place
+                        model.fecha = date
+                        model.horario = time
+                        model.id = ActID
 
-                    holder.fli_title.text = title
-                    holder.fli_desc.text = place
-                    holder.fli_date.text = date
-                    holder.fli_time.text = time
-                }
+                        holder.fli_title.text = title
+                        holder.fli_desc.text = place
+                        holder.fli_date.text = date
+                        holder.fli_time.text = time
+                    }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+        }
     }
 
     override fun getItemCount(): Int {

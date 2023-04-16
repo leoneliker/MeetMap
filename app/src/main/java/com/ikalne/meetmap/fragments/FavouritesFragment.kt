@@ -49,27 +49,21 @@ class FavouritesFragment : Fragment() {
 
         loadFavouriteActs()
 
-        // Obtener un ViewModel nuevo o existente desde ViewModelProvider.
-
-        // Agregar un observador en el LiveData devuelto por getAllEvents.
-        // El método onChanged() se ejecuta cuando los datos observados cambian y el Fragment está en primer plano.
-
-        /*
-        adapter.setOnClickListener(View.OnClickListener { v ->
-            event = adapter.getEvent(recyclerView.getChildAdapterPosition(v))
-            paginaSiguiente(v)
-        })*/
+        // Crear y configurar el RecyclerView
+        recyclerView = binding.favouriteRv
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapterFLI = AdapterFLI(requireContext(), fliArrayList)
+        recyclerView.adapter = adapterFLI
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflar el diseño para este fragmento
         binding = FragmentFavouritesBinding.inflate(inflater, container, false)
-        return inflater.inflate(R.layout.fragment_favourites, container, false)
+        return binding.root
     }
-
 
     companion object {
         @JvmStatic
@@ -96,8 +90,7 @@ class FavouritesFragment : Fragment() {
                         FLI.id = aid
                         fliArrayList.add(FLI)
                     }
-                adapterFLI = AdapterFLI(requireContext(), fliArrayList)
-                    binding.favouriteRv.adapter = adapterFLI
+                    adapterFLI.notifyDataSetChanged() // Notificar al adaptador que los datos han cambiado
                 }
 
                 override fun onCancelled(error: DatabaseError) {
