@@ -64,11 +64,11 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
             chatClick(chats[position])
         }
 
-        /*holder.itemView.setOnLongClickListener {
+        holder.itemView.setOnLongClickListener {
             chatid=chats[holder.adapterPosition].id
             removeItem(holder.adapterPosition)
             true
-        }*/
+        }
     }
 
     override fun getItemCount(): Int {
