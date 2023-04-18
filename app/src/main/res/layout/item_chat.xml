@@ -20,6 +20,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,18 +31,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/chatImage"
+                    android:layout_width="@dimen/perfil_image_size"
+                    android:layout_height="@dimen/perfil_image_size"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circleiv"
+                    android:src="@drawable/predeterminado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <TextView
                     android:id="@+id/chatNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="@color/secondary"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/chatImage"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -48,11 +62,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
                     android:layout_marginBottom="8dp"
                     android:text="TextView"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/chatImage"
                     app:layout_constraintTop_toBottomOf="@+id/chatNameText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

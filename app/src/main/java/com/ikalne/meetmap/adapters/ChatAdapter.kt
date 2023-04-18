@@ -4,6 +4,7 @@ import android.R.attr.data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.PreferencesManager
@@ -32,21 +33,42 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
 
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+
         val currentUser = PreferencesManager.getDefaultSharedPreferences(holder.itemView.context).getEmail()
         val chat = chats[position]
         val otherUser = if (chat.users[0] == currentUser) chat.users[1] else chat.users[0]
         holder.binding.chatNameText.text = otherUser.substringBefore("@")
         holder.binding.usersTextView.text = chats[position].users.toString()
 
+        db.collection("users").document(otherUser).get().addOnSuccessListener {
+            Glide.with(holder.itemView.context)
+                .load(it.get("img")as String)
+                .circleCrop()
+                .into(holder.binding.chatImage)
+        }
+
+        db.collection("users").document(otherUser).addSnapshotListener { documentSnapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                // Actualiza la vista con el nuevo valor del nombre
+                Glide.with(holder.itemView.context)
+                    .load(documentSnapshot.getString("img"))
+                    .circleCrop()
+                    .into(holder.binding.chatImage)
+            }
+        }
+
         holder.itemView.setOnClickListener {
             chatClick(chats[position])
         }
 
-       holder.itemView.setOnLongClickListener {
+        /*holder.itemView.setOnLongClickListener {
             chatid=chats[holder.adapterPosition].id
             removeItem(holder.adapterPosition)
             true
-        }
+        }*/
     }
 
     override fun getItemCount(): Int {
