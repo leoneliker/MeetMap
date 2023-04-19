@@ -56,6 +56,7 @@ class ChatFragment : Fragment() {
                 chatSelected(chat)
             }
 
+        val adapter = binding.listChatsRecyclerView.adapter as ChatAdapter
         val userRef = db.collection("users").document(user)
 
         userRef.collection("chats")
@@ -63,7 +64,14 @@ class ChatFragment : Fragment() {
             .addOnSuccessListener { chats ->
                 val listChats = chats.toObjects(Chat::class.java)
 
-                (binding.listChatsRecyclerView.adapter as ChatAdapter).setData(listChats)
+               adapter.setData(listChats)
+                if (adapter.itemCount == 0) {
+                    binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+                    binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+                } else {
+                    binding.emptyRecyclerViewImageView.visibility = View.GONE
+                    binding.emptyRecyclerViewTextView.visibility = View.GONE
+                }
             }
 
         userRef.collection("chats")
@@ -72,8 +80,15 @@ class ChatFragment : Fragment() {
                     chats?.let {
                         val listChats = it.toObjects(Chat::class.java)
 
-                        (binding.listChatsRecyclerView.adapter as ChatAdapter).setData(listChats)
+                        adapter.setData(listChats)
                     }
+                }
+                if (adapter.itemCount == 0) {
+                    binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+                    binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+                } else {
+                    binding.emptyRecyclerViewImageView.visibility = View.GONE
+                    binding.emptyRecyclerViewTextView.visibility = View.GONE
                 }
             }
     }

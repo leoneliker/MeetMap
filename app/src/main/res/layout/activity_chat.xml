@@ -22,10 +22,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:textSize="12sp"
                 app:title="My Title"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:titleTextColor="@color/dark_gray"/>
+                app:titleTextColor="@color/dark_gray"
+                android:background="@color/primary_light"
+                app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
         </com.google.android.material.appbar.AppBarLayout>
         <EditText

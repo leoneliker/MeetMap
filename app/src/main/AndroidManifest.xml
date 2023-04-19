@@ -27,7 +27,8 @@
         </activity>
         <activity
             android:name=".ChatActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.MeetMap.NoActionBar.Chat">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
