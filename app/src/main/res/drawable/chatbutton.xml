@@ -4,8 +4,9 @@
             <solid android:color="@color/primary_light" />
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_chatsend"
+    <item android:drawable="@drawable/ic_handsend1"
+
         android:gravity="center"
-        android:right="-2dp"
+        android:right="-1dp"
        />
 </layer-list>
