@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -31,8 +31,8 @@
             android:name=".MainAppActivity"
             android:exported="false"
             android:label="@string/title_activity_main_app"
-            android:theme="@style/Theme.MeetMap.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MeetMap.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -45,31 +45,31 @@
         <activity
             android:name=".Initial"
             android:exported="false"
-            android:theme="@style/Theme.MeetMap.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
             android:name=".InfoActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitiesList"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpScroll"
             android:exported="false"
-            android:theme="@style/Theme.MeetMap.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
             android:name=".LoginScroll"
             android:exported="false"
-            android:theme="@style/Theme.MeetMap.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
             android:name=".Splash"
             android:exported="true"
-            android:theme="@style/Theme.MeetMap.NoActionBar.Splash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MeetMap.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

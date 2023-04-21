@@ -70,7 +70,8 @@
                 android:id="@+id/login"
                 android:text="@string/login"
                 style="@style/buttonOutlinedRed"
-                android:backgroundTint="@color/button_selector">
+                android:backgroundTint="@color/button_selector"
+                android:layout_marginBottom="60dp">
             </Button>
     </LinearLayout>
 

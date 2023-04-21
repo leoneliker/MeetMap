@@ -5,12 +5,16 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.Marker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,7 +28,8 @@ import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
 
 class InfoActivityFragment : Fragment() {
 
-    private lateinit var binding: FragmentInfoActivityBinding
+    lateinit var imgLayout: ImageView
+    private lateinit var binding : FragmentInfoActivityBinding
     private lateinit var marker: Marker
     private lateinit var locatorsList: List<LocatorView>
     private lateinit var imgbtn: ImageButton
@@ -45,9 +50,7 @@ class InfoActivityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInfoActivityBinding.inflate(inflater, container, false)
-
         val idInfo = MapFragment.madridMap[marker.title]
-
         /*
         imgbtn = binding.btnedit
         imgbtn.setOnClickListener {
@@ -85,21 +88,51 @@ class InfoActivityFragment : Fragment() {
                 }
             }
         }
-
+        locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     private fun fillFields(locatorView: LocatorView) {
         binding.apply {
             titulo.text = locatorView.title
-
             val desc = if (locatorView.description.isEmpty()) {
                 resources.getString(R.string.noHayInfo)
             } else {
                 locatorView.description
+
+            imgLayout = binding.ivevent
+            val options = listOf(
+                resources.getDrawable(R.drawable.amigos, null),
+                resources.getDrawable(R.drawable.amigoscielo, null)
+            )
+            val res = when (locatorView.category.split("/").getOrNull(6) ?: options.random()) {
+                "Musica" -> resources.getDrawable(R.drawable.musica, null)
+                "DanzaBaile" -> resources.getDrawable(R.drawable.danzabaile, null)
+                "CursosTalleres" -> resources.getDrawable(R.drawable.cursotalleres, null)
+                "TeatroPerformance" -> resources.getDrawable(R.drawable.teatro, null)
+                "ActividadesCalleArteUrbano" -> resources.getDrawable(R.drawable.arteurbano, null)
+                "CuentacuentosTiteresMarionetas" -> resources.getDrawable(R.drawable.cuentacuentos, null)
+                //"ProgramacionDestacadaAgendaCultura" -> resources.getDrawable(R.drawable.destacada, null)
+                "ComemoracionesHomenajes" -> resources.getDrawable(R.drawable.homenajes, null)
+                "ConferenciasColoquios" -> resources.getDrawable(R.drawable.conferencias, null)
+                "1ciudad21distritos" -> resources.getDrawable(R.drawable.distritos, null)
+                "ExcursionesItinerariosVisitas" -> resources.getDrawable(R.drawable.excursiones, null)
+                "ItinerariosOtrasActividadesAmbientales" -> resources.getDrawable(R.drawable.ambientales, null)
+                "ClubesLectura" -> resources.getDrawable(R.drawable.lectura, null)
+                "RecitalesPresentacionesActosLiterarios" -> resources.getDrawable(R.drawable.recitales, null)
+                "Exposiciones" -> resources.getDrawable(R.drawable.exposiciones, null)
+                "Campamentos" -> resources.getDrawable(R.drawable.campamentos, null)
+                "CineActividadesAudiovisuales" -> resources.getDrawable(R.drawable.cine, null)
+                "CircoMagia" -> resources.getDrawable(R.drawable.circo, null)
+                "FiestasSemanaSanta" -> resources.getDrawable(R.drawable.semanasanta, null)
+
+                else -> options.random()
             }
-            description.text = desc
+
+            activity?.let { Glide.with(it)
+                                .load(res)
+                                .into(imgLayout)}
 
             val date = if (locatorView.dstart.split(" ")[0] == locatorView.dfinish.split(" ")[0]) {
                 locatorView.dstart.split(" ")[0]
