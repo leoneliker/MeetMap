@@ -46,6 +46,11 @@ class ConctactUsFragment : Fragment() {
             .into(binding.ivAlmu)
 
         Glide.with(this)
+            .load(R.drawable.dani_meetmap)
+            .circleCrop()
+            .into(binding.ivDani)
+
+        Glide.with(this)
             .load(R.drawable.iker_meetmap)
             .circleCrop()
             .into(binding.ivIker)
@@ -68,6 +73,14 @@ class ConctactUsFragment : Fragment() {
         binding.tvGitAlmulink.movementMethod = LinkMovementMethod.getInstance()
         binding.tvGitAlmulink.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/AlmuFerCar"))
+            startActivity(intent)
+        }
+
+        val spannableStringDani = createStyledLinkText("Daniel García", R.color.secondary)
+        binding.tvGitDanilink.text = spannableStringDani
+        binding.tvGitDanilink.movementMethod = LinkMovementMethod.getInstance()
+        binding.tvGitDanilink.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fregonaespanola"))
             startActivity(intent)
         }
 

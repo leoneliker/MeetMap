@@ -61,7 +61,8 @@ class InfoActivityFragment :Fragment() {
                 resources.getDrawable(R.drawable.amigos, null),
                 resources.getDrawable(R.drawable.amigoscielo, null)
             )
-            val res = when(locatorView.category.split("/")[6]) {
+            Log.i("categoria",locatorView.category)
+            val res = when (locatorView.category.split("/").getOrNull(6) ?: options.random()) {
                 "Musica" -> resources.getDrawable(R.drawable.musica, null)
                 "DanzaBaile" -> resources.getDrawable(R.drawable.danzabaile, null)
                 "CursosTalleres" -> resources.getDrawable(R.drawable.cursotalleres, null)
@@ -83,7 +84,6 @@ class InfoActivityFragment :Fragment() {
                 "FiestasSemanaSanta" -> resources.getDrawable(R.drawable.semanasanta, null)
 
                 else -> options.random()
-                //Hacer un random para poner sino amigos cielo
             }
 
 
