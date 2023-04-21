@@ -1,60 +1,199 @@
 package com.ikalne.meetmap.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.ikalne.meetmap.ChatActivity
+import com.ikalne.meetmap.PreferencesManager
 import com.ikalne.meetmap.R
+import com.ikalne.meetmap.adapters.ChatAdapter
+import com.ikalne.meetmap.databinding.FragmentChatBinding
+import com.ikalne.meetmap.models.Chat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ChatFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChatFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var binding: FragmentChatBinding
+    private var user = ""
+    private var db = Firebase.firestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        binding = FragmentChatBinding.inflate(inflater, container, false)
+        initUI()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChatFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChatFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    fun initUI() {
+
+        user= PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
+
+        if (user.isNotEmpty()){
+            initViews()
+        }
+    }
+
+
+    private fun initViews(){
+        binding.newChatButton.setOnClickListener { newChat() }
+
+        binding.listChatsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.listChatsRecyclerView.adapter =
+            ChatAdapter { chat ->
+                chatSelected(chat)
+            }
+
+        val adapter = binding.listChatsRecyclerView.adapter as ChatAdapter
+        val userRef = db.collection("users").document(user)
+
+        userRef.collection("chats")
+            .get()
+            .addOnSuccessListener { chats ->
+                val listChats = chats.toObjects(Chat::class.java)
+
+               adapter.setData(listChats)
+                if (adapter.itemCount == 0) {
+                    binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+                    binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+                } else {
+                    binding.emptyRecyclerViewImageView.visibility = View.GONE
+                    binding.emptyRecyclerViewTextView.visibility = View.GONE
+                }
+            }
+
+        userRef.collection("chats")
+            .addSnapshotListener { chats, error ->
+                if(error == null){
+                    chats?.let {
+                        val listChats = it.toObjects(Chat::class.java)
+
+                        adapter.setData(listChats)
+                    }
+                }
+                if (adapter.itemCount == 0) {
+                    binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+                    binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+                } else {
+                    binding.emptyRecyclerViewImageView.visibility = View.GONE
+                    binding.emptyRecyclerViewTextView.visibility = View.GONE
                 }
             }
     }
+
+    private fun chatSelected(chat: Chat){
+        val intent = Intent(requireContext(), ChatActivity::class.java)
+        intent.putExtra("chatId", chat.id)
+        intent.putExtra("user", user)
+        if(user==chat.users[0])
+        {
+            intent.putExtra("name", chat.users[1])
+        }
+        else if(user==chat.users[1])
+        {
+            intent.putExtra("name", chat.users[0])
+        }
+        startActivity(intent)
+    }
+
+    private fun newChat(){
+        val chatId = UUID.randomUUID().toString()
+        val otherUser = binding.newChatText.text.toString()
+        val  users_ref= db.collection("users")
+        val  chatsRef= db.collection("chats")
+        val query= users_ref.whereEqualTo("email",otherUser)
+        var init=true
+        query.get().addOnSuccessListener { documents ->
+            if (documents.size() > 0) {
+                // Se encontraron documentos que coinciden con la consulta
+                for (document in documents) {
+                    Toast.makeText(requireContext(),"EL USUARIO ESTÁ DADO DE ALTA EN LA APP", Toast.LENGTH_LONG).show()
+                }
+                //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
+                chatsRef.get()
+                    .addOnSuccessListener { documents ->
+                        if (documents.isEmpty) {
+                            init = true
+                            chatUp(otherUser, chatId)
+                        } else {
+                            chatsRef.whereArrayContains("users", user).get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        val usersList = document.get("users") as? List<String>
+                                        if (usersList != null && usersList.contains(otherUser)) {
+                                            init = false
+                                            val idChat = document.id
+                                            val nameChat=document.getString("name")?: "Chat"
+                                            Log.w("CHATID", "CHATID=  $idChat")
+                                            val chat = Chat(idChat, nameChat, listOf(user, otherUser))
+                                            chatSelected(chat)
+                                            break
+                                            //ABRIR ESE CHAT????????
+                                            //Buscar en el recyclerView ese ID y mostrar solo ese item del recyclerview para que se pueda clicar y abrir
+                                            //O abrir directamente ese chat
+                                        } else {
+                                            init = true
+                                        }
+                                    }
+                                    if(init){
+                                        chatUp(otherUser, chatId)
+                                    }
+                                }
+                                .addOnFailureListener { exception ->
+                                    Log.w("TAG", "Error al buscar en la lista ", exception)
+                                }
+                        }
+
+
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("TAG", "Error al buscar EN CHATS ", exception)
+                    }
+
+            }
+            else {
+                // No se encontraron documentos que coinciden con la consulta
+                Toast.makeText(requireContext(),"noooo EXISTE EL USUARIO", Toast.LENGTH_LONG).show()
+            }
+        }
+            .addOnFailureListener {exception ->
+    Log.w("TAG", "Error getting documents: ", exception) }
+    }
+
+    private fun chatUp(otherUser: String, chatId: String)
+    {
+        val users = listOf(user, otherUser)
+
+        val chat = Chat(
+            id = chatId,
+            name = "Chat con $otherUser",
+            users = users
+        )
+
+        db.collection("chats").document(chatId).set(chat)
+        db.collection("users").document(user).collection("chats").document(chatId).set(chat)
+        db.collection("users").document(otherUser).collection("chats").document(chatId).set(chat)
+
+        val intent = Intent(requireContext(), ChatActivity::class.java)
+        intent.putExtra("chatId", chatId)
+        intent.putExtra("user", user)
+        intent.putExtra("name", otherUser)
+        startActivity(intent)
+    }
+
+
 }
+
+

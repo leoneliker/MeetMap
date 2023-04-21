@@ -1,5 +1,6 @@
 package com.ikalne.meetmap
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.TranslateAnimation
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -117,6 +119,11 @@ class MainAppActivity : AppCompatActivity() {
         {
             binding.navView.isVisible = true
             isnavview = true
+            val currentFocus = this.currentFocus
+            if(currentFocus !=null){
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+            }
             slidein.interpolator = DecelerateInterpolator()
             binding.navView.startAnimation(slidein)
             imageButton.visibility = View.GONE
