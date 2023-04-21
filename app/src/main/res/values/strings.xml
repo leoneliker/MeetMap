@@ -54,13 +54,13 @@
     <string name="question6">6. How can I unroll from a plan?</string>
     <string name="answer6">Each activity is managed by a different entity and it is that entity that should be contacted to consult the possibilities of canceling the plan or unsubscribing from the activity</string>
     <string name="question7">7. How can I make a suggestion or report a problem?</string>
-    <string name="answer7">In the application there is a drop-down menu in the upper left part of the screen where an option to contact us is shown and you can write to us whenever you have a problem or a suggestion, we will attend to you as soon as possible trying to solve your problem or improve the app with your suggestions</string>
+    <string name="answer7">In the application there is a drop-down menu in the upper left part of the screen where an option to activity us is shown and you can write to us whenever you have a problem or a suggestion, we will attend to you as soon as possible trying to solve your problem or improve the app with your suggestions</string>
     <string name="question8">8. Does using the application have any cost?</string>
     <string name="answer8">The use of the application is free of charge. There is also no premium version or additional payments to have access to some extra functionality of the application. It is 100% free for all users</string>
     <string name="question9">9. Is the application available in my city/country?</string>
-    <string name="answer9">Currently the application is only available for the city of Madrid, although in the not too distant future we plan to be present in more cities and countries. If you want it to be in your region, do not hesitate to contact us to send us your request!</string>
-    <string name="question10">10. Can I contact the people who are signed up for the activity?</string>
-    <string name="answer10">In the first versions of the app the chat is not yet available, as soon as possible you will have a chat available to contact all the people who are signed up for the activity and want to have conversations with the attendees of the activity or event</string>
+    <string name="answer9">Currently the application is only available for the city of Madrid, although in the not too distant future we plan to be present in more cities and countries. If you want it to be in your region, do not hesitate to activity us to send us your request!</string>
+    <string name="question10">10. Can I activity the people who are signed up for the activity?</string>
+    <string name="answer10">In the first versions of the app the chat is not yet available, as soon as possible you will have a chat available to activity all the people who are signed up for the activity and want to have conversations with the attendees of the activity or event</string>
     <string name="contactus">Contact us</string>
     <string name="suggestion">Suggestion or Incidence</string>
     <string name="send">SEND</string>
