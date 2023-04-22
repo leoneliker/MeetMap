@@ -65,13 +65,7 @@ class ChatFragment : Fragment() {
                 val listChats = chats.toObjects(Chat::class.java)
 
                adapter.setData(listChats)
-                if (adapter.itemCount == 0) {
-                    binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
-                    binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
-                } else {
-                    binding.emptyRecyclerViewImageView.visibility = View.GONE
-                    binding.emptyRecyclerViewTextView.visibility = View.GONE
-                }
+                updateEmptyRecyclerViewVisibility(adapter)
             }
 
         userRef.collection("chats")
@@ -81,16 +75,24 @@ class ChatFragment : Fragment() {
                         val listChats = it.toObjects(Chat::class.java)
 
                         adapter.setData(listChats)
+                        updateEmptyRecyclerViewVisibility(adapter)
                     }
                 }
-                if (adapter.itemCount == 0) {
-                    binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
-                    binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
-                } else {
-                    binding.emptyRecyclerViewImageView.visibility = View.GONE
-                    binding.emptyRecyclerViewTextView.visibility = View.GONE
-                }
+
             }
+        binding.emptyRecyclerViewImageView.visibility = View.GONE
+        binding.emptyRecyclerViewTextView.visibility = View.GONE
+        //updateEmptyRecyclerViewVisibility(adapter)
+    }
+
+    private fun updateEmptyRecyclerViewVisibility(adapter: ChatAdapter){
+        if (adapter.itemCount == 0) {
+            binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+            binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+        } else {
+            binding.emptyRecyclerViewImageView.visibility = View.GONE
+            binding.emptyRecyclerViewTextView.visibility = View.GONE
+        }
     }
 
     private fun chatSelected(chat: Chat){
