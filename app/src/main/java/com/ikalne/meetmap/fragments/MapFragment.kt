@@ -3,6 +3,7 @@ package com.ikalne.meetmap.fragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,10 +30,14 @@ import com.ikalne.meetmap.model.CustomInfoWindowAdapter
 import com.ikalne.meetmap.viewmodels.MadridViewModel
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.ikalne.meetmap.model.LocationMenuAdapter
+import com.ikalne.meetmap.model.LocationMenuItem
 
 
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,
-    GoogleMap.OnMyLocationButtonClickListener{
+    GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
 
     private lateinit var map: GoogleMap
     private lateinit var loadingSpinner: ProgressBar
@@ -99,6 +106,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         enableLocation()
         viewModel.fetchData()
         map.setOnMarkerClickListener { false }
+        map.setOnMyLocationClickListener(this)
     }
 
     private fun enableLocation() {
@@ -125,6 +133,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             requestLocationPermission()
         }
     }
+
+
 
     override fun onMyLocationButtonClick() = false
 
@@ -157,4 +167,47 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             )
         }
     }
+
+    override fun onMyLocationClick(location: Location) {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.location_menu, null)
+        bottomSheetDialog.setContentView(view)
+
+        val menuItems = mutableListOf<LocationMenuItem>()
+        for (locator in locatorList) {
+            val distance = distance(
+                location.latitude, location.longitude,
+                locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
+            )
+            if (distance < 500) {
+                val menuItem = LocationMenuItem(locator.title, R.drawable.ic_calendar, locator.dstart, locator.dfinish)
+                menuItems.add(menuItem)
+            }
+        }
+        if (menuItems.isEmpty()){
+            menuItems.add(LocationMenuItem("No se han encontrado actividades cercanas", R.drawable.ic_baseline_cancel_24, "", ""))
+        }
+        val adapter = LocationMenuAdapter(menuItems)
+        view.findViewById<RecyclerView>(R.id.location_menu_recycler_view).apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            this.adapter = adapter
+        }
+        val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
+        bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.location_menu_height)
+        bottomSheetDialog.show()
+    }
+
+    //Codigo para conseguir pasar distancias de long y lat a metros
+    fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
+        val R = 6371
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = (Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2))
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        return (R * c * 1000).toFloat()
+    }
+
+
 }
