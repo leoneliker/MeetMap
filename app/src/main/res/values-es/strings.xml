@@ -94,7 +94,7 @@
     <string name="deleteAccountQuestion">¿Está seguro que desea eliminar la cuenta?</string>
     <string name="deleteAccountSuccesful">La cuenta se ha eliminado</string>
     <string name="messagechat">Mensaje</string>
-    <string name="nochats">"Demasiada tranquilidad por aquí..."</string>
+    <string name="nochats">"Qué tranquilo está todo..."</string>
 
 
 </resources>

@@ -95,6 +95,6 @@
     <string name="deleteAccountQuestion">Are you sure you want to delete the account?</string>
     <string name="deleteAccountSuccesful">The account has been deleted</string>
     <string name="messagechat">Message</string>
-    <string name="nochats">"It's too quiet around here..."</string>
+    <string name="nochats">"How calm everything is..."</string>
 
 </resources>
