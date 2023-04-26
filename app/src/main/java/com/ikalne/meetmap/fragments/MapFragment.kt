@@ -37,6 +37,10 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.ikalne.meetmap.model.LocationMenuAdapter
 import com.ikalne.meetmap.model.LocationMenuItem
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,
@@ -55,53 +59,17 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         const val REQUEST_CODE_LOCATION = 0
         val madridMap = hashMapOf<String, String>()
     }
-
+    private lateinit var chipGroup :ChipGroup
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_map, container, false).apply {
-        val chipGroup = findViewById<ChipGroup>(R.id.chip_group)
-        val chip1 = inflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
-        val chip2 = inflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
-        val chip3 = inflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
-        val chip4 = inflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
-        val chip5 = inflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
-        chip1.text = "Musica"
-        chip2.text = "Chip 2"
-        chip3.text = "Chip 3"
-        chip4.text = "Chip 4"
-        chip5.text = "Chip 5"
-        chipGroup.addView(chip1)
-        chipGroup.addView(chip2)
-        chipGroup.addView(chip3)
-        chipGroup.addView(chip4)
-        chipGroup.addView(chip5)
-        chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                chip1.id -> {
-                    Toast.makeText(activity, "hola1", Toast.LENGTH_SHORT).show()
-                }
-                chip2.id -> {
-                    Toast.makeText(activity, "hola2", Toast.LENGTH_SHORT).show()
-                }
-                chip3.id -> {
-                    Toast.makeText(activity, "hola3", Toast.LENGTH_SHORT).show()
-                }
-                chip4.id -> {
-                    Toast.makeText(activity, "hola4", Toast.LENGTH_SHORT).show()
-                }
-                chip5.id -> {
-                    Toast.makeText(activity, "hola5", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
+        observe()
+        chipGroup = findViewById(R.id.chip_group)
         dimView = findViewById(R.id.dim_view)
         dimView.setOnClickListener(null)
         dimView.visibility = View.VISIBLE
         loadingSpinner = findViewById(R.id.loading_spinner)
         loadingSpinner.visibility = View.VISIBLE
-
-        observe()
         val mMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mMapFragment.getMapAsync(this@MapFragment)
@@ -138,9 +106,61 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 map.setOnInfoWindowClickListener(this@MapFragment)
                 loadingSpinner.visibility = View.GONE
                 dimView.visibility = View.GONE
+                chipCreator(locators)
             }
         }
     }
+
+    private fun chipCreator(locators: List<LocatorView>) {
+        val categories = mutableSetOf<String>()
+        for (locator in locators) {
+            val category = locator.category.split("/").getOrNull(6)
+            category?.let { categories.add(it) }
+        }
+        categories.sorted().forEach { category ->
+            val chip = layoutInflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
+            chip.text = category
+            chipGroup.addView(chip)
+        }
+
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            val chip = group.findViewById<Chip>(checkedId)
+            chip?.let { selectedChip ->
+                val selectedCategory = selectedChip.text.toString()
+                val filteredLocators = locators.filter {
+                    val category = it.category.split("/").getOrNull(6)
+                    category == selectedCategory
+                }
+                map.clear()
+                markers.clear()
+                filteredLocators.mapNotNull {
+                    it.location.latitude?.let { lat ->
+                        it.location.longitude?.let { lng ->
+                            LatLng(lat, lng)
+                        }
+                    }?.let { coordinates ->
+                        val markerOptions = MarkerOptions().position(coordinates)
+                            .title("${it.id} ${it.title}") // Utiliza el mismo formato de título que en onItemClick
+                        val marker = map.addMarker(markerOptions)
+                        markers[marker.title] = marker
+
+                        madridMap[marker.title] = it.id
+                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mano_rosa))
+                    }
+                }.also {
+                    locatorList = filteredLocators
+                    map.setInfoWindowAdapter(
+                        CustomInfoWindowAdapter(
+                            LayoutInflater.from(activity),
+                            locatorList
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+
 
 
     @SuppressLint("PotentialBehaviorOverride")
@@ -212,14 +232,13 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.location_menu, null)
         bottomSheetDialog.setContentView(view)
-
         val menuItems = mutableListOf<LocationMenuItem>()
         for (locator in locatorList) {
             val distance = distance(
                 location.latitude, location.longitude,
                 locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
             )
-            if (distance < 1000) {
+            if (distance < 50000) {
                 val menuItem = LocationMenuItem(locator.id,locator.title, R.drawable.ic_calendar, locator.dstart, locator.dfinish)
                 menuItems.add(menuItem)
             }
@@ -242,13 +261,10 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 }
             }
         })
-
         view.findViewById<RecyclerView>(R.id.location_menu_recycler_view).apply {
             layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter
         }
-
-
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
         bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.location_menu_height)
         bottomSheetDialog.show()
@@ -256,14 +272,14 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     }
 
     //Codigo para conseguir pasar distancias de long y lat a metros
-    fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
+    private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
         val R = 6371
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon2 - lon1)
-        val a = (Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2))
-        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        val a = (sin(dLat / 2) * sin(dLat / 2) +
+                cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
+                sin(dLon / 2) * sin(dLon / 2))
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return (R * c * 1000).toFloat()
     }
 
