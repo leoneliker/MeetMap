@@ -131,22 +131,32 @@
             app:layout_constraintStart_toEndOf="@id/tvlugar"
             app:layout_constraintTop_toBottomOf="@id/horario" />
 
+        <Button
+            android:id="@+id/unirse"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="SUSCRIBE"
+            android:backgroundTint="@color/secondary_light"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="@id/rightguide"
+            app:layout_constraintTop_toBottomOf="@id/lugar"/>
+
         <ImageButton
             android:id="@+id/info"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/ic_planet2"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:paddingBottom="30dp"
             app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/lugar" />
+            app:layout_constraintTop_toBottomOf="@id/unirse" />
 
 
         <TextView
             android:id="@+id/link"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="24dp"
             android:layout_marginStart="8dp"
             android:gravity="start"
             android:paddingBottom="30dp"
@@ -155,7 +165,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintStart_toEndOf="@id/info"
-            app:layout_constraintTop_toBottomOf="@id/lugar" />
+            app:layout_constraintTop_toBottomOf="@id/unirse" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/leftguide"
