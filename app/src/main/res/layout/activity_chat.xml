@@ -25,7 +25,7 @@
                 app:title="My Title"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:titleTextColor="@color/dark_gray"
-                android:background="@color/primary_light"
+                android:background="@color/secondary_light"
                 app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -35,9 +35,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
-            android:ems="10"
             android:hint="@string/messagechat"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:scrollbarThumbVertical="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
             app:layout_constraintStart_toStartOf="parent"
