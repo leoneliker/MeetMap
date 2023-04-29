@@ -1,7 +1,10 @@
 package com.ikalne.meetmap
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -167,10 +170,10 @@ class MainAppActivity : AppCompatActivity() {
                     setThatFragment(profileFragment)
 
                 }
-                R.id.nav_notifications -> {
+                /*R.id.nav_notifications -> {
                     closeNav()
                     setThatFragment(notificationsFragment)
-                }
+                }*/
                 R.id.nav_manusu -> {
                     closeNav()
                     setThatFragment(faqsFragment)
@@ -261,6 +264,42 @@ class MainAppActivity : AppCompatActivity() {
         })
 
         navigationView.startAnimation(animation)
+    }
+    private val networkReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (!isConnectedToInternet()) {
+                showNoInternetAlert()
+            }
+        }
+    }
+
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    private fun showNoInternetAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.nointernetitle))
+        builder.setMessage(getString(R.string.nointernetsubtitle))
+        builder.setPositiveButton(getString(R.string.nointernetbtn)) { dialog, which ->
+            if (!isConnectedToInternet()) {
+                showNoInternetAlert()
+            }
+        }
+        builder.setCancelable(false)
+        builder.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(networkReceiver)
     }
 
 }

@@ -96,5 +96,8 @@
     <string name="deleteAccountSuccesful">The account has been deleted</string>
     <string name="messagechat">I want to tell you that...</string>
     <string name="nochats">"How quiet everything is around here..."</string>
+    <string name ="nointernetitle">"Oops no internet connection!"</string>
+    <string name="nointernetsubtitle">"Meetmap is looking forward to having you. Do you want to continue testing?"</string>
+    <string name="nointernetbtn">"Retry"</string>
 
 </resources>

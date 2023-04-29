@@ -1,9 +1,14 @@
 package com.ikalne.meetmap
 
+import android.content.BroadcastReceiver
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -56,6 +61,7 @@ class LoginScroll : AppCompatActivity() {
         }
         checkUserValues()
     }
+
 
     fun checkUserValues()
     {
@@ -151,5 +157,42 @@ class LoginScroll : AppCompatActivity() {
         // Ir a una actividad específica
         val intent = Intent(this, Initial::class.java)
         startActivity(intent)
+    }
+
+    private val networkReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (!isConnectedToInternet()) {
+                showNoInternetAlert()
+            }
+        }
+    }
+
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    private fun showNoInternetAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.nointernetitle))
+        builder.setMessage(getString(R.string.nointernetsubtitle))
+        builder.setPositiveButton(getString(R.string.nointernetbtn)) { dialog, which ->
+            if (!isConnectedToInternet()) {
+                showNoInternetAlert()
+            }
+        }
+        builder.setCancelable(false)
+        builder.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(networkReceiver)
     }
 }
