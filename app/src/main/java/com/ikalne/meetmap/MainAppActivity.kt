@@ -317,13 +317,14 @@ class MainAppActivity : AppCompatActivity() {
         }
 
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.nointernetitle))
-        builder.setMessage(getString(R.string.nointernetsubtitle))
-
         // Modificamos el texto del botón de "Reintentar"
         val buttonText = if (retryCount >= 2) {
+            builder.setTitle(getString(R.string.nointernetitleexit))
+            builder.setMessage(getString(R.string.nointernetsubtitleexit))
             getString(R.string.exitalert)
         } else {
+            builder.setTitle(getString(R.string.nointernetitle))
+            builder.setMessage(getString(R.string.nointernetsubtitle))
             getString(R.string.nointernetbtn)
         }
         builder.setPositiveButton(buttonText) { dialog, which ->
@@ -336,7 +337,6 @@ class MainAppActivity : AppCompatActivity() {
                 retryCount = 0
                 hideNoInternetAlert()
             }
-
             // Si se ha presionado el botón dos o más veces, cerramos la app
             if (retryCount > 2) {
                 hideNoInternetAlert()
