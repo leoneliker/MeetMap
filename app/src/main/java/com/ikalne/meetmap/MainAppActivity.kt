@@ -42,15 +42,18 @@ class MainAppActivity : AppCompatActivity() {
     private lateinit var imageButton: ImageButton
     private lateinit var transparentButton: Button
     private lateinit var frame: FrameLayout
-    private lateinit var navView :NavigationView
+    private lateinit var navView: NavigationView
     lateinit var fStorage: StorageReference
     private val handler = Handler()
     private var isnavview = false
-    private lateinit var navview : NavigationView
+    private lateinit var navview: NavigationView
+    private var isFragmentLoaded = false
+    private val mapFragment = MapFragment()
+    private var noInternetDialog: AlertDialog? = null
 
 
-     override fun onCreate(savedInstanceState: Bundle?) {
-         forceLightMode()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        forceLightMode()
         super.onCreate(savedInstanceState)
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -64,8 +67,8 @@ class MainAppActivity : AppCompatActivity() {
         bottomNavView = binding.bottomNavigation
         transparentButton = binding.btntransparent
         imageButton = binding.imageButton
-        frame=binding.frame
-        navView=binding.navView
+        frame = binding.frame
+        navView = binding.navView
 
 
         val mapFragment = MapFragment()
@@ -85,45 +88,46 @@ class MainAppActivity : AppCompatActivity() {
         val slidein = AnimationUtils.loadAnimation(this, R.anim.slidein)
 
 
+
         //email = PreferencesManager.getDefaultSharedPreferences(this).getEmail()
         transparentButton.visibility = View.GONE
 
         setThatFragment(mapFragment)
 
-         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
-         emailuser.setText(email)
+        email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
+        emailuser.setText(email)
 
-         fStore.collection("users").document(email).get().addOnSuccessListener {
-             username.setText(it.get("name") as String)
-             //binding.mail.setText(email)
-             Glide.with(this)
-                 .load(it.get("img")as String)
-                 .circleCrop()
-                 .into(imagenav)
-         }
+        fStore.collection("users").document(email).get().addOnSuccessListener {
+            username.setText(it.get("name") as String)
+            //binding.mail.setText(email)
+            Glide.with(this)
+                .load(it.get("img") as String)
+                .circleCrop()
+                .into(imagenav)
+        }
 
-         fStore.collection("users").document(email).addSnapshotListener { documentSnapshot, e ->
-             if (e != null) {
-                 return@addSnapshotListener
-             }
-             if (documentSnapshot != null && documentSnapshot.exists()) {
-                 // Actualiza la vista con el nuevo valor del nombre
-                 username.setText(documentSnapshot.getString("name"))
-                 Glide.with(this)
-                     .load(documentSnapshot.getString("img"))
-                     .circleCrop()
-                     .into(imagenav)
-             }
-         }
+        fStore.collection("users").document(email).addSnapshotListener { documentSnapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                // Actualiza la vista con el nuevo valor del nombre
+                username.setText(documentSnapshot.getString("name"))
+                Glide.with(this)
+                    .load(documentSnapshot.getString("img"))
+                    .circleCrop()
+                    .into(imagenav)
+            }
+        }
 
-         bottomNavView.setSelectedItemId(R.id.house)
+        bottomNavView.setSelectedItemId(R.id.house)
 
         imageButton.setOnClickListener()
         {
             binding.navView.isVisible = true
             isnavview = true
             val currentFocus = this.currentFocus
-            if(currentFocus !=null){
+            if (currentFocus != null) {
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
             }
@@ -185,7 +189,7 @@ class MainAppActivity : AppCompatActivity() {
                 R.id.nav_exit -> {
                     PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
                     fAuth.signOut()
-                    startActivity(Intent(this, Initial::class.java ))
+                    startActivity(Intent(this, Initial::class.java))
                     Intent(this, Initial::class.java)
                 }
             }
@@ -202,12 +206,16 @@ class MainAppActivity : AppCompatActivity() {
                 fStore.collection("users").document(email).delete()
                 fAuth.currentUser?.delete()
                 fStorage.child("img").child(email).delete()
-                Toast.makeText(this, resources.getString(R.string.deleteAccountSuccesful), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.deleteAccountSuccesful),
+                    Toast.LENGTH_LONG
+                ).show()
                 PreferencesManager.getDefaultSharedPreferences(binding.root.context).wipe()
-                startActivity(Intent(this, Initial::class.java ))
+                startActivity(Intent(this, Initial::class.java))
                 Intent(binding.root.context, Initial::class.java)
             }
-            builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->}
+            builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> }
             builder.show()
         }
     }
@@ -223,34 +231,41 @@ class MainAppActivity : AppCompatActivity() {
     }
 
     var doubleBackToExitPressedOnce = false
-        override fun onBackPressed() {
-            if (doubleBackToExitPressedOnce) {
-                finishAffinity()
-                return
-            }
-            doubleBackToExitPressedOnce = true
-            Toast.makeText(this, resources.getString(R.string.backAgain), Toast.LENGTH_SHORT).show()
-            Handler(Looper.getMainLooper()).postDelayed(Runnable {
-                doubleBackToExitPressedOnce = false
-            }, 2000)
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity()
+            return
         }
+        doubleBackToExitPressedOnce = true
+        Toast.makeText(this, resources.getString(R.string.backAgain), Toast.LENGTH_SHORT).show()
+        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            doubleBackToExitPressedOnce = false
+        }, 2000)
+    }
 
-        private fun setThatFragment(fragment: Fragment) =
+    private fun setThatFragment(fragment: Fragment) {
+        if (isConnectedToInternet()) {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.frame, fragment)
                 commit()
             }
-
-        private fun buttonsVisibility()
-        {
-            handler.postAtTime(Runnable
-            {
-                imageButton.visibility = View.VISIBLE
-                transparentButton.visibility = View.GONE
-            }, SystemClock.uptimeMillis() + 850)
+        } else {
+            showNoInternetAlert()
         }
 
-        fun animateAndHideNavigationView(navigationView: NavigationView) {
+    }
+
+
+    private fun buttonsVisibility() {
+        handler.postAtTime(Runnable
+        {
+            imageButton.visibility = View.VISIBLE
+            transparentButton.visibility = View.GONE
+        }, SystemClock.uptimeMillis() + 850
+        )
+    }
+
+    fun animateAndHideNavigationView(navigationView: NavigationView) {
         val animation = TranslateAnimation(0f, -navigationView.width.toFloat(), 0f, 0f)
         animation.duration = 800
         animation.setAnimationListener(object : Animation.AnimationListener {
@@ -265,31 +280,57 @@ class MainAppActivity : AppCompatActivity() {
 
         navigationView.startAnimation(animation)
     }
+
     private val networkReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (!isConnectedToInternet()) {
                 showNoInternetAlert()
+            } else {
+                if (!isFragmentLoaded) {
+
+                    loadFragment()
+
+
+                }
             }
         }
     }
+    private fun loadFragment() {
+        // Intenta cargar el fragmento aquí
+        setThatFragment(mapFragment)
+        hideNoInternetAlert()
+        isFragmentLoaded = true
+    }
+    private fun hideNoInternetAlert() {
+        noInternetDialog?.dismiss()
+        noInternetDialog = null
+    }
 
     private fun isConnectedToInternet(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
 
     private fun showNoInternetAlert() {
+        if (noInternetDialog?.isShowing == true) {
+            noInternetDialog?.dismiss()
+        }
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.nointernetitle))
         builder.setMessage(getString(R.string.nointernetsubtitle))
         builder.setPositiveButton(getString(R.string.nointernetbtn)) { dialog, which ->
             if (!isConnectedToInternet()) {
                 showNoInternetAlert()
+            } else {
+                hideNoInternetAlert()
             }
         }
         builder.setCancelable(false)
-        builder.show()
+        noInternetDialog = builder.create()
+        noInternetDialog?.show()
     }
 
     override fun onResume() {
