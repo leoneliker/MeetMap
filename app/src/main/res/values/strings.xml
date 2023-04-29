@@ -99,5 +99,6 @@
     <string name ="nointernetitle">"Oops no internet connection!"</string>
     <string name="nointernetsubtitle">"Meetmap is looking forward to having you. Do you want to continue testing?"</string>
     <string name="nointernetbtn">"Retry"</string>
+    <string name="exitalert">Exit</string>
 
 </resources>

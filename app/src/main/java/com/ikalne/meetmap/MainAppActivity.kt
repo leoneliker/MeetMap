@@ -50,6 +50,7 @@ class MainAppActivity : AppCompatActivity() {
     private var isFragmentLoaded = false
     private val mapFragment = MapFragment()
     private var noInternetDialog: AlertDialog? = null
+    private var retryCount = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -287,10 +288,7 @@ class MainAppActivity : AppCompatActivity() {
                 showNoInternetAlert()
             } else {
                 if (!isFragmentLoaded) {
-
                     loadFragment()
-
-
                 }
             }
         }
@@ -321,13 +319,31 @@ class MainAppActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.nointernetitle))
         builder.setMessage(getString(R.string.nointernetsubtitle))
-        builder.setPositiveButton(getString(R.string.nointernetbtn)) { dialog, which ->
+
+        // Modificamos el texto del botón de "Reintentar"
+        val buttonText = if (retryCount >= 2) {
+            getString(R.string.exitalert)
+        } else {
+            getString(R.string.nointernetbtn)
+        }
+        builder.setPositiveButton(buttonText) { dialog, which ->
             if (!isConnectedToInternet()) {
+                // Incrementamos el contador de reintentos
+                retryCount++
                 showNoInternetAlert()
             } else {
+                // Reiniciamos el contador de reintentos
+                retryCount = 0
                 hideNoInternetAlert()
             }
+
+            // Si se ha presionado el botón dos o más veces, cerramos la app
+            if (retryCount > 2) {
+                hideNoInternetAlert()
+                finishAffinity()
+            }
         }
+
         builder.setCancelable(false)
         noInternetDialog = builder.create()
         noInternetDialog?.show()
@@ -342,6 +358,5 @@ class MainAppActivity : AppCompatActivity() {
         super.onPause()
         unregisterReceiver(networkReceiver)
     }
-
 }
 

@@ -98,5 +98,6 @@
     <string name ="nointernetitle">"¡Ups no hay conexión a Internet!"</string>
     <string name="nointernetsubtitle">"Meetmap está deseando contar contigo. ¿Quieres seguir probando?"</string>
     <string name="nointernetbtn">"Reintentar"</string>
+    <string name="exitalert">Salir</string>
 
 </resources>
