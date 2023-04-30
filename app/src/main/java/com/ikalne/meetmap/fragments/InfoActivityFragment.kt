@@ -5,8 +5,6 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +74,6 @@ class InfoActivityFragment :Fragment() {
 
 
         binding.unirse.setOnClickListener() {
-
             if (firebaseAuth.currentUser == null) {
                 // Toast.makeText(this, "You're not logged in", Toast.LENGTH_SHORT).show()
             } else {
@@ -87,6 +84,10 @@ class InfoActivityFragment :Fragment() {
                     addToSuscribe(plAct, email)
                     checkIsSuscribe(plAct, email)
                 }
+
+                // Cargar el fragmento de suscriptores
+                openSuscribersFragment(plAct.id)
+
             }
         }
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
@@ -299,6 +300,14 @@ class InfoActivityFragment :Fragment() {
         } else {
             email
         }
+    }
+
+    fun openSuscribersFragment(plActId: Int) {
+        val SuscribersFragment = SuscribersFragment(plActId)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame, SuscribersFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }

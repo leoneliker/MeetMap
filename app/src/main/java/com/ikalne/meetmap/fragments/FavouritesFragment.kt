@@ -90,7 +90,7 @@ class FavouritesFragment : Fragment() {
                         FLI.id = aid
                         fliArrayList.add(FLI)
                     }
-                    adapterFLI.notifyDataSetChanged() // Notificar al adaptador que los datos han cambiado
+                    adapterFLI.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {

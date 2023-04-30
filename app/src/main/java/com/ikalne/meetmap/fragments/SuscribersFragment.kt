@@ -16,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.Suscriber
 
-class SuscribersFragment : Fragment() {
+class SuscribersFragment(private val plActId: Int) : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SuscribersAdapter
     private lateinit var plAct: plAct
@@ -35,7 +35,7 @@ class SuscribersFragment : Fragment() {
         // Obtener la lista de suscriptores de Firebase
         val suscribersRef = Firebase.firestore
             .collection("Activities")
-            .document("plAct.id")
+            .document(plActId.toString())
             .collection("Suscribers")
         suscribersRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
