@@ -49,7 +49,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var map: GoogleMap
     private lateinit var loadingSpinner: ProgressBar
     private lateinit var dimView: View
-    private var locatorList = listOf<LocatorView>()
+
     private val viewModel: MadridViewModel by lazy {
         ViewModelProvider(this)[MadridViewModel::class.java]
     }
@@ -57,7 +57,9 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     companion object {
         const val REQUEST_CODE_LOCATION = 0
+        var locatorList = listOf<LocatorView>()
         val madridMap = hashMapOf<String, String>()
+        val markers = mutableMapOf<String, Marker>()
     }
     private lateinit var chipGroup :ChipGroup
     override fun onCreateView(
@@ -76,7 +78,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
-    private val markers = mutableMapOf<String, Marker>()
+
 
     @SuppressLint("PotentialBehaviorOverride")
     private fun observe() {
@@ -88,10 +90,9 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                     }
                 }?.let { coordinates ->
                     val markerOptions = MarkerOptions().position(coordinates)
-                        .title("${it.id} ${it.title}") // Utiliza el mismo formato de título que en onItemClick
+                        .title("${it.id} ${it.title}")
                     val marker = map.addMarker(markerOptions)
                     markers[marker.title] = marker
-
                     madridMap[marker.title] = it.id
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mano_rosa))
                 }
@@ -111,6 +112,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         }
     }
 
+    @SuppressLint("PotentialBehaviorOverride")
     private fun chipCreator(locators: List<LocatorView>) {
         val categories = mutableSetOf<String>()
         for (locator in locators) {
@@ -248,7 +250,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         }
         val adapter = LocationMenuAdapter(menuItems, object : LocationMenuAdapter.OnItemClickListener {
             override fun onItemClick(position: Int,item: LocationMenuItem) {
-                val item = menuItems[position]
                 val marker = markers["${item.id} ${item.title}"]
                 if (marker != null) {
                     val infoFragment = InfoActivityFragment()

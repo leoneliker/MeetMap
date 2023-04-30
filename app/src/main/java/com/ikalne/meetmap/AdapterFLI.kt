@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -18,18 +19,21 @@ import com.ikalne.meetmap.databinding.FavlistItemBinding
 import com.ikalne.meetmap.databinding.FragmentFavouritesBinding
 import com.ikalne.meetmap.fragments.plAct
 import com.ikalne.meetmap.model.FLI
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class AdapterFLI: RecyclerView.Adapter<AdapterFLI.HolderFLI> {
-
-    private val context: Context
-    private var fliArrayList: ArrayList<FLI>
+class AdapterFLI(private val context: Context, private var fliArrayList: ArrayList<FLI>) :
+    RecyclerView.Adapter<AdapterFLI.HolderFLI>() {
 
     private lateinit var binding: FavlistItemBinding
 
-    constructor(context: Context, fliArrayList: ArrayList<FLI>) {
-        this.context = context
-        this.fliArrayList = fliArrayList
+
+    var clickListener: OnItemClickListener? = null
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, item: FLI)
     }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderFLI {
@@ -42,25 +46,18 @@ class AdapterFLI: RecyclerView.Adapter<AdapterFLI.HolderFLI> {
     @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: HolderFLI, position: Int) {
         val model = fliArrayList[position]
-
-            loadActDetails(model, holder)
-
-            holder.itemView.setOnClickListener{
-                //Intent a la actividad
-            }
-
+        loadActDetails(model, holder)
+        holder.itemView.setOnClickListener {
+            clickListener?.onItemClick(position,model)
+        }
         holder.removeFavBtn.setOnClickListener{
             removeFromFavourite(context, model.id)
         }
-
     }
 
     private fun removeFromFavourite(context: Context, ActID: String){
-        val TAG="REMOVE_FAV_TAG"
         Log.d(ContentValues.TAG, "removeFromFavourite: Removing from fav")
-
         val firebaseAuth = FirebaseAuth.getInstance()
-
         val ref=FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseAuth.uid!!).child("Favourites").child(ActID)
             .removeValue()
@@ -76,7 +73,6 @@ class AdapterFLI: RecyclerView.Adapter<AdapterFLI.HolderFLI> {
 
     private fun loadActDetails(model: FLI, holder: AdapterFLI.HolderFLI) {
         val ActID = model.id
-
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
         currentUserUid?.let {
             val ref = FirebaseDatabase.getInstance().getReference("users/$it/Favourites")
@@ -87,25 +83,23 @@ class AdapterFLI: RecyclerView.Adapter<AdapterFLI.HolderFLI> {
                         val date = "${snapshot.child("Date").value}"
                         val time = "${snapshot.child("Time").value}"
                         val place = "${snapshot.child("Place").value}"
-
                         model.isFav = true
                         model.titulo = title
                         model.lugar = place
                         model.fecha = date
                         model.horario = time
                         model.id = ActID
-
                         holder.fli_title.text = title
                         holder.fli_desc.text = place
                         holder.fli_date.text = date
                         holder.fli_time.text = time
                     }
-
                     override fun onCancelled(error: DatabaseError) {
                     }
                 })
         }
     }
+
 
     override fun getItemCount(): Int {
         return fliArrayList.size
