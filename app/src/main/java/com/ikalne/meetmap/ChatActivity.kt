@@ -25,6 +25,8 @@ class ChatActivity : AppCompatActivity() {
     private var chatId = ""
     private var user = ""
     private var name = ""
+    private var noInternetDialog: AlertDialog? = null
+    private var retryCount = 0
 
 
     private var db = Firebase.firestore
@@ -50,9 +52,13 @@ class ChatActivity : AppCompatActivity() {
 
 
 
-
-        if(chatId.isNotEmpty() && user.isNotEmpty()) {
-            initViews()
+        if (isConnectedToInternet()) {
+            if(chatId.isNotEmpty() && user.isNotEmpty()) {
+                retryCount = 0
+                initViews()
+            }
+        } else {
+            showNoInternetAlert()
         }
     }
 
@@ -109,27 +115,60 @@ class ChatActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (!isConnectedToInternet()) {
                 showNoInternetAlert()
+            } else {
+                hideNoInternetAlert()
             }
         }
     }
 
+    private fun hideNoInternetAlert() {
+        noInternetDialog?.dismiss()
+        noInternetDialog = null
+    }
+
     private fun isConnectedToInternet(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
 
     private fun showNoInternetAlert() {
+        if (noInternetDialog?.isShowing == true) {
+            noInternetDialog?.dismiss()
+        }
+
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.nointernetitle))
-        builder.setMessage(getString(R.string.nointernetsubtitle))
-        builder.setPositiveButton(getString(R.string.nointernetbtn)) { dialog, which ->
+        // Modificamos el texto del botón de "Reintentar"
+        val buttonText = if (retryCount >= 2) {
+            builder.setTitle(getString(R.string.nointernetitleexit))
+            builder.setMessage(getString(R.string.nointernetsubtitleexit))
+            getString(R.string.exitalert)
+        } else {
+            builder.setTitle(getString(R.string.nointernetitle))
+            builder.setMessage(getString(R.string.nointernetsubtitle))
+            getString(R.string.nointernetbtn)
+        }
+        builder.setPositiveButton(buttonText) { dialog, which ->
             if (!isConnectedToInternet()) {
+                // Incrementamos el contador de reintentos
+                retryCount++
                 showNoInternetAlert()
+            } else {
+                // Reiniciamos el contador de reintentos
+                retryCount = 0
+                hideNoInternetAlert()
+            }
+            // Si se ha presionado el botón dos o más veces, cerramos la app
+            if (retryCount > 2) {
+                hideNoInternetAlert()
+                finishAffinity()
             }
         }
+
         builder.setCancelable(false)
-        builder.show()
+        noInternetDialog = builder.create()
+        noInternetDialog?.show()
     }
 
     override fun onResume() {

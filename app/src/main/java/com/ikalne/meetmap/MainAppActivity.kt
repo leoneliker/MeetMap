@@ -246,6 +246,7 @@ class MainAppActivity : AppCompatActivity() {
 
     private fun setThatFragment(fragment: Fragment) {
         if (isConnectedToInternet()) {
+            retryCount = 0
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.frame, fragment)
                 commit()
@@ -287,14 +288,17 @@ class MainAppActivity : AppCompatActivity() {
             if (!isConnectedToInternet()) {
                 showNoInternetAlert()
             } else {
+                hideNoInternetAlert()
                 if (!isFragmentLoaded) {
                     loadFragment()
+                    hideNoInternetAlert()
                 }
             }
         }
     }
     private fun loadFragment() {
         // Intenta cargar el fragmento aquí
+        retryCount = 0
         setThatFragment(mapFragment)
         hideNoInternetAlert()
         isFragmentLoaded = true
