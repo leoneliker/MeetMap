@@ -239,24 +239,25 @@ class InfoActivityFragment :Fragment() {
     }
     private fun checkIsSuscribe(plAct: plAct, userEmail: String) {
         val ref = FirebaseDatabase.getInstance().getReference("Activities")
-        ref.child(plAct.id.toString()).child("Suscribers").child(getUsernameFromEmail(userEmail))
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                @SuppressLint("ResourceAsColor")
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        IsInSuscribe = true
-                        binding.unirse.setBackgroundColor(R.color.primary_dark)
-                    } else {
-                        IsInSuscribe = false
-                        binding.unirse.setBackgroundColor(R.color.primary_light)
-                    }
+        ref.child(plAct.id.toString()).child("Suscribers").addListenerForSingleValueEvent(object : ValueEventListener {
+            @SuppressLint("ResourceAsColor")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists() && snapshot.hasChild(getUsernameFromEmail(userEmail))) {
+                    Log.d(TAG, "checkIsSub: dentro")
+                    IsInSuscribe = true
+                    binding.unirse.setBackgroundColor(R.color.primary_dark)
+                } else {
+                    Log.d(TAG, "checkIsSub: fuera")
+                    IsInSuscribe = false
+                    binding.unirse.setBackgroundColor(R.color.primary_light)
                 }
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.d(TAG, "checkIsFavourite: onCancelled: ${error.message}")
-                    // Toast.makeText(this, "Failed to check favourite status due to ${error.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
+            override fun onCancelled(error: DatabaseError) {
+                Log.d(TAG, "checkIsFavourite: onCancelled: ${error.message}")
+                // Toast.makeText(this, "Failed to check favourite status due to ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun addToSuscribe(plAct: plAct, userEmail: String){
@@ -265,8 +266,9 @@ class InfoActivityFragment :Fragment() {
         IsInSuscribe = true
 
         val ref = FirebaseDatabase.getInstance().getReference("Activities")
-        ref.child(plAct.id.toString()).child("Suscribers").child(getUsernameFromEmail(userEmail))
-            .setValue(true)
+        ref.child(plAct.id.toString()).child("Suscribers")
+            .child(getUsernameFromEmail(userEmail))
+            .setValue("true")
             .addOnSuccessListener {
                 Log.d(TAG, "addToSuscribe: Added to suscribe")
             }
@@ -282,7 +284,8 @@ class InfoActivityFragment :Fragment() {
         IsInSuscribe = false
 
         val ref = FirebaseDatabase.getInstance().getReference("Activities")
-        ref.child(plAct.id.toString()).child("Suscribers").child(getUsernameFromEmail(userEmail))
+        ref.child(plAct.id.toString()).child("Suscribers")
+            .child(getUsernameFromEmail(userEmail))
             .removeValue()
             .addOnSuccessListener {
                 Log.d(TAG, "removeFromSuscribe: removed from suscribe")
@@ -293,6 +296,7 @@ class InfoActivityFragment :Fragment() {
 
             }
     }
+
     fun getUsernameFromEmail(email: String): String {
         val index = email.indexOf("@")
         return if (index != -1) {

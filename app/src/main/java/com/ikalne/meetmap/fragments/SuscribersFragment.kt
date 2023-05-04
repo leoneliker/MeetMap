@@ -10,8 +10,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.Suscriber
@@ -19,7 +23,7 @@ import com.ikalne.meetmap.Suscriber
 class SuscribersFragment(private val plActId: Int) : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SuscribersAdapter
-    private lateinit var plAct: plAct
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -33,22 +37,33 @@ class SuscribersFragment(private val plActId: Int) : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Obtener la lista de suscriptores de Firebase
-        val suscribersRef = Firebase.firestore
-            .collection("Activities")
-            .document(plActId.toString())
-            .collection("Suscribers")
-        suscribersRef.addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                Log.w(TAG, "Listen failed.", e)
-                return@addSnapshotListener
-            }
-            val suscribersList = mutableListOf<Suscriber>()
-            for (doc in snapshot!!.documents) {
-                val suscriber = doc.toObject<Suscriber>()
-                suscriber?.let { suscribersList.add(it) }
-            }
-            adapter.updateList(suscribersList)
-        }
+        updateRecyclerView()
+
         return view
+    }
+
+
+    private fun updateRecyclerView() {
+        val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")
+            .child(plActId.toString())
+            .child("Suscribers")
+
+        suscribersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val suscribersList = mutableListOf<Suscriber>()
+                for (suscriberSnapshot in snapshot.children) {
+                    val suscriberName = suscriberSnapshot.key
+                    if (suscriberName != null) {
+                        val suscriber = Suscriber(suscriberName)
+                        suscribersList.add(suscriber)
+                    }
+                }
+                adapter.updateList(suscribersList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+        })
     }
 }

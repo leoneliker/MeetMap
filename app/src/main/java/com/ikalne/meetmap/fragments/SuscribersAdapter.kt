@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.Suscriber
 
@@ -15,7 +16,7 @@ class SuscribersAdapter(private val suscribersList: MutableList<Suscriber> = mut
         private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
 
         fun bind(suscriber: Suscriber) {
-            nameTextView.text = suscriber.name
+            nameTextView.text = suscriber.name.toString()
         }
     }
 
@@ -37,5 +38,11 @@ class SuscribersAdapter(private val suscribersList: MutableList<Suscriber> = mut
         suscribersList.clear()
         suscribersList.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    fun addSuscriber(doc: DocumentSnapshot) {
+        val suscriber = Suscriber(doc.id)
+        suscribersList.add(suscriber)
+        notifyItemInserted(suscribersList.size - 1)
     }
 }
