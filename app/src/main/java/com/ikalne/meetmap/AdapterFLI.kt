@@ -7,8 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -16,10 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.ikalne.meetmap.databinding.FavlistItemBinding
-import com.ikalne.meetmap.databinding.FragmentFavouritesBinding
-import com.ikalne.meetmap.fragments.plAct
 import com.ikalne.meetmap.model.FLI
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,7 +26,7 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
 
     var clickListener: OnItemClickListener? = null
     interface OnItemClickListener {
-        fun onItemClick(position: Int, item: FLI)
+        fun onItemClick(position: Int, item: FLI, itemView: View)
     }
 
 
@@ -48,7 +43,7 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
         val model = fliArrayList[position]
         loadActDetails(model, holder)
         holder.itemView.setOnClickListener {
-            clickListener?.onItemClick(position,model)
+            clickListener?.onItemClick(position,model, holder.itemView)
         }
         holder.removeFavBtn.setOnClickListener{
             removeFromFavourite(context, model.id)

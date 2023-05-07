@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -107,15 +109,18 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
             })
     }
 
-    override fun onItemClick(position: Int,item: FLI) {
+    override fun onItemClick(position: Int,item: FLI, view: View) {
         val marker = MapFragment.markers["${item.id} ${item.titulo}"]
         if (marker != null) {
             val infoFragment = InfoActivityFragment()
             infoFragment.setMarker(marker, MapFragment.locatorList)
             requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.frame, infoFragment)
                 .addToBackStack(null)
                 .commit()
         }
     }
+
+
 }

@@ -53,9 +53,6 @@ class InfoActivityFragment :Fragment() {
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         firebaseAuth = FirebaseAuth.getInstance()
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
-        System.out.println(plAct.titulo);
-
-
         if (firebaseAuth.currentUser != null) {
             checkIsFavourite(plAct)
         }
