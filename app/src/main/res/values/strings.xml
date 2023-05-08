@@ -94,6 +94,7 @@
     <string name="backAgain">Please click BACK again to exit</string>
     <string name="deleteAccountQuestion">Are you sure you want to delete the account?</string>
     <string name="deleteAccountSuccesful">The account has been deleted</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="location_menu">Actividades a menos de 1000 metros</string>
     <string name="messagechat">I want to tell you that...</string>
     <string name="nochats">"How quiet everything is around here..."</string>
