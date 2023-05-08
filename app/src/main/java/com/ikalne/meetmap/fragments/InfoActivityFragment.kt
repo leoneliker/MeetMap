@@ -14,6 +14,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -52,9 +53,6 @@ class InfoActivityFragment :Fragment() {
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         firebaseAuth = FirebaseAuth.getInstance()
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
-        System.out.println(plAct.titulo);
-
-
         if (firebaseAuth.currentUser != null) {
             checkIsFavourite(plAct)
         }
@@ -66,10 +64,13 @@ class InfoActivityFragment :Fragment() {
             } else {
                 if (IsInMyFavourite) {
                     removeFromFavourite(plAct)
+                    checkIsFavourite(plAct)
                 } else {
                     addToFavourite(plAct)
+                    checkIsFavourite(plAct)
                 }
             }
+
         }
 
 
@@ -179,7 +180,8 @@ class InfoActivityFragment :Fragment() {
     }
     private fun addToFavourite(plAct: plAct){
         Log.d(TAG, "addToFavourite: Adding to fav")
-
+        IsInMyFavourite = true
+        checkIsFavourite(plAct)
         val hashMap = HashMap<String, Any>()
 
         hashMap ["ID"] = plAct.id
@@ -203,7 +205,8 @@ class InfoActivityFragment :Fragment() {
     }
     private fun removeFromFavourite(plAct: plAct){
         Log.d(TAG, "removeFromFavourite: Removing from fav")
-
+        IsInMyFavourite = false
+        checkIsFavourite(plAct)
         val ref=FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseAuth.uid!!).child("Favourites").child(plAct.id.toString())
             .removeValue()

@@ -1,6 +1,10 @@
 package com.ikalne.meetmap
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -34,6 +38,8 @@ class SignUpScroll : AppCompatActivity() {
     private val GOOGLE_SIGN_IN = 1
     private lateinit var binding: ActivitySignUpScrollBinding
     private var url= ""
+    private var noInternetDialog: AlertDialog? = null
+    private var retryCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         forceLightMode()
@@ -65,10 +71,16 @@ class SignUpScroll : AppCompatActivity() {
 
     fun checkUserValues()
     {
-        if(PreferencesManager.getDefaultSharedPreferences(this).getEmail().isNotEmpty())
-        {
-            showMapActivity()
+        if (isConnectedToInternet()) {
+            if (PreferencesManager.getDefaultSharedPreferences(this).getEmail().isNotEmpty())
+            {
+                retryCount = 0
+                showMapActivity()
+            }
+        } else {
+            showNoInternetAlert()
         }
+
     }
 
     fun signUp(){
@@ -181,5 +193,74 @@ class SignUpScroll : AppCompatActivity() {
                 )
         )
         showMapActivity()
+    }
+    private val networkReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (!isConnectedToInternet()) {
+                showNoInternetAlert()
+            } else {
+                hideNoInternetAlert()
+            }
+        }
+    }
+
+    private fun hideNoInternetAlert() {
+        noInternetDialog?.dismiss()
+        noInternetDialog = null
+    }
+
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    private fun showNoInternetAlert() {
+        if (noInternetDialog?.isShowing == true) {
+            noInternetDialog?.dismiss()
+        }
+
+        val builder = AlertDialog.Builder(this)
+        // Modificamos el texto del botón de "Reintentar"
+        val buttonText = if (retryCount >= 2) {
+            builder.setTitle(getString(R.string.nointernetitleexit))
+            builder.setMessage(getString(R.string.nointernetsubtitleexit))
+            getString(R.string.exitalert)
+        } else {
+            builder.setTitle(getString(R.string.nointernetitle))
+            builder.setMessage(getString(R.string.nointernetsubtitle))
+            getString(R.string.nointernetbtn)
+        }
+        builder.setPositiveButton(buttonText) { dialog, which ->
+            if (!isConnectedToInternet()) {
+                // Incrementamos el contador de reintentos
+                retryCount++
+                showNoInternetAlert()
+            } else {
+                // Reiniciamos el contador de reintentos
+                retryCount = 0
+                hideNoInternetAlert()
+            }
+            // Si se ha presionado el botón dos o más veces, cerramos la app
+            if (retryCount > 2) {
+                hideNoInternetAlert()
+                finishAffinity()
+            }
+        }
+
+        builder.setCancelable(false)
+        noInternetDialog = builder.create()
+        noInternetDialog?.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(networkReceiver)
     }
 }

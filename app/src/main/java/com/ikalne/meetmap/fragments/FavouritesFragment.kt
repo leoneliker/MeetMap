@@ -1,14 +1,23 @@
 package com.ikalne.meetmap.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,17 +26,19 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.AdapterFLI
 import com.ikalne.meetmap.R
+import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentFavouritesBinding
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
+import com.ikalne.meetmap.model.CustomInfoWindowAdapter
 import com.ikalne.meetmap.model.FLI
+import com.ikalne.meetmap.model.LocationMenuItem
+import com.ikalne.meetmap.viewmodels.MadridViewModel
 import java.net.IDN
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class FavouritesFragment : Fragment() {
+class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recyclerView: RecyclerView
@@ -53,13 +64,14 @@ class FavouritesFragment : Fragment() {
         recyclerView = binding.favouriteRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapterFLI = AdapterFLI(requireContext(), fliArrayList)
+        adapterFLI.clickListener = this
         recyclerView.adapter = adapterFLI
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflar el diseño para este fragmento
         binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         return binding.root
@@ -78,10 +90,10 @@ class FavouritesFragment : Fragment() {
 
     private fun loadFavouriteActs(){
         fliArrayList = ArrayList()
-
         val ref = FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseAuth.uid!!).child("Favourites")
             .addValueEventListener(object: ValueEventListener{
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     fliArrayList.clear()
                     for(ds in snapshot.children){
@@ -92,10 +104,23 @@ class FavouritesFragment : Fragment() {
                     }
                     adapterFLI.notifyDataSetChanged()
                 }
-
                 override fun onCancelled(error: DatabaseError) {
-
                 }
             })
     }
+
+    override fun onItemClick(position: Int,item: FLI, view: View) {
+        val marker = MapFragment.markers["${item.id} ${item.titulo}"]
+        if (marker != null) {
+            val infoFragment = InfoActivityFragment()
+            infoFragment.setMarker(marker, MapFragment.locatorList)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                .replace(R.id.frame, infoFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+
 }
