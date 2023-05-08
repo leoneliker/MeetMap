@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="16dp">
 
@@ -11,7 +12,29 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:text="nombre"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="4dp"
         android:textColor="@color/dark_gray"/>
+
+
+
+    <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/ic_message_square"
+        android:backgroundTint="@color/dark_gray"
+        android:id="@+id/chat"
+        android:layout_marginLeft="100dp"
+       />
+
+    <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/ic_profile"
+        android:backgroundTint="@color/dark_gray"
+        android:id="@+id/profile"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </LinearLayout>

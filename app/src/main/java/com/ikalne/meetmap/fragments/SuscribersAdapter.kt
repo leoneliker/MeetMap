@@ -3,17 +3,22 @@ package com.ikalne.meetmap.fragments
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.Suscriber
 
-class SuscribersAdapter(private val suscribersList: MutableList<Suscriber> = mutableListOf()) :
+class SuscribersAdapter(
+    private val suscribersList: MutableList<Suscriber> = mutableListOf(),
+) :
     RecyclerView.Adapter<SuscribersAdapter.SuscriberViewHolder>() {
 
     class SuscriberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
+        val btnpf: ImageButton = itemView.findViewById(R.id.profile)
+        private val btnchat: ImageButton = itemView.findViewById(R.id.chat)
 
         fun bind(suscriber: Suscriber) {
             nameTextView.text = suscriber.name.toString()
@@ -27,7 +32,9 @@ class SuscribersAdapter(private val suscribersList: MutableList<Suscriber> = mut
     }
 
     override fun onBindViewHolder(holder: SuscriberViewHolder, position: Int) {
-        holder.bind(suscribersList[position])
+        val suscriber = suscribersList[position]
+        holder.bind(suscriber)
+
     }
 
     override fun getItemCount(): Int {
