@@ -66,7 +66,7 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
 
         holder.itemView.setOnLongClickListener {
             chatid=chats[holder.adapterPosition].id
-            removeItem(holder.adapterPosition)
+           // removeItem(holder.adapterPosition)
             true
         }
     }
@@ -75,7 +75,7 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
         return chats.size
     }
 
-   fun removeItem(position: Int) {
+   /*fun removeItem(position: Int) {
 
         chats = chats.filterIndexed { index, _ -> index != position }
         notifyItemRemoved(position)
@@ -85,7 +85,7 @@ class ChatAdapter(val chatClick: (Chat) -> Unit): RecyclerView.Adapter<ChatAdapt
         val userRef = db.collection("users").document(user)
         val chatRef = userRef.collection("chats").document(chatid)
         chatRef.delete()
-    }
+    }*/
     fun getItemPosition(chatId: String): Int {
         return chats.indexOfFirst { chat -> chat.id == chatId }
     }

@@ -38,6 +38,6 @@
         <item name="itemTextColor">@color/bottom_nav_selector</item>
     </style>
     <style name="Theme.MeetMap.NoActionBar.Chat" parent="Theme.MeetMap.NoActionBar">
-        <item name="android:statusBarColor">@color/primary_light</item>
+        <item name="android:statusBarColor">@color/secondary_light</item>
     </style>
 </resources>

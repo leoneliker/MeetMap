@@ -93,8 +93,12 @@
     <string name="backAgain">Por favor pulse ATRÁS otra vez para salir</string>
     <string name="deleteAccountQuestion">¿Está seguro que desea eliminar la cuenta?</string>
     <string name="deleteAccountSuccesful">La cuenta se ha eliminado</string>
-    <string name="messagechat">Mensaje</string>
-    <string name="nochats">"Demasiada tranquilidad por aquí..."</string>
-
-
+    <string name="messagechat">Te quiero contar que...</string>
+    <string name="nochats">"Qué tranquilo está todo por aquí..."</string>
+    <string name ="nointernetitle">"¡Ups no hay conexión a Internet!"</string>
+    <string name ="nointernetitleexit">"¡Queremos volverte a ver pronto!"</string>
+    <string name="nointernetsubtitle">"Meetmap está deseando contar contigo. ¿Quieres seguir probando?"</string>
+    <string name="nointernetsubtitleexit">"MeetMap quiere contar contigo, cuando tengas internet te estaremos esperando"</string>
+    <string name="nointernetbtn">"Reintentar"</string>
+    <string name="exitalert">Salir</string>
 </resources>

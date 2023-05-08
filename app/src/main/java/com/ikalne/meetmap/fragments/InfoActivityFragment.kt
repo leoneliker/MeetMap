@@ -64,10 +64,13 @@ class InfoActivityFragment :Fragment() {
             } else {
                 if (IsInMyFavourite) {
                     removeFromFavourite(plAct)
+                    checkIsFavourite(plAct)
                 } else {
                     addToFavourite(plAct)
+                    checkIsFavourite(plAct)
                 }
             }
+
         }
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         return binding.root
@@ -158,7 +161,8 @@ class InfoActivityFragment :Fragment() {
     }
     private fun addToFavourite(plAct: plAct){
         Log.d(TAG, "addToFavourite: Adding to fav")
-
+        IsInMyFavourite = true
+        checkIsFavourite(plAct)
         val hashMap = HashMap<String, Any>()
 
         hashMap ["ID"] = plAct.id
@@ -182,7 +186,8 @@ class InfoActivityFragment :Fragment() {
     }
     private fun removeFromFavourite(plAct: plAct){
         Log.d(TAG, "removeFromFavourite: Removing from fav")
-
+        IsInMyFavourite = false
+        checkIsFavourite(plAct)
         val ref=FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseAuth.uid!!).child("Favourites").child(plAct.id.toString())
             .removeValue()

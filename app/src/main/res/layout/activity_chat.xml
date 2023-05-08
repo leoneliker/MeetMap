@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ChatFragment">
+        tools:context=".fragments.ChatFragment"
+        android:background="@color/light_gray">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -25,26 +26,25 @@
                 app:title="My Title"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:titleTextColor="@color/dark_gray"
-                android:background="@color/primary_light"
+                android:background="@color/secondary_light"
                 app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
         <EditText
             android:id="@+id/messageTextField"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
-            android:ems="10"
             android:hint="@string/messagechat"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
-            app:layout_constraintStart_toStartOf="parent"
-            android:fontFamily="@font/roboto"
-            android:theme="@style/lineETchat"
-
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/sendMessageButton"
@@ -71,7 +71,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appbar"
-            tools:listitem="@layout/item_message" />
+            tools:listitem="@layout/item_message"
+            android:background="@color/white"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
