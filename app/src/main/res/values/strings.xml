@@ -102,5 +102,4 @@
     <string name="nointernetsubtitleexit">"MeetMap wants to count on you, when you have internet we will be waiting for you"</string>
     <string name="nointernetbtn">"Retry"</string>
     <string name="exitalert">Exit</string>
-
-</resources>
+   </resources>
