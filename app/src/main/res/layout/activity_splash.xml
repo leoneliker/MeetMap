@@ -6,7 +6,21 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context=".Splash"
-    android:background="@color/primary">
+    >
+
+
+<ImageView
+        android:id="@+id/backView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toTopOf="@id/topguide"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomguide"
+        android:src="@drawable/fondosplash"
+        android:scaleType="fitXY"
+        />
+
     <ImageView
         android:id="@+id/leftHand"
         style="@style/imageSpalshHands"
@@ -31,7 +45,7 @@
         android:src="@drawable/meetmap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-android:layout_marginTop="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rightHand"
          />
@@ -42,5 +56,31 @@ android:layout_marginTop="16dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.50"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="-0.8"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="-0.8"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="-0.8"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomguide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="-0.8"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
