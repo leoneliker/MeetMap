@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ChatFragment"
-        android:background="@color/light_gray">
+        tools:context=".fragments.ChatFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
