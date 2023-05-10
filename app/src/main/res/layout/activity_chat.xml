@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ChatFragment"
-        android:background="@color/light_gray">
+        tools:context=".fragments.ChatFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -42,6 +41,7 @@
             android:maxLines="6"
             android:scrollbars="vertical"
             android:fadeScrollbars="false"
+            android:theme="@style/lineETchat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
             app:layout_constraintStart_toStartOf="parent" />
