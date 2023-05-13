@@ -44,9 +44,9 @@ class Splash : AppCompatActivity() {
             val endIndex = startIndex + word.length
 
             val color = if (colorIndex % 2 == 0) {
-                R.color.secondary
+                R.color.primary_dark
             } else {
-               R.color.primary_dark
+               R.color.secondary
             }
             val colors = ContextCompat.getColor(this, color)
 
