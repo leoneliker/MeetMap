@@ -51,10 +51,9 @@ class ChatFragment : Fragment() {
         binding.newChatButton.setOnClickListener { newChat() }
 
         binding.listChatsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.listChatsRecyclerView.adapter =
-            ChatAdapter { chat ->
-                chatSelected(chat)
-            }
+        binding.listChatsRecyclerView.adapter = ChatAdapter(requireContext()) { chat ->
+            chatSelected(chat)
+        }
 
         val adapter = binding.listChatsRecyclerView.adapter as ChatAdapter
         val userRef = db.collection("users").document(user)
