@@ -309,8 +309,8 @@ class InfoActivityFragment :Fragment() {
         }
     }
 
-    fun openSuscribersFragment(plActId: Int) {
-        val SuscribersFragment = SuscribersFragment(plActId)
+    fun openSuscribersFragment(plActId: Int, UserID: String) {
+        val SuscribersFragment = SuscribersFragment(plActId, UserID)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.frame, SuscribersFragment)
             .addToBackStack(null)

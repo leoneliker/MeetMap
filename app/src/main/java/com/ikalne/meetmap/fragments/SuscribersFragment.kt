@@ -20,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.Suscriber
 
-class SuscribersFragment(private val plActId: Int) : Fragment() {
+class SuscribersFragment(private val plActId: Int, private val UserID: String) : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SuscribersAdapter
 
