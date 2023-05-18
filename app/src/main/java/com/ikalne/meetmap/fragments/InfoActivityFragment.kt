@@ -87,7 +87,7 @@ class InfoActivityFragment :Fragment() {
                 }
 
                 // Cargar el fragmento de suscriptores
-                openSuscribersFragment(plAct.id)
+                openSuscribersFragment(plAct.id,email)
 
             }
         }
@@ -309,8 +309,8 @@ class InfoActivityFragment :Fragment() {
         }
     }
 
-    fun openSuscribersFragment(plActId: Int, UserID: String) {
-        val SuscribersFragment = SuscribersFragment(plActId, UserID)
+    fun openSuscribersFragment(plActId: Int, UserEmail: String) {
+        val SuscribersFragment = SuscribersFragment(plActId, UserEmail)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.frame, SuscribersFragment)
             .addToBackStack(null)
