@@ -103,7 +103,6 @@ class InfoActivityFragment :Fragment() {
                 resources.getDrawable(R.drawable.amigos, null),
                 resources.getDrawable(R.drawable.amigoscielo, null)
             )
-            Log.i("categoria",locatorView.category)
             val res = when (locatorView.category.split("/").getOrNull(6) ?: options.random()) {
                 "Musica" -> resources.getDrawable(R.drawable.musica, null)
                 "DanzaBaile" -> resources.getDrawable(R.drawable.danzabaile, null)
@@ -123,14 +122,11 @@ class InfoActivityFragment :Fragment() {
                 "Campamentos" -> resources.getDrawable(R.drawable.campamentos, null)
                 "CineActividadesAudiovisuales" -> resources.getDrawable(R.drawable.cine, null)
                 "CircoMagia" -> resources.getDrawable(R.drawable.circo, null)
-                "FiestasSemanaSanta" -> resources.getDrawable(R.drawable.semanasanta, null)
-
                 else -> options.random()
             }
             activity?.let { Glide.with(it)
                 .load(res)
                 .into(imgLayout)}
-
 
             titulo.text = locatorView.title
             val desc = locatorView.description.ifEmpty {

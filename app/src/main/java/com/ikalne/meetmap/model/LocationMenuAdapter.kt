@@ -24,6 +24,8 @@ class LocationMenuAdapter(private val items: List<LocationMenuItem>, private val
         fun bind(item: LocationMenuItem, listener: OnItemClickListener) {
             title.text = item.title
             icon.setImageResource(item.icon)
+            icon.layoutParams.width = 50
+            icon.layoutParams.height = 50
             date.text = item.date
             time.text = item.time
 

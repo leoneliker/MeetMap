@@ -13,6 +13,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.red
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,7 +51,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var map: GoogleMap
     private lateinit var loadingSpinner: ProgressBar
     private lateinit var dimView: View
-
     private val viewModel: MadridViewModel by lazy {
         ViewModelProvider(this)[MadridViewModel::class.java]
     }
@@ -77,8 +78,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         mMapFragment.getMapAsync(this@MapFragment)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
-
-
 
     @SuppressLint("PotentialBehaviorOverride")
     private fun observe() {
@@ -115,6 +114,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     @SuppressLint("PotentialBehaviorOverride")
     private fun chipCreator(locators: List<LocatorView>) {
         val categories = mutableSetOf<String>()
+        val selectedCategories = mutableSetOf<String>()
         for (locator in locators) {
             val category = locator.category.split("/").getOrNull(6)
             category?.let { categories.add(it) }
@@ -123,47 +123,57 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             val chip = layoutInflater.inflate(R.layout.location_chip, chipGroup, false) as Chip
             chip.text = category
             chipGroup.addView(chip)
-        }
-
-        chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            val chip = group.findViewById<Chip>(checkedId)
-            chip?.let { selectedChip ->
-                val selectedCategory = selectedChip.text.toString()
-                val filteredLocators = locators.filter {
-                    val category = it.category.split("/").getOrNull(6)
-                    category == selectedCategory
+            chip.setOnClickListener {
+                val isSelected = selectedCategories.contains(category)
+                if (isSelected) {
+                    selectedCategories.remove(category)
+                    chip.setChipBackgroundColorResource(android.R.color.transparent)
+                    chip.setTextColor(ContextCompat.getColorStateList(requireContext(), android.R.color.black))
+                } else {
+                    selectedCategories.add(category)
+                    chip.setChipBackgroundColorResource(R.color.primary_light)
+                    chip.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.primary))
                 }
-                map.clear()
-                markers.clear()
-                filteredLocators.mapNotNull {
-                    it.location.latitude?.let { lat ->
-                        it.location.longitude?.let { lng ->
-                            LatLng(lat, lng)
-                        }
-                    }?.let { coordinates ->
-                        val markerOptions = MarkerOptions().position(coordinates)
-                            .title("${it.id} ${it.title}") // Utiliza el mismo formato de título que en onItemClick
-                        val marker = map.addMarker(markerOptions)
-                        markers[marker.title] = marker
-
-                        madridMap[marker.title] = it.id
-                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mano_rosa))
+                if (selectedCategories.isEmpty()) {
+                    applyFilter(locators)
+                } else {
+                    val filteredLocators = locators.filter {
+                        val cat = it.category.split("/").getOrNull(6)
+                        selectedCategories.contains(cat)
                     }
-                }.also {
-                    locatorList = filteredLocators
-                    map.setInfoWindowAdapter(
-                        CustomInfoWindowAdapter(
-                            LayoutInflater.from(activity),
-                            locatorList
-                        )
-                    )
+                    applyFilter(filteredLocators)
                 }
             }
         }
     }
 
-
-
+    @SuppressLint("PotentialBehaviorOverride")
+    private fun applyFilter(filteredLocators: List<LocatorView>) {
+        map.clear()
+        markers.clear()
+        filteredLocators.mapNotNull {
+            it.location.latitude?.let { lat ->
+                it.location.longitude?.let { lng ->
+                    LatLng(lat, lng)
+                }
+            }?.let { coordinates ->
+                val markerOptions = MarkerOptions().position(coordinates)
+                    .title("${it.id} ${it.title}")
+                val marker = map.addMarker(markerOptions)
+                markers[marker.title] = marker
+                madridMap[marker.title] = it.id
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mano_rosa))
+            }
+        }.also {
+            locatorList = filteredLocators
+            map.setInfoWindowAdapter(
+                CustomInfoWindowAdapter(
+                    LayoutInflater.from(activity),
+                    locatorList
+                )
+            )
+        }
+    }
 
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(googleMap: GoogleMap) {
@@ -236,13 +246,43 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val view = layoutInflater.inflate(R.layout.location_menu, null)
         bottomSheetDialog.setContentView(view)
         val menuItems = mutableListOf<LocationMenuItem>()
+        val options = listOf(
+            R.drawable.ico_gen1,
+            R.drawable.ico_gen2,
+            R.drawable.ico_gen3,
+            R.drawable.ico_gen4,
+            R.drawable.ico_gen5
+        )
         for (locator in locatorList) {
             val distance = distance(
                 location.latitude, location.longitude,
                 locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
             )
             if (distance < 50000) {
-                val menuItem = LocationMenuItem(locator.id,locator.title, R.drawable.ic_calendar, locator.dstart, locator.dfinish)
+                val iconResId = when (locator.category.split("/").getOrNull(6) ?: options.random()) {
+                    "Musica" -> R.drawable.ico_musica
+                    "DanzaBaile" -> R.drawable.ico_danzabaile
+                    "CursosTalleres" -> R.drawable.ico_cursostalleres
+                    "TeatroPerformance" -> R.drawable.ico_teatro
+                    "ActividadesCalleArteUrbano" -> R.drawable.ico_arteurbano
+                    "CuentacuentosTiteresMarionetas" -> R.drawable.ico_cuentacuentos
+                    "ComemoracionesHomenajes" -> R.drawable.ico_homenaje
+                    "ConferenciasColoquios" -> R.drawable.ico_conferencias
+                    "1ciudad21distritos" -> R.drawable.ico_ciudaddistritos
+                    "ExcursionesItinerariosVisitas" -> R.drawable.ico_visitas
+                    "ItinerariosOtrasActividadesAmbientales" -> R.drawable.ico_ambientales
+                    "ClubesLectura" -> R.drawable.ico_lectura
+                    "RecitalesPresentacionesActosLiterarios" -> R.drawable.ico_recitales
+                    "Exposiciones" -> R.drawable.ico_exposiciones
+                    "Campamentos" -> R.drawable.ico_campamentos
+                    "CineActividadesAudiovisuales" -> R.drawable.ico_cine
+                    "CircoMagia" -> R.drawable.ico_circo
+                    "ProgramacionDestacadaAgendaCultura" -> R.drawable.ico_cultura
+                    "ActividadesDeportivas" -> R.drawable.ico_deportes
+                    "EnLinea" -> R.drawable.ico_enlinea
+                    else -> options.random()
+                }
+                val menuItem = LocationMenuItem(locator.id, locator.title, iconResId, locator.dstart, locator.dfinish)
                 menuItems.add(menuItem)
             }
         }
@@ -285,6 +325,4 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return (R * c * 1000).toFloat()
     }
-
-
 }
