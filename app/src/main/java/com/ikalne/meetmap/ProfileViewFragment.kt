@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.model.User
 
 class ProfileViewFragment(private val useremail: String) : Fragment() {
@@ -38,34 +40,39 @@ class ProfileViewFragment(private val useremail: String) : Fragment() {
         // Obtener los datos del usuario desde Firebase según su correo electrónico
         System.out.println(useremail)
         getUserData(useremail)
-        System.out.println(etEmail)
+
 
         return view
     }
 
     private fun getUserData(useremail: String) {
-        val db = FirebaseFirestore.getInstance()
-        val documentRef = db.collection("users").document(useremail)
+        System.out.println("Entra en getUserData")
+        val documentRef = Firebase.firestore.collection("users").document(useremail)
 
         documentRef.get()
             .addOnSuccessListener { documentSnapshot ->
+                System.out.println("Entra en get")
                 if (documentSnapshot.exists()) {
-                    val user = documentSnapshot.toObject(User::class.java)
-                    if (user != null) {
-                        System.out.println(user.email)
-                    }
-                    user?.let {
-                        etName.text = it.name
-                        etSurname.text = it.surname
-                        etPhone.text = it.numTelf.toString()
-                        etEmail.text = it.email
-                        etDescription.text = it.desc
+                    System.out.println(documentSnapshot.data.toString())
 
+                    val name = documentSnapshot.data?.get("name") as? String
+                    val surname = documentSnapshot.data?.get("surname") as? String
+                    val numTelf = documentSnapshot.data?.get("phone") as? String
+                    val desc = documentSnapshot.data?.get("description") as? String
+                    val photo = documentSnapshot.data?.get("img") as? String
+
+                    name?.let { etName.text = it }
+                    surname?.let { etSurname.text = it }
+                    numTelf?.let { etPhone.text = it.toString() }
+                    desc?.let { etDescription.text = it }
+                    etEmail.text = useremail
+
+                    photo?.let {
                         // Cargar la imagen del perfil desde la URL proporcionada
                         val options = RequestOptions().placeholder(R.drawable.predeterminado)
                             .error(R.drawable.predeterminado)
                         Glide.with(requireContext())
-                            .load(it.photo)
+                            .load(it)
                             .apply(options)
                             .into(etPfppic)
                     }
