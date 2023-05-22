@@ -73,21 +73,24 @@ class InfoActivityFragment :Fragment() {
 
         }
 
-
+        checkIsSuscribe(plAct, email)
         binding.unirse.setOnClickListener() {
             if (firebaseAuth.currentUser == null) {
                 // Toast.makeText(this, "You're not logged in", Toast.LENGTH_SHORT).show()
+
             } else {
                 if (IsInSuscribe) {
                     removeFromSuscribe(plAct, email)
                     checkIsSuscribe(plAct, email)
+
                 } else {
                     addToSuscribe(plAct, email)
                     checkIsSuscribe(plAct, email)
+                    openSuscribersFragment(plAct.id,email)
                 }
 
                 // Cargar el fragmento de suscriptores
-                openSuscribersFragment(plAct.id,email)
+
 
             }
         }
@@ -245,14 +248,26 @@ class InfoActivityFragment :Fragment() {
         ref.child(plAct.id.toString()).child("Suscribers").addListenerForSingleValueEvent(object : ValueEventListener {
             @SuppressLint("ResourceAsColor")
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists() && snapshot.hasChild(getUsernameFromEmail(userEmail))) {
+                val usernameFromEmail = getUsernameFromEmail(userEmail)
+                var isInSubscribe = false
+                snapshot.children.forEach { childSnapshot ->
+                    val username = childSnapshot.key
+                    if (username == usernameFromEmail) {
+                        isInSubscribe = true
+                        return@forEach
+                    }
+                }
+                IsInSuscribe = isInSubscribe
+                if (isInSubscribe) {
                     Log.d(TAG, "checkIsSub: dentro")
-                    IsInSuscribe = true
-                    binding.unirse.setBackgroundColor(R.color.primary_dark)
+                    binding.unirse.setBackgroundColor(R.color.secondary_dark)
+                    binding.unirse.setTextColor(R.color.dark_gray)
+                    binding.unirse.text = "Unsubscribe"
                 } else {
                     Log.d(TAG, "checkIsSub: fuera")
-                    IsInSuscribe = false
-                    binding.unirse.setBackgroundColor(R.color.primary_light)
+                    binding.unirse.setBackgroundColor(R.color.secondary_light)
+                    binding.unirse.setTextColor(R.color.light_gray)
+                    binding.unirse.text = "Suscribe"
                 }
             }
 

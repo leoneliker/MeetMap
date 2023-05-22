@@ -87,6 +87,7 @@ class SuscribersAdapter(
                     // Handle error
                 }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuscriberViewHolder {
