@@ -80,19 +80,25 @@ class InfoActivityFragment :Fragment() {
 
             } else {
                 if (IsInSuscribe) {
+
                     removeFromSuscribe(plAct, email)
                     checkIsSuscribe(plAct, email)
-
                 } else {
+
                     addToSuscribe(plAct, email)
                     checkIsSuscribe(plAct, email)
                     openSuscribersFragment(plAct.id,email)
                 }
 
-                // Cargar el fragmento de suscriptores
+
 
 
             }
+        }
+
+        binding.bubbles.setOnClickListener {
+            System.out.println("click en el linear")
+            openSuscribersFragment(plAct.id, email)
         }
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         return binding.root
@@ -263,11 +269,13 @@ class InfoActivityFragment :Fragment() {
                     binding.unirse.setBackgroundColor(R.color.secondary_dark)
                     binding.unirse.setTextColor(R.color.dark_gray)
                     binding.unirse.text = "Unsubscribe"
+                    binding.bubbles.visibility = View.VISIBLE
                 } else {
                     Log.d(TAG, "checkIsSub: fuera")
                     binding.unirse.setBackgroundColor(R.color.secondary_light)
                     binding.unirse.setTextColor(R.color.light_gray)
                     binding.unirse.text = "Suscribe"
+                    binding.bubbles.visibility = View.GONE
                 }
             }
 

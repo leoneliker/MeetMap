@@ -129,8 +129,39 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintStart_toEndOf="@id/tvlugar"
-            app:layout_constraintTop_toBottomOf="@id/horario" />
+            app:layout_constraintTop_toBottomOf="@id/horario"/>
 
+        <LinearLayout
+            android:id="@+id/bubbles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginRight="20dp"
+            android:padding="2dp"
+            app:layout_constraintTop_toBottomOf="@id/lugar"
+            app:layout_constraintEnd_toStartOf="@id/unirse"
+            android:background="@drawable/bubble_button">
+
+            <ImageView
+                android:id="@+id/bubble_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:elevation="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bubble_contact"
+                android:outlineSpotShadowColor="@color/white"
+                />
+        <TextView
+            android:id="@+id/bubble_people"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/light_gray"
+            android:textSize="17dp"
+            android:text="+3"
+            android:backgroundTint="#00000000"
+            />
+        </LinearLayout>
         <Button
             android:id="@+id/unirse"
             android:layout_width="130dp"
