@@ -113,6 +113,7 @@ class ChatFragment : Fragment() {
     private fun newChat(){
         val chatId = UUID.randomUUID().toString()
         val otherUser = binding.newChatText.text.toString()
+        System.out.println(otherUser)
         val  users_ref= db.collection("users")
         val  chatsRef= db.collection("chats")
         val query= users_ref.whereEqualTo("email",otherUser)
