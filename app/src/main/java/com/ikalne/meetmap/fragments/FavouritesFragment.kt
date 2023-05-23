@@ -2,6 +2,7 @@ package com.ikalne.meetmap.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -113,7 +114,7 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
         val marker = MapFragment.markers["${item.id} ${item.titulo}"]
         if (marker != null) {
             val infoFragment = InfoActivityFragment()
-            infoFragment.setMarker(marker, MapFragment.locatorList)
+            infoFragment.setMarker(marker, MapFragment.locatorListFav)
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.frame, infoFragment)

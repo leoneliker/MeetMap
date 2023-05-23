@@ -236,6 +236,7 @@ class InfoActivityFragment :Fragment() {
                 }
             })
     }
+
     private fun checkIsSuscribe(plAct: plAct, userEmail: String) {
         val ref = FirebaseDatabase.getInstance().getReference("Activities")
         ref.child(plAct.id.toString()).child("Suscribers").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -312,8 +313,8 @@ class InfoActivityFragment :Fragment() {
             .addToBackStack(null)
             .commit()
     }
-
 }
+
 
 
 

@@ -153,8 +153,9 @@ class MainAppActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.house -> {
                     closeNav()
-                    setThatFragment(mapFragment)
-
+                    Handler().postDelayed({
+                        setThatFragment(mapFragment)
+                    },200)
                 }
                 R.id.likes -> {
                     closeNav()

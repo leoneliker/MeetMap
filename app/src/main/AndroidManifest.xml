@@ -19,6 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetMap"
         tools:targetApi="33">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAb1Uv4bCvNc-s39NujkkNQJ2OW5w8F7iQ" />
+
+        <activity
+            android:name=".PruebaMapa"
+            android:exported="false"
+            android:label="@string/title_activity_prueba_mapa" >
+        </activity>
         <activity
             android:name=".ListOfChatsActivity"
             android:exported="false">
@@ -52,11 +62,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity
             android:name=".Initial"
             android:exported="false"

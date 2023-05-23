@@ -43,7 +43,10 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
-
+import com.google.maps.android.clustering.Cluster
+import com.google.maps.android.clustering.ClusterManager
+import com.ikalne.meetmap.model.MyItem
+import com.ikalne.meetmap.model.MyClusterRenderer
 
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
@@ -51,18 +54,18 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var map: GoogleMap
     private lateinit var loadingSpinner: ProgressBar
     private lateinit var dimView: View
-    private val viewModel: MadridViewModel by lazy {
-        ViewModelProvider(this)[MadridViewModel::class.java]
-    }
-
+    private val viewModel: MadridViewModel by lazy {ViewModelProvider(this)[MadridViewModel::class.java]}
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var clusterManager: ClusterManager<MyItem>
+    private lateinit var chipGroup :ChipGroup
     companion object {
         const val REQUEST_CODE_LOCATION = 0
-        var locatorList = listOf<LocatorView>()
         val madridMap = hashMapOf<String, String>()
+        var locatorList = listOf<LocatorView>()
+        var locatorListFav = listOf<LocatorView>()
         val markers = mutableMapOf<String, Marker>()
     }
-    private lateinit var chipGroup :ChipGroup
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_map, container, false).apply {
@@ -80,23 +83,43 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     }
 
     @SuppressLint("PotentialBehaviorOverride")
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        enableLocation()
+        viewModel.fetchData()
+        map.setOnMarkerClickListener { false }
+        map.setOnMyLocationClickListener(this)
+        clusterManager = ClusterManager<MyItem>(requireContext(), map)
+        val clusterRenderer = MyClusterRenderer(requireContext(), map, clusterManager)
+        clusterManager.renderer = clusterRenderer
+        map.setOnCameraIdleListener(clusterManager)
+    }
+
+    @SuppressLint("PotentialBehaviorOverride")
     private fun observe() {
         viewModel.locators.observe(viewLifecycleOwner) { locators ->
+            clusterManager.clearItems()
+            map.clear()
+            val items = mutableListOf<MyItem>()
             locators.mapNotNull {
                 it.location.latitude?.let { lat ->
                     it.location.longitude?.let { lng ->
                         LatLng(lat, lng)
                     }
                 }?.let { coordinates ->
-                    val markerOptions = MarkerOptions().position(coordinates)
-                        .title("${it.id} ${it.title}")
+                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${it.time} ${it.dstart}")
+                    items.add(item)
+                    madridMap[item.getNombre()] = it.id
+
+                    //Aunque ya no se use para crear cada marcador, es necesario para la favourites y info fragments
+                    val markerOptions = MarkerOptions().position(coordinates).title("${it.id} ${it.title}").visible(false)
                     val marker = map.addMarker(markerOptions)
                     markers[marker.title] = marker
                     madridMap[marker.title] = it.id
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mano_rosa))
                 }
             }.also {
                 locatorList = locators
+                locatorListFav = locators
                 map.setInfoWindowAdapter(
                     CustomInfoWindowAdapter(
                         LayoutInflater.from(activity),
@@ -106,11 +129,12 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 map.setOnInfoWindowClickListener(this@MapFragment)
                 loadingSpinner.visibility = View.GONE
                 dimView.visibility = View.GONE
+                clusterManager.addItems(items)
+                clusterManager.cluster()
                 chipCreator(locators)
             }
         }
     }
-
     @SuppressLint("PotentialBehaviorOverride")
     private fun chipCreator(locators: List<LocatorView>) {
         val categories = mutableSetOf<String>()
@@ -150,38 +174,29 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     @SuppressLint("PotentialBehaviorOverride")
     private fun applyFilter(filteredLocators: List<LocatorView>) {
         map.clear()
-        markers.clear()
-        filteredLocators.mapNotNull {
-            it.location.latitude?.let { lat ->
-                it.location.longitude?.let { lng ->
+        clusterManager.clearItems()
+        val items = mutableListOf<MyItem>()
+        filteredLocators.mapNotNull { locator ->
+            locator.location.latitude?.let { lat ->
+                locator.location.longitude?.let { lng ->
                     LatLng(lat, lng)
                 }
             }?.let { coordinates ->
-                val markerOptions = MarkerOptions().position(coordinates)
-                    .title("${it.id} ${it.title}")
-                val marker = map.addMarker(markerOptions)
-                markers[marker.title] = marker
-                madridMap[marker.title] = it.id
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mano_rosa))
+                val item = MyItem(coordinates, "${locator.id} ${locator.title}", "${locator.time} ${locator.dstart}")
+                items.add(item)
             }
-        }.also {
-            locatorList = filteredLocators
-            map.setInfoWindowAdapter(
-                CustomInfoWindowAdapter(
-                    LayoutInflater.from(activity),
-                    locatorList
-                )
-            )
         }
-    }
 
-    @SuppressLint("PotentialBehaviorOverride")
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        enableLocation()
-        viewModel.fetchData()
-        map.setOnMarkerClickListener { false }
-        map.setOnMyLocationClickListener(this)
+        locatorList = filteredLocators
+        map.setInfoWindowAdapter(
+            CustomInfoWindowAdapter(
+                LayoutInflater.from(activity),
+                locatorList
+            )
+        )
+
+        clusterManager.addItems(items)
+        clusterManager.cluster()
     }
 
     private fun enableLocation() {
@@ -209,17 +224,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         }
     }
 
-    override fun onMyLocationButtonClick() = false
-    override fun onInfoWindowClick(marker: Marker) {
-        val infoFragment = InfoActivityFragment()
-        infoFragment.setMarker(marker, locatorList)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .replace(R.id.frame, infoFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
     private fun isLocationPermissionGranted() = ContextCompat.checkSelfPermission(
         requireActivity(),
         Manifest.permission.ACCESS_FINE_LOCATION
@@ -241,6 +245,18 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         }
     }
 
+    override fun onMyLocationButtonClick() = false
+    override fun onInfoWindowClick(marker: Marker) {
+        val infoFragment = InfoActivityFragment()
+        infoFragment.setMarker(marker, locatorList)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .replace(R.id.frame, infoFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    @SuppressLint("InflateParams")
     override fun onMyLocationClick(location: Location) {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.location_menu, null)
@@ -258,7 +274,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 location.latitude, location.longitude,
                 locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
             )
-            if (distance < 50000) {
+            if (distance < 1000) {
                 val iconResId = when (locator.category.split("/").getOrNull(6) ?: options.random()) {
                     "Musica" -> R.drawable.ico_musica
                     "DanzaBaile" -> R.drawable.ico_danzabaile
@@ -314,7 +330,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
 
     }
 
-    //Codigo para conseguir pasar distancias de long y lat a metros
     private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
         val R = 6371
         val dLat = Math.toRadians(lat2 - lat1)
