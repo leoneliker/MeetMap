@@ -54,8 +54,9 @@ class SuscribersFragment(private val plActId: Int, private val UserEmail: String
                 val suscribersList = mutableListOf<Suscriber>()
                 for (suscriberSnapshot in snapshot.children) {
                     val suscriberName = suscriberSnapshot.key
+                    val suscriberMail = suscriberSnapshot.value.toString()
                     if (suscriberName != null) {
-                        val suscriber = Suscriber(suscriberName, UserEmail)
+                        val suscriber = Suscriber(suscriberName, suscriberMail)
                         suscribersList.add(suscriber)
                     }
                 }

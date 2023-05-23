@@ -71,11 +71,7 @@ class SuscribersAdapter(
                 if (documents.size() > 0) {
                     // Se encontraron documentos que coinciden con la consulta
                     for (document in documents) {
-                        Toast.makeText(
-                            itemView.context,
-                            "EL USUARIO ESTÁ DADO DE ALTA EN LA APP",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        System.out.println("el usuario no está en la app")
                     }
                     //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
                     chatsRef.get()
@@ -192,4 +188,6 @@ class SuscribersAdapter(
         suscribersList.add(suscriber)
         notifyItemInserted(suscribersList.size - 1)
     }
+
+
 }
