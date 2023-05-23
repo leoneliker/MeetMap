@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.Marker
@@ -22,8 +23,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.ikalne.meetmap.PreferencesManager
 import com.ikalne.meetmap.R
+import com.ikalne.meetmap.Suscriber
 import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
+import org.w3c.dom.Text
+import kotlin.properties.Delegates
 
 class InfoActivityFragment :Fragment() {
 
@@ -36,6 +40,7 @@ class InfoActivityFragment :Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var plAct: plAct
     private lateinit var email: String
+    private lateinit var bubble_people: TextView
     private var IsInMyFavourite = false
     private var IsInSuscribe = false
 
@@ -52,6 +57,7 @@ class InfoActivityFragment :Fragment() {
         val idInfo = MapFragment.madridMap[marker.title]
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         firebaseAuth = FirebaseAuth.getInstance()
+        bubble_people = binding.bubblePeople
         email = PreferencesManager.getDefaultSharedPreferences(binding.root.context).getEmail()
         if (firebaseAuth.currentUser != null) {
             checkIsFavourite(plAct)
@@ -74,6 +80,17 @@ class InfoActivityFragment :Fragment() {
         }
 
         checkIsSuscribe(plAct, email)
+
+
+        NumberSubs(plAct.id) { numberSubs ->
+            // Aquí puedes hacer uso del número de suscriptores devuelto
+            bubble_people.text ="+$numberSubs"
+            if(bubble_people.text.equals("+0")){
+                bubble_people.text = " "
+            }
+            // Hacer cualquier otra acción que necesites con el número de suscriptores
+        }
+
         binding.unirse.setOnClickListener() {
             if (firebaseAuth.currentUser == null) {
                 // Toast.makeText(this, "You're not logged in", Toast.LENGTH_SHORT).show()
@@ -338,6 +355,32 @@ class InfoActivityFragment :Fragment() {
             .replace(R.id.frame, SuscribersFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun NumberSubs(plActId: Int, callback: (Int) -> Unit) {
+        val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")
+            .child(plActId.toString())
+            .child("Suscribers")
+        System.out.println("dentro de number")
+        var numberSubs: Int = -1
+        suscribersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val suscribersList = mutableListOf<Suscriber>()
+                for (suscriberSnapshot in snapshot.children) {
+                    val suscriberName = suscriberSnapshot.key
+                    if (suscriberName != null) {
+                        System.out.println("cuenta")
+                        numberSubs += 1
+                    }
+                }
+                System.out.println("cuenta fuera"+numberSubs)
+                callback(numberSubs) // Llamar a la devolución de llamada con el número de suscriptores
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+        })
     }
 
 }
