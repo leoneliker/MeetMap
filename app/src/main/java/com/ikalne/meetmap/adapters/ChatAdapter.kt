@@ -62,14 +62,15 @@ class ChatAdapter(private val context: Context, val chatClick: (Chat) -> Unit): 
                     val lastMessageText = lastMessage?.message
                     val lastMessageSender = lastMessage?.from
                     if (currentUser == lastMessageSender){
-                        holder.binding.chatmessage.visibility = View.GONE
-                        layoutParams.marginStart = 0.dpToPixels(context)
-                        textLayoutParams.marginStart = 32.dpToPixels(context)
-                    }
-                    else{
                         holder.binding.chatmessage.visibility = View.VISIBLE
                         layoutParams.marginStart = 32.dpToPixels(context)
                         textLayoutParams.startToEnd = R.id.chatmessage
+                    }
+                    else{
+                        holder.binding.chatmessage.visibility = View.GONE
+                        layoutParams.marginStart = 0.dpToPixels(context)
+                        textLayoutParams.marginStart = 32.dpToPixels(context)
+
                     }
                     holder.binding.chatmessage.layoutParams = layoutParams
                     //val lastMessageSenderName = lastMessageSender?.substringBefore("@")

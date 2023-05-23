@@ -120,7 +120,7 @@ class ChatFragment : Fragment() {
             if (documents.size() > 0) {
                 // Se encontraron documentos que coinciden con la consulta
                 for (document in documents) {
-                    Toast.makeText(requireContext(),"EL USUARIO ESTÁ DADO DE ALTA EN LA APP", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),getString(R.string.noExistUserChat), Toast.LENGTH_LONG).show()
                 }
                 //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
                 chatsRef.get()
@@ -166,7 +166,7 @@ class ChatFragment : Fragment() {
             }
             else {
                 // No se encontraron documentos que coinciden con la consulta
-                Toast.makeText(requireContext(),"noooo EXISTE EL USUARIO", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),getString(R.string.noExistUserChat), Toast.LENGTH_LONG).show()
             }
         }
             .addOnFailureListener {exception ->
