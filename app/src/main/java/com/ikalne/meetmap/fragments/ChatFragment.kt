@@ -51,10 +51,9 @@ class ChatFragment : Fragment() {
         binding.newChatButton.setOnClickListener { newChat() }
 
         binding.listChatsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.listChatsRecyclerView.adapter =
-            ChatAdapter { chat ->
-                chatSelected(chat)
-            }
+        binding.listChatsRecyclerView.adapter = ChatAdapter(requireContext()) { chat ->
+            chatSelected(chat)
+        }
 
         val adapter = binding.listChatsRecyclerView.adapter as ChatAdapter
         val userRef = db.collection("users").document(user)
@@ -113,16 +112,13 @@ class ChatFragment : Fragment() {
     private fun newChat(){
         val chatId = UUID.randomUUID().toString()
         val otherUser = binding.newChatText.text.toString()
+        System.out.println(otherUser)
         val  users_ref= db.collection("users")
         val  chatsRef= db.collection("chats")
         val query= users_ref.whereEqualTo("email",otherUser)
         var init=true
         query.get().addOnSuccessListener { documents ->
             if (documents.size() > 0) {
-                // Se encontraron documentos que coinciden con la consulta
-                for (document in documents) {
-                    Toast.makeText(requireContext(),"EL USUARIO ESTÁ DADO DE ALTA EN LA APP", Toast.LENGTH_LONG).show()
-                }
                 //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
                 chatsRef.get()
                     .addOnSuccessListener { documents ->
@@ -163,12 +159,7 @@ class ChatFragment : Fragment() {
                     .addOnFailureListener { exception ->
                         Log.w("TAG", "Error al buscar EN CHATS ", exception)
                     }
-
-            }
-            else {
-                // No se encontraron documentos que coinciden con la consulta
-                Toast.makeText(requireContext(),"noooo EXISTE EL USUARIO", Toast.LENGTH_LONG).show()
-            }
+            } else {}
         }
             .addOnFailureListener {exception ->
     Log.w("TAG", "Error getting documents: ", exception) }

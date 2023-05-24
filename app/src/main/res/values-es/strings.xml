@@ -99,6 +99,9 @@
     <string name ="nointernetitleexit">"¡Queremos volverte a ver pronto!"</string>
     <string name="nointernetsubtitle">"Meetmap está deseando contar contigo. ¿Quieres seguir probando?"</string>
     <string name="nointernetsubtitleexit">"MeetMap quiere contar contigo, cuando tengas internet te estaremos esperando"</string>
-    <string name="nointernetbtn">"Reintentar"</string>
+    <string name="nointernetbtn">Reintentar</string>
     <string name="exitalert">Salir</string>
+    <string name="existUserChat">¡Es un Meetmapper!</string>
+    <string name ="noExistUserChat">No nos conoce, háblale de MeetMap</string>
+    <string name="location_menu">Actividades a menos de 1000 metros</string>
 </resources>

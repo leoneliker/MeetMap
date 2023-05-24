@@ -17,10 +17,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ikalne.meetmap.ProfileViewFragment
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.Suscriber
 
-class SuscribersFragment(private val plActId: Int) : Fragment() {
+class SuscribersFragment(private val plActId: Int, private val UserEmail: String) : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SuscribersAdapter
 
@@ -53,8 +54,9 @@ class SuscribersFragment(private val plActId: Int) : Fragment() {
                 val suscribersList = mutableListOf<Suscriber>()
                 for (suscriberSnapshot in snapshot.children) {
                     val suscriberName = suscriberSnapshot.key
+                    val suscriberMail = suscriberSnapshot.value.toString()
                     if (suscriberName != null) {
-                        val suscriber = Suscriber(suscriberName)
+                        val suscriber = Suscriber(suscriberName, suscriberMail)
                         suscribersList.add(suscriber)
                     }
                 }
@@ -66,4 +68,5 @@ class SuscribersFragment(private val plActId: Int) : Fragment() {
             }
         })
     }
+
 }
