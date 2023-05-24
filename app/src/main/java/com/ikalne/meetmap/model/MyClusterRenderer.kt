@@ -53,7 +53,7 @@ class MyClusterRenderer(
 
     override fun onClusterClick(cluster: Cluster<MyItem>): Boolean {
         val zoomLevel = map.cameraPosition.zoom
-        if (zoomLevel >18) {
+        if (zoomLevel >16) {
             val items = ArrayList<String>()
             for (item in cluster.items) {
                 val title = item.getNombre()
