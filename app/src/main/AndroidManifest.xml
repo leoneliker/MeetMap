@@ -50,7 +50,6 @@
             android:name=".MainAppActivity"
             android:exported="false"
             android:label="@string/title_activity_main_app"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MeetMap.NoActionBar">
             <meta-data

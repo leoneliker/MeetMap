@@ -80,7 +80,7 @@ class MyClusterRenderer(
             val dialog = dialogBuilder.create()
             dialog.show()
         } else {
-            Toast.makeText(context, "Debes acercarte más para acceder a ese conjunto de actividades", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Acercate para ver los planes disponibles", Toast.LENGTH_SHORT).show()
         }
         return true
     }

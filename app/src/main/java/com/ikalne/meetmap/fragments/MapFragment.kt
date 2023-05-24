@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.red
-import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +22,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.api.models.LocatorView
@@ -43,7 +39,6 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
-import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.ikalne.meetmap.model.MyItem
 import com.ikalne.meetmap.model.MyClusterRenderer
@@ -68,7 +63,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val markers = mutableMapOf<String, Marker>()
     }
 
-    private var cont=0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,18 +74,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         dimView.visibility = View.VISIBLE
         loadingSpinner = findViewById(R.id.loading_spinner)
         loadingSpinner.visibility = View.VISIBLE
-
-        if(cont!=0){
-            locatorList= emptyList()
-            locatorListFav= emptyList()
-            markers.clear()
-            madridMap.clear()
-            clusterManager.clearItems()
-        }
         observe()
-        cont++
-        val mMapFragment =
-            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val mMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mMapFragment.getMapAsync(this@MapFragment)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
@@ -116,6 +100,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             clusterManager.clearItems()
             map.clear()
             val items = mutableListOf<MyItem>()
+            items.clear()
             locators.mapNotNull {
                 it.location.latitude?.let { lat ->
                     it.location.longitude?.let { lng ->
@@ -125,8 +110,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                     val item = MyItem(coordinates, "${it.id} ${it.title}", "${it.time} ${it.dstart}")
                     items.add(item)
                     madridMap[item.getNombre()] = it.id
-
-                    //Aunque ya no se use para crear cada marcador, es necesario para la favourites y info fragments
                     val markerOptions = MarkerOptions().position(coordinates).title("${it.id} ${it.title}").visible(false)
                     val marker = map.addMarker(markerOptions)
                     markers[marker.title] = marker
@@ -201,7 +184,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 items.add(item)
             }
         }
-
         locatorList = filteredLocators
         map.setInfoWindowAdapter(
             CustomInfoWindowAdapter(
@@ -209,7 +191,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 locatorList
             )
         )
-
         clusterManager.addItems(items)
         clusterManager.cluster()
     }
@@ -345,13 +326,13 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     }
 
     private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
-        val R = 6371
+        val ratio = 6371
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon2 - lon1)
         val a = (sin(dLat / 2) * sin(dLat / 2) +
                 cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
                 sin(dLon / 2) * sin(dLon / 2))
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        return (R * c * 1000).toFloat()
+        return (ratio * c * 1000).toFloat()
     }
 }
