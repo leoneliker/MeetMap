@@ -30,7 +30,6 @@ import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
 import org.w3c.dom.Text
 import java.lang.Integer.parseInt
 import java.util.*
-
 import kotlin.collections.HashMap
 import kotlin.properties.Delegates
 import kotlin.random.Random
@@ -134,7 +133,6 @@ class InfoActivityFragment :Fragment() {
                 resources.getDrawable(R.drawable.amigos, null),
                 resources.getDrawable(R.drawable.amigoscielo, null)
             )
-            Log.i("categoria",locatorView.category)
             val res = when (locatorView.category.split("/").getOrNull(6) ?: options.random()) {
                 "Musica" -> resources.getDrawable(R.drawable.musica, null)
                 "DanzaBaile" -> resources.getDrawable(R.drawable.danzabaile, null)
@@ -154,14 +152,11 @@ class InfoActivityFragment :Fragment() {
                 "Campamentos" -> resources.getDrawable(R.drawable.campamentos, null)
                 "CineActividadesAudiovisuales" -> resources.getDrawable(R.drawable.cine, null)
                 "CircoMagia" -> resources.getDrawable(R.drawable.circo, null)
-                "FiestasSemanaSanta" -> resources.getDrawable(R.drawable.semanasanta, null)
-
                 else -> options.random()
             }
             activity?.let { Glide.with(it)
                 .load(res)
                 .into(imgLayout)}
-
 
             titulo.text = locatorView.title
             val desc = locatorView.description.ifEmpty {
@@ -271,6 +266,7 @@ class InfoActivityFragment :Fragment() {
                 }
             })
     }
+
     private fun checkIsSuscribe(plAct: plAct, userEmail: String) {
         val ref = FirebaseDatabase.getInstance().getReference("Activities")
         ref.child(plAct.id.toString()).child("Suscribers").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -362,7 +358,6 @@ class InfoActivityFragment :Fragment() {
             .addToBackStack(null)
             .commit()
     }
-
     private fun NumberSubs(plActId: Int, callback: (Int) -> Unit) {
         val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")
             .child(plActId.toString())
@@ -468,6 +463,7 @@ class InfoActivityFragment :Fragment() {
     }*/
 */
 }
+
 
 
 

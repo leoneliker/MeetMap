@@ -9,4 +9,5 @@
     app:chipEndPadding="8dp"
     app:closeIconSize="24dp"
     app:closeIconTint="@color/primary_dark"
-    app:rippleColor="@color/dark_gray" />
+    app:rippleColor="@color/dark_gray"
+    android:checkable="true" />
