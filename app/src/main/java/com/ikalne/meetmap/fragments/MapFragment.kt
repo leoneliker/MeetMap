@@ -58,6 +58,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var clusterManager: ClusterManager<MyItem>
     private lateinit var chipGroup :ChipGroup
+    private val infoFragment = InfoActivityFragment()
+
     companion object {
         const val REQUEST_CODE_LOCATION = 0
         val madridMap = hashMapOf<String, String>()
@@ -66,16 +68,28 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val markers = mutableMapOf<String, Marker>()
     }
 
+    private var cont=0
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_map, container, false).apply {
-        observe()
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_map, container, false).apply {
         chipGroup = findViewById(R.id.chip_group)
         dimView = findViewById(R.id.dim_view)
         dimView.setOnClickListener(null)
         dimView.visibility = View.VISIBLE
         loadingSpinner = findViewById(R.id.loading_spinner)
         loadingSpinner.visibility = View.VISIBLE
+
+        if(cont!=0){
+            locatorList= emptyList()
+            locatorListFav= emptyList()
+            markers.clear()
+            madridMap.clear()
+            clusterManager.clearItems()
+        }
+        observe()
+        cont++
         val mMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mMapFragment.getMapAsync(this@MapFragment)
@@ -90,8 +104,9 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         map.setOnMarkerClickListener { false }
         map.setOnMyLocationClickListener(this)
         clusterManager = ClusterManager<MyItem>(requireContext(), map)
-        val clusterRenderer = MyClusterRenderer(requireContext(), map, clusterManager)
+        val clusterRenderer = MyClusterRenderer(requireContext(), map, clusterManager,requireActivity().supportFragmentManager)
         clusterManager.renderer = clusterRenderer
+        clusterManager.setOnClusterClickListener(clusterRenderer)
         map.setOnCameraIdleListener(clusterManager)
     }
 
@@ -246,8 +261,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     }
 
     override fun onMyLocationButtonClick() = false
+
     override fun onInfoWindowClick(marker: Marker) {
-        val infoFragment = InfoActivityFragment()
         infoFragment.setMarker(marker, locatorList)
         requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -255,6 +270,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             .addToBackStack(null)
             .commit()
     }
+
 
     @SuppressLint("InflateParams")
     override fun onMyLocationClick(location: Location) {
@@ -309,7 +325,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             override fun onItemClick(position: Int,item: LocationMenuItem) {
                 val marker = markers["${item.id} ${item.title}"]
                 if (marker != null) {
-                    val infoFragment = InfoActivityFragment()
                     infoFragment.setMarker(marker, locatorList)
                     requireActivity().supportFragmentManager.beginTransaction()
                         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -327,7 +342,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
         bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.location_menu_height)
         bottomSheetDialog.show()
-
     }
 
     private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {

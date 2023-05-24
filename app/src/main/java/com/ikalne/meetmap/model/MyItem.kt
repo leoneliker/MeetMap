@@ -14,11 +14,11 @@ class MyItem(
     }
 
     override fun getTitle(): String? {
-        return null
+        return nombre
     }
 
     override fun getSnippet(): String? {
-        return null
+        return fecha
     }
 
     fun getNombre(): String {

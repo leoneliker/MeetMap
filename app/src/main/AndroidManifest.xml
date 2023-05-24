@@ -23,12 +23,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAb1Uv4bCvNc-s39NujkkNQJ2OW5w8F7iQ" />
-
-        <activity
-            android:name=".PruebaMapa"
-            android:exported="false"
-            android:label="@string/title_activity_prueba_mapa" >
-        </activity>
         <activity
             android:name=".ListOfChatsActivity"
             android:exported="false">
@@ -56,6 +50,7 @@
             android:name=".MainAppActivity"
             android:exported="false"
             android:label="@string/title_activity_main_app"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MeetMap.NoActionBar">
             <meta-data
