@@ -22,7 +22,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAb1Uv4bCvNc-s39NujkkNQJ2OW5w8F7iQ" />
+            android:value="AIzaSyDUPbwAJE5D3lLeqwGXrFxrxvzaJoCKPHY" />
         <activity
             android:name=".ChatActivity"
             android:exported="false"

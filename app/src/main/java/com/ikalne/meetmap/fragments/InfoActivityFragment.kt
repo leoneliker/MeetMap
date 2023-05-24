@@ -147,7 +147,6 @@ class InfoActivityFragment :Fragment() {
                 "ExcursionesItinerariosVisitas" -> resources.getDrawable(R.drawable.excursiones, null)
                 "ItinerariosOtrasActividadesAmbientales" -> resources.getDrawable(R.drawable.ambientales, null)
                 "ClubesLectura" -> resources.getDrawable(R.drawable.lectura, null)
-                "RecitalesPresentacionesActosLiterarios" -> resources.getDrawable(R.drawable.recitales, null)
                 "Exposiciones" -> resources.getDrawable(R.drawable.exposiciones, null)
                 "Campamentos" -> resources.getDrawable(R.drawable.campamentos, null)
                 "CineActividadesAudiovisuales" -> resources.getDrawable(R.drawable.cine, null)
