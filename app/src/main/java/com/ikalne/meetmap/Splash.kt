@@ -32,36 +32,7 @@ class Splash : AppCompatActivity() {
         val rightHand = findViewById<ImageView>(R.id.rightHand)
         val title = findViewById<ImageView>(R.id.meetmap)
         val slogan = findViewById<TextView>(R.id.slogan)
-        val text = slogan.text.toString()
 
-        val spannableString = SpannableString(text)
-        val words = text.split(" ")
-
-        var colorIndex = 0
-        var startIndex = 0
-
-        for (word in words) {
-            val endIndex = startIndex + word.length
-
-            val color = if (colorIndex % 2 == 0) {
-                R.color.primary_dark
-            } else {
-               R.color.secondary
-            }
-            val colors = ContextCompat.getColor(this, color)
-
-            // Cambia el color de cada palabra
-            spannableString.setSpan(
-                ForegroundColorSpan(colors),
-                startIndex,
-                endIndex,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            startIndex = endIndex + 1 // Añade 1 para ignorar el espacio
-            colorIndex++
-        }
-        slogan.text = spannableString
         val animLeftHand = AnimationUtils.loadAnimation(this, R.anim.move_left_to_right)
         val animRightHand = AnimationUtils.loadAnimation(this, R.anim.move_right_to_left)
         val animtext = AnimationUtils.loadAnimation(this, R.anim.fadein)
