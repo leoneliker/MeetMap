@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.AdapterFLI
 import com.ikalne.meetmap.R
+import com.ikalne.meetmap.adapters.ChatAdapter
 import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentFavouritesBinding
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
@@ -43,7 +44,7 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var fliArrayList: ArrayList<FLI>
+    private var fliArrayList: ArrayList<FLI> = ArrayList()
     private lateinit var binding: FragmentFavouritesBinding
     val firebaseAuth = FirebaseAuth.getInstance()
     private lateinit var adapterFLI: AdapterFLI
@@ -59,14 +60,16 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadFavouriteActs()
-
         // Crear y configurar el RecyclerView
         recyclerView = binding.favouriteRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapterFLI = AdapterFLI(requireContext(), fliArrayList)
         adapterFLI.clickListener = this
         recyclerView.adapter = adapterFLI
+
+        updateEmptyRecyclerViewVisibility(adapterFLI)
+
+        loadFavouriteActs()
     }
 
     override fun onCreateView(
@@ -89,28 +92,47 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
             }
     }
 
-    private fun loadFavouriteActs(){
+    private fun loadFavouriteActs() {
         fliArrayList = ArrayList()
         val ref = FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseAuth.uid!!).child("Favourites")
-            .addValueEventListener(object: ValueEventListener{
-                @SuppressLint("NotifyDataSetChanged")
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    fliArrayList.clear()
-                    for(ds in snapshot.children){
+                    val data = ArrayList<FLI>()
+                    for (ds in snapshot.children) {
                         val aid = "${ds.child("ID").value}"
                         val FLI = FLI()
                         FLI.id = aid
-                        fliArrayList.add(FLI)
+                        data.add(FLI)
                     }
-                    adapterFLI.notifyDataSetChanged()
+                    updateRecyclerViewData(data)
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
     }
 
-    override fun onItemClick(position: Int,item: FLI, view: View) {
+    private fun updateRecyclerViewData(data: ArrayList<FLI>) {
+        fliArrayList.clear()
+        fliArrayList.addAll(data)
+        adapterFLI.notifyDataSetChanged()
+        updateEmptyRecyclerViewVisibility(adapterFLI)
+    }
+
+    private fun updateEmptyRecyclerViewVisibility(adapter: AdapterFLI) {
+        if (adapter.itemCount == 0) {
+            binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+            binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            binding.emptyRecyclerViewImageView.visibility = View.GONE
+            binding.emptyRecyclerViewTextView.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onItemClick(position: Int, item: FLI, view: View) {
         val marker = MapFragment.markers["${item.id} ${item.titulo}"]
         if (marker != null) {
             val infoFragment = InfoActivityFragment()
@@ -122,6 +144,4 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
                 .commit()
         }
     }
-
-
 }
