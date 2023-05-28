@@ -104,4 +104,5 @@
     <string name="exitalert">Exit</string>
     <string name="existUserChat">It\'s a Meetmapper!</string>
     <string name ="noExistUserChat">She/He doesn\'t know us, tell her/him about MeetMap</string>
-   </resources>
+    <string name="description2">Description</string>
+</resources>

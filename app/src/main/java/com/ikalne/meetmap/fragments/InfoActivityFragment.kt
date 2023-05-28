@@ -108,7 +108,7 @@ class InfoActivityFragment :Fragment() {
 
                     addToSuscribe(plAct, email)
                     checkIsSuscribe(plAct, email)
-                    openSuscribersFragment(plAct.id,email)
+                    openSuscribersActivity(plAct.id,email)
                 }
 
 
@@ -119,7 +119,7 @@ class InfoActivityFragment :Fragment() {
 
         binding.bubbles.setOnClickListener {
             System.out.println("click en el linear")
-            openSuscribersFragment(plAct.id, email)
+            openSuscribersActivity(plAct.id, email)
         }
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         return binding.root
@@ -350,13 +350,11 @@ class InfoActivityFragment :Fragment() {
         }
     }
 
-    fun openSuscribersFragment(plActId: Int, UserEmail: String) {
-        val SuscribersFragment = SuscribersFragment(plActId, UserEmail)
-        System.out.println(UserEmail)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame, SuscribersFragment)
-            .addToBackStack(null)
-            .commit()
+    fun openSuscribersActivity(plActId: Int, UserEmail: String) {
+        val intent = Intent(requireActivity(), SuscribersActivity::class.java)
+        intent.putExtra("plActId", plActId)
+        intent.putExtra("UserEmail", UserEmail)
+        requireActivity().startActivity(intent)
     }
     private fun NumberSubs(plActId: Int, callback: (Int) -> Unit) {
         val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")

@@ -4,12 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.EditProfileFragment"
-    android:id="@+id/fragprofile">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            style="@style/ButtonBack"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivuser"
@@ -17,7 +28,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="60dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/circleiv"
+            android:background="@drawable/round_image"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@id/leftguide"
@@ -29,20 +40,29 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             app:layout_constraintTop_toBottomOf="@id/ivuser"
             app:hintTextColor="@color/secondary_dark">
 
             <TextView
-
+                android:id="@+id/nombreTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:text="@string/name"
+                android:textSize="15dp"
+                android:inputType="text"
+                android:textColor="@color/secondary_light" />
+            <TextView
                 android:id="@+id/nombre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/name"
                 android:inputType="text"
+                android:textSize="20dp"
                 android:theme="@style/lineET" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,11 +78,21 @@
             app:hintTextColor="@color/secondary_dark">
 
             <TextView
+                android:id="@+id/surnombreTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:text="@string/surname"
+                android:textSize="15dp"
+                android:inputType="text"
+                android:textColor="@color/secondary_light" />
+            <TextView
                 android:id="@+id/surnombre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/surname"
                 android:theme="@style/lineET"
+                android:textSize="20dp"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,11 +108,21 @@
             app:hintTextColor="@color/secondary_dark">
 
             <TextView
+                android:id="@+id/phoneTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:text="@string/telefono"
+                android:textSize="15dp"
+                android:inputType="text"
+                android:textColor="@color/secondary_light" />
+            <TextView
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/telefono"
                 android:theme="@style/lineET"
+                android:textSize="20dp"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,12 +138,22 @@
             app:hintTextColor="@color/secondary_dark">
 
             <TextView
+                android:id="@+id/emailTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:text="@string/email"
+                android:textSize="15dp"
+                android:inputType="text"
+                android:textColor="@color/secondary_light" />
+            <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/email"
                 android:focusable="false"
                 android:clickable="false"
+                android:textSize="20dp"
                 android:cursorVisible="false"
                 android:theme="@style/lineET"
                 android:inputType="textMultiLine" />
@@ -121,10 +171,21 @@
             app:hintTextColor="@color/secondary_dark">
 
             <TextView
+                android:id="@+id/descriptionTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:text="@string/description2"
+                android:textSize="15dp"
+                android:inputType="text"
+                android:textColor="@color/secondary_light" />
+
+            <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:textSize="20dp"
                 android:hint="@string/description"
                 android:theme="@style/lineET"
                 android:text="@string/textLarge" />

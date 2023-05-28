@@ -41,6 +41,7 @@ class SuscribersAdapter(
             nameTextView.text = suscriber.name.toString()
 
             btnpf.setOnClickListener {
+                System.out.println("email de adapter "+suscriber.useremail)
                 openPfpFragment(suscriber.useremail)
             }
 
@@ -50,13 +51,9 @@ class SuscribersAdapter(
         }
 
         private fun openPfpFragment(userEmail: String) {
-            val fragmentManager: FragmentManager =
-                (itemView.context as FragmentActivity).supportFragmentManager
-            val fragment: Fragment = ProfileViewFragment(userEmail)
-            fragmentManager.beginTransaction()
-                .replace(R.id.frame, fragment)
-                .addToBackStack(null)
-                .commit()
+            val intent = Intent(itemView.context, ProfileViewActivity::class.java)
+            intent.putExtra("userEmail", userEmail)
+            itemView.context.startActivity(intent)
         }
 
         private fun newChat(userEmail: String) {
