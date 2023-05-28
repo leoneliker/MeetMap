@@ -154,9 +154,32 @@ class InfoActivityFragment :Fragment() {
                 "CircoMagia" -> resources.getDrawable(R.drawable.circo, null)
                 else -> options.random()
             }
+
             activity?.let { Glide.with(it)
                 .load(res)
                 .into(imgLayout)}
+
+
+            val cat = when (locatorView.category.split("/").getOrNull(6) ?: options.random()) {
+                "Musica" -> "Musica"
+                "DanzaBaile" -> "DanzaBaile"
+                "CursosTalleres" -> "CursosTalleres"
+                "TeatroPerformance" -> "TeatroPerformance"
+                "ActividadesCalleArteUrbano" -> "ActividadesCalleArteUrbano"
+                "CuentacuentosTiteresMarionetas" -> "CuentacuentosTiteresMarionetas"
+                "ComemoracionesHomenajes" -> "ComemoracionesHomenajes"
+                "ConferenciasColoquios" -> "ConferenciasColoquios"
+                "1ciudad21distritos" -> "1ciudad21distritos"
+                "ExcursionesItinerariosVisitas" -> "ExcursionesItinerariosVisitas"
+                "ItinerariosOtrasActividadesAmbientales" -> "ItinerariosOtrasActividadesAmbientales"
+                "ClubesLectura" -> "ClubesLectura"
+                "RecitalesPresentacionesActosLiterarios" -> "RecitalesPresentacionesActosLiterarios"
+                "Exposiciones" -> "Exposiciones"
+                "Campamentos" -> "Campamentos"
+                "CineActividadesAudiovisuales" -> "CineActividadesAudiovisuales"
+                "CircoMagia" -> "CircoMagia"
+                else -> "Otros"
+            }
 
             titulo.text = locatorView.title
             val desc = locatorView.description.ifEmpty {
@@ -200,7 +223,8 @@ class InfoActivityFragment :Fragment() {
                 titulo = titulo.text.toString(),
                 fecha = fecha.text.toString(),
                 horario = horario.text.toString(),
-                lugar = lugar.text.toString()
+                lugar = lugar.text.toString(),
+                cat = cat
             )
         }
     }
@@ -216,6 +240,7 @@ class InfoActivityFragment :Fragment() {
         hashMap ["Date"] = plAct.fecha
         hashMap ["Time"] = plAct.horario
         hashMap ["Place"] = plAct.lugar
+        hashMap ["Cat"] = plAct.cat
 
         val ref = FirebaseDatabase.getInstance().getReference("users");
         ref.child(firebaseAuth.uid!!).child("Favourites").child(plAct.id.toString())
@@ -381,85 +406,7 @@ class InfoActivityFragment :Fragment() {
             }
         })
     }
-    /*
-    private fun RandomSub(plActId: Int, callback: (String) -> Unit) {
-        var number: Int = 0
-        var cont: Int = 0
-        var callbackEmail: String = ""
 
-        val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")
-            .child(plActId.toString())
-            .child("Suscribers")
-
-        System.out.println("dentro de randomsub")
-
-        NumberSubs(plActId) { numberSubs ->
-            // Aquí puedes hacer uso del número de suscriptores devuelto
-            number = numberSubs
-            System.out.println(number)
-
-            suscribersRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val suscribersList = mutableListOf<Suscriber>()
-                    for (suscriberSnapshot in snapshot.children) {
-                        val suscriberName = suscriberSnapshot.key
-                        val suscriberEmail = suscriberSnapshot.value
-
-                        if (suscriberName != null) {
-                            val randomNumber = Random.nextInt(1,number)
-                            if (cont == randomNumber) {
-                                callbackEmail = suscriberEmail.toString()
-                            }
-                            cont++
-                        }
-                    }
-                    System.out.println("callbackemail"+callbackEmail+"")
-                    callback(callbackEmail) // Llamar a la devolución de llamada con el número de suscriptores
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w(TAG, "Failed to read value.", error.toException())
-                }
-            })
-        }
-    }
-
-    private fun getImageFromFirestore(plActId: Int){
-        val db = FirebaseFirestore.getInstance()
-        RandomSub(plActId) { RandomSub ->
-            val collectionPath = "users/"
-            db.collection(collectionPath).document(RandomSub)
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        val imageUrl = document.getString("img")
-                        val bubbleImage = binding.bubbleImage
-                        Glide.with(requireContext())
-                            .load(imageUrl)
-                            .into(bubbleImage)
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    // Manejar el error de Firebase Firestore
-                }
-        }
-    }
-
-    // Uso del método para obtener una imagen de Firestore
-    /*val email = "correo_electronico_del_suscriptor_random"
-    getImageFromFirestore(email) { imageUrl ->
-        if (imageUrl != null) {
-            // Aquí puedes utilizar la URL de la imagen obtenida
-            // Para cargar la imagen en un ImageView, puedes usar una biblioteca de terceros como Glide o Picasso
-            // Ejemplo con Glide:
-            Glide.with(requireContext())
-                .load(imageUrl)
-                .into(imgLayout)
-        } else {
-            // No se encontró la imagen en Firebase Firestore
-        }
-    }*/
-*/
 }
 
 
