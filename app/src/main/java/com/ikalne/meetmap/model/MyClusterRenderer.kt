@@ -2,9 +2,19 @@ package com.ikalne.meetmap.model
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
+import android.text.Html
+import android.view.Gravity
 import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -53,15 +63,31 @@ class MyClusterRenderer(
 
     override fun onClusterClick(cluster: Cluster<MyItem>): Boolean {
         val zoomLevel = map.cameraPosition.zoom
-        if (zoomLevel >16) {
+        if (zoomLevel > 15) {
             val items = ArrayList<String>()
             for (item in cluster.items) {
-                val title = item.getNombre()
+                val title = item.getNombre().split(" ").drop(1).joinToString(" ")
                 items.add(title)
             }
+
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setTitle("Elementos agrupados")
-            dialogBuilder.setItems(items.toTypedArray()) { dialog, which ->
+            dialogBuilder.setTitle(Html.fromHtml("<font color='#C62833'>Elige un plan!</font>"))
+
+            val adapter = object : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, items) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getView(position, convertView, parent) as TextView
+                    val icon = ContextCompat.getDrawable(context, R.drawable.ico_cine)
+                    icon?.setBounds(0, 0, 75, 75)
+                    view.setCompoundDrawables(icon, null, null, null)
+                    view.compoundDrawablePadding = 16
+                    view.gravity = Gravity.CENTER_VERTICAL
+                    view.setPadding(0, 0, 0, 0)
+                    view.setTextAppearance(context, android.R.style.TextAppearance_Medium)
+                    return view
+                }
+            }
+
+            dialogBuilder.setAdapter(adapter) { dialog, which ->
                 val selectedItem = cluster.items.elementAtOrNull(which)
                 if (selectedItem != null) {
                     val marker = MapFragment.markers[selectedItem.getNombre()]
@@ -77,10 +103,15 @@ class MyClusterRenderer(
                     }
                 }
             }
+
             val dialog = dialogBuilder.create()
+            val listView = dialog.listView
+            listView.divider = ColorDrawable(ContextCompat.getColor(context, R.color.dark_gray))
+            listView.dividerHeight = 1
+            listView.addHeaderView(View(context), null, false)
             dialog.show()
         } else {
-            Toast.makeText(context, "Acercate para ver los planes disponibles", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Acércate para ver los planes disponibles", Toast.LENGTH_SHORT).show()
         }
         return true
     }

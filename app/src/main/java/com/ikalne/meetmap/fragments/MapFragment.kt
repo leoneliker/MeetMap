@@ -14,14 +14,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.api.models.LocatorView
@@ -63,6 +61,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val markers = mutableMapOf<String, Marker>()
     }
 
+    private lateinit var mMapFragment : SupportMapFragment
+    private var primaryColor: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,7 +75,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         loadingSpinner = findViewById(R.id.loading_spinner)
         loadingSpinner.visibility = View.VISIBLE
         observe()
-        val mMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mMapFragment.getMapAsync(this@MapFragment)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
@@ -83,6 +83,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        primaryColor = ContextCompat.getColor(requireContext(), R.color.primary)
         enableLocation()
         viewModel.fetchData()
         map.setOnMarkerClickListener { false }
@@ -154,7 +155,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 } else {
                     selectedCategories.add(category)
                     chip.setChipBackgroundColorResource(R.color.primary_light)
-                    chip.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.primary))
+                    chip.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.dark_gray))
                 }
                 if (selectedCategories.isEmpty()) {
                     applyFilter(locators)
@@ -259,42 +260,13 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val view = layoutInflater.inflate(R.layout.location_menu, null)
         bottomSheetDialog.setContentView(view)
         val menuItems = mutableListOf<LocationMenuItem>()
-        val options = listOf(
-            R.drawable.ico_gen1,
-            R.drawable.ico_gen2,
-            R.drawable.ico_gen3,
-            R.drawable.ico_gen4,
-            R.drawable.ico_gen5
-        )
         for (locator in locatorList) {
             val distance = distance(
                 location.latitude, location.longitude,
                 locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
             )
             if (distance < 1000) {
-                val iconResId = when (locator.category.split("/").getOrNull(6) ?: options.random()) {
-                    "Musica" -> R.drawable.ico_musica
-                    "DanzaBaile" -> R.drawable.ico_danzabaile
-                    "CursosTalleres" -> R.drawable.ico_cursostalleres
-                    "TeatroPerformance" -> R.drawable.ico_teatro
-                    "ActividadesCalleArteUrbano" -> R.drawable.ico_arteurbano
-                    "CuentacuentosTiteresMarionetas" -> R.drawable.ico_cuentacuentos
-                    "ComemoracionesHomenajes" -> R.drawable.ico_homenaje
-                    "ConferenciasColoquios" -> R.drawable.ico_conferencias
-                    "1ciudad21distritos" -> R.drawable.ico_ciudaddistritos
-                    "ExcursionesItinerariosVisitas" -> R.drawable.ico_visitas
-                    "ItinerariosOtrasActividadesAmbientales" -> R.drawable.ico_ambientales
-                    "ClubesLectura" -> R.drawable.ico_lectura
-                    "RecitalesPresentacionesActosLiterarios" -> R.drawable.ico_recitales
-                    "Exposiciones" -> R.drawable.ico_exposiciones
-                    "Campamentos" -> R.drawable.ico_campamentos
-                    "CineActividadesAudiovisuales" -> R.drawable.ico_cine
-                    "CircoMagia" -> R.drawable.ico_circo
-                    "ProgramacionDestacadaAgendaCultura" -> R.drawable.ico_cultura
-                    "ActividadesDeportivas" -> R.drawable.ico_deportes
-                    "EnLinea" -> R.drawable.ico_enlinea
-                    else -> options.random()
-                }
+                val iconResId = selectionIcon(locator)
                 val menuItem = LocationMenuItem(locator.id, locator.title, iconResId, locator.dstart, locator.dfinish)
                 menuItems.add(menuItem)
             }
@@ -320,10 +292,53 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter
         }
+        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.divider_drawable)
+        drawable?.let {
+            itemDecoration.setDrawable(it)
+            view.findViewById<RecyclerView>(R.id.location_menu_recycler_view).addItemDecoration(itemDecoration)
+        }
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
         bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.location_menu_height)
         bottomSheetDialog.show()
     }
+
+    private fun selectionIcon(
+        locator: LocatorView,
+    ): Int {
+        val options = listOf(
+            R.drawable.ico_gen1,
+            R.drawable.ico_gen2,
+            R.drawable.ico_gen3,
+            R.drawable.ico_gen4,
+            R.drawable.ico_gen5
+        )
+        val iconResId = when (locator.category.split("/").getOrNull(6) ?: options.random()) {
+            "Musica" -> R.drawable.ico_musica
+            "DanzaBaile" -> R.drawable.ico_danzabaile
+            "CursosTalleres" -> R.drawable.ico_cursostalleres
+            "TeatroPerformance" -> R.drawable.ico_teatro
+            "ActividadesCalleArteUrbano" -> R.drawable.ico_arteurbano
+            "CuentacuentosTiteresMarionetas" -> R.drawable.ico_cuentacuentos
+            "ComemoracionesHomenajes" -> R.drawable.ico_homenaje
+            "ConferenciasColoquios" -> R.drawable.ico_conferencias
+            "1ciudad21distritos" -> R.drawable.ico_ciudaddistritos
+            "ExcursionesItinerariosVisitas" -> R.drawable.ico_visitas
+            "ItinerariosOtrasActividadesAmbientales" -> R.drawable.ico_ambientales
+            "ClubesLectura" -> R.drawable.ico_lectura
+            "RecitalesPresentacionesActosLiterarios" -> R.drawable.ico_recitales
+            "Exposiciones" -> R.drawable.ico_exposiciones
+            "Campamentos" -> R.drawable.ico_campamentos
+            "CineActividadesAudiovisuales" -> R.drawable.ico_cine
+            "CircoMagia" -> R.drawable.ico_circo
+            "ProgramacionDestacadaAgendaCultura" -> R.drawable.ico_cultura
+            "ActividadesDeportivas" -> R.drawable.ico_deportes
+            "EnLinea" -> R.drawable.ico_enlinea
+            else -> options.random()
+        }
+        return iconResId
+    }
+
 
     private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
         val ratio = 6371
