@@ -72,6 +72,7 @@ class ProfileViewActivity : AppCompatActivity() {
                     Glide.with(this)
                         .load(it)
                         .apply(options)
+                        .circleCrop()
                         .into(etPfppic)
                 }
             }

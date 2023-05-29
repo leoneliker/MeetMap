@@ -61,6 +61,9 @@
         <item name="android:background">@drawable/rounded_button_bg</item>
         <item name="android:elevation">4dp</item>
     </style>
+    <style name="Button.Unirse" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/secondary_light</item>
+    </style>
     <style name="faqsquestionStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

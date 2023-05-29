@@ -3,6 +3,8 @@ package com.ikalne.meetmap.fragments
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.*
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +14,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.Marker
@@ -68,6 +73,7 @@ class InfoActivityFragment :Fragment() {
             checkIsFavourite(plAct)
         }
 
+        cargarImagenesAleatorias()
         binding.btnedit.setOnClickListener() {
             checkIsFavourite(plAct)
             if (firebaseAuth.currentUser == null) {
@@ -228,6 +234,49 @@ class InfoActivityFragment :Fragment() {
             )
         }
     }
+    fun cargarImagenesAleatorias() {
+        val imageViews = arrayOf(
+            binding.bubbleImage1,
+            binding.bubbleImage2,
+            binding.bubbleImage3
+        )
+
+        val arrayFotos = arrayOf(
+            R.drawable.imagen1,
+            R.drawable.imagen2,
+            R.drawable.imagen3,
+            R.drawable.imagen4,
+            R.drawable.imagen5,
+            R.drawable.imagen6,
+            R.drawable.imagen7,
+            R.drawable.imagen8
+        )
+
+        for (imageView in imageViews) {
+            val fotoAleatoria = arrayFotos.random()
+            val bitmap = BitmapFactory.decodeResource(resources, fotoAleatoria)
+            val squareBitmap = squareCrop(bitmap)
+            val circularBitmapDrawable = circleCrop(squareBitmap)
+            imageView.setImageDrawable(circularBitmapDrawable)
+        }
+    }
+
+    fun squareCrop(bitmap: Bitmap): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+        val squareSize = Math.min(width, height)
+        val x = (width - squareSize) / 2
+        val y = (height - squareSize) / 2
+        val squareBitmap = Bitmap.createBitmap(bitmap, x, y, squareSize, squareSize)
+        return squareBitmap
+    }
+
+    fun circleCrop(bitmap: Bitmap): RoundedBitmapDrawable {
+        val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
+        circularBitmapDrawable.isCircular = true
+        circularBitmapDrawable.cornerRadius = Math.max(bitmap.width, bitmap.height) / 2.0f
+        return circularBitmapDrawable
+    }
     private fun addToFavourite(plAct: plAct){
         Log.d(TAG, "addToFavourite: Adding to fav")
         IsInMyFavourite = true
@@ -387,8 +436,10 @@ class InfoActivityFragment :Fragment() {
             .child("Suscribers")
         System.out.println("dentro de number")
         var numberSubs: Int = 0
+
         suscribersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                numberSubs = 0
                 val suscribersList = mutableListOf<Suscriber>()
                 for (suscriberSnapshot in snapshot.children) {
                     val suscriberName = suscriberSnapshot.key

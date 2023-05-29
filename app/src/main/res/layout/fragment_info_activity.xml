@@ -128,46 +128,73 @@
             app:layout_constraintStart_toEndOf="@id/tvlugar"
             app:layout_constraintTop_toBottomOf="@id/horario"/>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/bubbles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
-            android:padding="2dp"
             app:layout_constraintTop_toBottomOf="@id/lugar"
             app:layout_constraintEnd_toStartOf="@id/unirse"
             android:background="@drawable/bubble_button">
 
             <ImageView
-                android:id="@+id/bubble_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:elevation="5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/bubble_contact"
-                android:outlineSpotShadowColor="@color/white"
+                android:id="@+id/bubble_image3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="2dp"
+
+                android:background="@drawable/bubble_button"
+                android:scaleType="centerCrop"
+                android:alpha="0.5"
                 />
-        <TextView
-            android:id="@+id/bubble_people"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="2dp"
-            android:textColor="@color/light_gray"
-            android:textSize="17dp"
-            android:text="+3"
-            android:backgroundTint="#00000000"
-            />
-        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/bubble_image2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="2dp"
+
+                android:scaleType="centerCrop"
+                android:background="@drawable/bubble_button"
+                android:alpha="0.7"/>
+            <ImageView
+                android:id="@+id/bubble_image1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="2dp"
+
+                android:background="@drawable/bubble_button"
+                android:scaleType="centerCrop"
+
+                />
+
+
+            <TextView
+                android:id="@+id/bubble_people"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/light_gray"
+                android:textAlignment="center"
+                android:textSize="17dp"
+                android:text="+3"
+                android:layout_marginLeft="34dp"
+                android:backgroundTint="#00000000"
+                />
+        </FrameLayout>
+
         <Button
             android:id="@+id/unirse"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="SUSCRIBE"
-            android:backgroundTint="@color/secondary_light"
             android:layout_marginTop="20dp"
+            style="@style/Button.Unirse"
+            android:text="SUSCRIBE"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintTop_toBottomOf="@id/lugar"/>
+            app:layout_constraintTop_toBottomOf="@id/lugar" />
 
         <ImageButton
             android:id="@+id/info"
