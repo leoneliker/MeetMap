@@ -44,8 +44,8 @@
         android:fontFamily="@font/satisfy"
         android:text="@string/slogan_splash"
         android:textColor="@color/primary_dark"
-        android:textStyle="bold"
         android:textSize="21sp"
+        android:textStyle="bold"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
