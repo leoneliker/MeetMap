@@ -1,6 +1,7 @@
 package com.ikalne.meetmap
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -25,6 +27,7 @@ class ProfileViewActivity : AppCompatActivity() {
     private lateinit var meetmapper: TextView
     private lateinit var etPfppic: ImageView
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,7 @@ class ProfileViewActivity : AppCompatActivity() {
         meetmapper = findViewById(R.id.meetmaperTV)
 
         val buttonBack = findViewById<Button>(R.id.backButton)
+        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.dark_gray))
         buttonBack.setOnClickListener {
             finish()
         }
