@@ -18,14 +18,14 @@ class MyItem(
     }
 
     override fun getSnippet(): String? {
-        return fecha
+        return categoria
     }
 
     fun getNombre(): String {
         return nombre
     }
 
-    fun getCategoria(): String {
+    fun getCategory(): String {
         return categoria
     }
 }

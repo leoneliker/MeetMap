@@ -2,13 +2,17 @@ package com.ikalne.meetmap.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -40,6 +44,7 @@ import kotlin.math.sqrt
 import com.google.maps.android.clustering.ClusterManager
 import com.ikalne.meetmap.model.MyItem
 import com.ikalne.meetmap.model.MyClusterRenderer
+import com.ikalne.meetmap.selectionIcon
 
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
@@ -51,6 +56,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var clusterManager: ClusterManager<MyItem>
     private lateinit var chipGroup :ChipGroup
+    private lateinit var infoButton: ImageButton
     private val infoFragment = InfoActivityFragment()
 
     companion object {
@@ -70,6 +76,10 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     ): View? = inflater.inflate(R.layout.fragment_map, container, false).apply {
         chipGroup = findViewById(R.id.chip_group)
         dimView = findViewById(R.id.dim_view)
+        infoButton = findViewById(R.id.info_button)
+        infoButton.setOnClickListener {
+            showInfoDialog()
+        }
         dimView.setOnClickListener(null)
         dimView.visibility = View.VISIBLE
         loadingSpinner = findViewById(R.id.loading_spinner)
@@ -108,7 +118,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                         LatLng(lat, lng)
                     }
                 }?.let { coordinates ->
-                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${locator.category}")
+                    val item = MyItem(coordinates, "${it.id} ${it.title}", it.category)
                     items.add(item)
                     madridMap[item.getNombre()] = it.id
                     val markerOptions = MarkerOptions().position(coordinates).title("${it.id} ${it.title}").visible(false)
@@ -181,7 +191,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                     LatLng(lat, lng)
                 }
             }?.let { coordinates ->
-                val item = MyItem(coordinates, "${locator.id} ${locator.title}", "${locator.category}")
+                val item = MyItem(coordinates, "${locator.id} ${locator.title}", locator.category)
                 items.add(item)
             }
         }
@@ -303,43 +313,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         bottomSheetDialog.show()
     }
 
-    private fun selectionIcon(
-        category: String,
-    ): Int {
-        val options = listOf(
-            R.drawable.ico_gen1,
-            R.drawable.ico_gen2,
-            R.drawable.ico_gen3,
-            R.drawable.ico_gen4,
-            R.drawable.ico_gen5
-        )
-        val iconResId = when (category.split("/").getOrNull(6) ?: options.random()) {
-            "Musica" -> R.drawable.ico_musica
-            "DanzaBaile" -> R.drawable.ico_danzabaile
-            "CursosTalleres" -> R.drawable.ico_cursostalleres
-            "TeatroPerformance" -> R.drawable.ico_teatro
-            "ActividadesCalleArteUrbano" -> R.drawable.ico_arteurbano
-            "CuentacuentosTiteresMarionetas" -> R.drawable.ico_cuentacuentos
-            "ComemoracionesHomenajes" -> R.drawable.ico_homenaje
-            "ConferenciasColoquios" -> R.drawable.ico_conferencias
-            "1ciudad21distritos" -> R.drawable.ico_ciudaddistritos
-            "ExcursionesItinerariosVisitas" -> R.drawable.ico_visitas
-            "ItinerariosOtrasActividadesAmbientales" -> R.drawable.ico_ambientales
-            "ClubesLectura" -> R.drawable.ico_lectura
-            "RecitalesPresentacionesActosLiterarios" -> R.drawable.ico_recitales
-            "Exposiciones" -> R.drawable.ico_exposiciones
-            "Campamentos" -> R.drawable.ico_campamentos
-            "CineActividadesAudiovisuales" -> R.drawable.ico_cine
-            "CircoMagia" -> R.drawable.ico_circo
-            "ProgramacionDestacadaAgendaCultura" -> R.drawable.ico_cultura
-            "ActividadesDeportivas" -> R.drawable.ico_deportes
-            "EnLinea" -> R.drawable.ico_enlinea
-            else -> options.random()
-        }
-        return iconResId
-    }
-
-
     private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
         val ratio = 6371
         val dLat = Math.toRadians(lat2 - lat1)
@@ -349,5 +322,20 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 sin(dLon / 2) * sin(dLon / 2))
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return (ratio * c * 1000).toFloat()
+    }
+    @SuppressLint("MissingInflatedId")
+    private fun showInfoDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_info, null)
+        dialogBuilder.setView(dialogView)
+        val infoText = dialogView.findViewById<TextView>(R.id.info_text)
+        infoText.text = "Pulsa en tu ubicación y descubriras los planes cercanos!"
+        dialogBuilder.setCancelable(true)
+        val dialog = dialogBuilder.create()
+        dialog.setOnDismissListener {
+            infoButton.visibility = View.GONE
+        }
+        dialog.show()
     }
 }

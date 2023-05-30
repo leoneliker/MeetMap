@@ -27,6 +27,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.fragments.InfoActivityFragment
 import com.ikalne.meetmap.fragments.MapFragment
+import com.ikalne.meetmap.selectionIcon
 
 class MyClusterRenderer(
     private val context: Context,
@@ -44,7 +45,7 @@ class MyClusterRenderer(
         super.onBeforeClusterItemRendered(item, markerOptions)
         markerOptions.title(item.getNombre())
         markerOptions.icon(clusterIcon)
-        markerOptions.snippet(item.getFecha())
+        markerOptions.snippet(item.getCategory())
     }
 
     override fun getColor(clusterSize: Int): Int {
@@ -65,9 +66,11 @@ class MyClusterRenderer(
         val zoomLevel = map.cameraPosition.zoom
         if (zoomLevel > 15) {
             val items = ArrayList<String>()
+            val categories = ArrayList<String>()
             for (item in cluster.items) {
                 val title = item.getNombre().split(" ").drop(1).joinToString(" ")
                 items.add(title)
+                categories.add(item.getCategory())
             }
 
             val dialogBuilder = AlertDialog.Builder(context)
@@ -76,12 +79,12 @@ class MyClusterRenderer(
             val adapter = object : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, items) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                     val view = super.getView(position, convertView, parent) as TextView
-                    val icon = ContextCompat.getDrawable(context, MapFragment.selectionIcon(item.getCategory()))
+                    val icon = ContextCompat.getDrawable(context,selectionIcon(categories[position]))
                     icon?.setBounds(0, 0, 75, 75)
                     view.setCompoundDrawables(icon, null, null, null)
                     view.compoundDrawablePadding = 16
                     view.gravity = Gravity.CENTER_VERTICAL
-                    view.setPadding(0, 0, 0, 0)
+                    view.setPadding(10, 0, 0, 0)
                     view.setTextAppearance(context, android.R.style.TextAppearance_Medium)
                     return view
                 }
