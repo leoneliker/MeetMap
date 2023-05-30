@@ -123,6 +123,8 @@ class InfoActivityFragment :Fragment() {
             }
         }
 
+
+
         binding.bubbles.setOnClickListener {
             System.out.println("click en el linear")
             openSuscribersActivity(plAct.id, email)
@@ -358,15 +360,19 @@ class InfoActivityFragment :Fragment() {
                 IsInSuscribe = isInSubscribe
                 if (isInSubscribe) {
                     Log.d(TAG, "checkIsSub: dentro")
-                    binding.unirse.setBackgroundColor(R.color.secondary_dark)
-                    binding.unirse.setTextColor(R.color.dark_gray)
-                    binding.unirse.text = "Unsubscribe"
+                    binding.unirse.apply {
+                        backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_dark)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
+                        text = "Unsubscribe"
+                    }
                     binding.bubbles.visibility = View.VISIBLE
                 } else {
                     Log.d(TAG, "checkIsSub: fuera")
-                    binding.unirse.setBackgroundColor(R.color.secondary_light)
-                    binding.unirse.setTextColor(R.color.light_gray)
-                    binding.unirse.text = "Suscribe"
+                    binding.unirse.apply {
+                        backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_light)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
+                        text = "Subscribe"
+                    }
                     binding.bubbles.visibility = View.GONE
                 }
             }
