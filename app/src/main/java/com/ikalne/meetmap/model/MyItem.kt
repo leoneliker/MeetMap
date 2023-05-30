@@ -6,7 +6,7 @@ import com.google.maps.android.clustering.ClusterItem
 class MyItem(
     private val position: LatLng,
     private val nombre: String,
-    private val fecha: String
+    private val categoria: String
 ) : ClusterItem {
 
     override fun getPosition(): LatLng {
@@ -25,7 +25,7 @@ class MyItem(
         return nombre
     }
 
-    fun getFecha(): String {
-        return fecha
+    fun getCategoria(): String {
+        return categoria
     }
 }
