@@ -1,10 +1,12 @@
 package com.ikalne.meetmap.fragments
 
 import android.content.ContentValues.TAG
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -34,8 +36,8 @@ class SuscribersActivity : AppCompatActivity() {
 
         // Obtener la lista de suscriptores de Firebase
         updateRecyclerView()
-
         val buttonBack = findViewById<Button>(R.id.backButton)
+        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.secondary_dark))
         buttonBack.setOnClickListener {
             finish()
         }

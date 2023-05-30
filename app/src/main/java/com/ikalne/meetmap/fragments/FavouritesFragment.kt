@@ -71,7 +71,7 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
 
 
         loadFavouriteActs()
-
+        updateEmptyRecyclerViewVisibility(adapterFLI)
     }
 
     override fun onCreateView(
@@ -126,11 +126,9 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
         if (adapter.itemCount == 0) {
             binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
             binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
-            recyclerView.visibility = View.GONE
         } else {
             binding.emptyRecyclerViewImageView.visibility = View.GONE
             binding.emptyRecyclerViewTextView.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
         }
     }
 

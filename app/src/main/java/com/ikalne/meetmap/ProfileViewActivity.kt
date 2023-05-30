@@ -42,7 +42,7 @@ class ProfileViewActivity : AppCompatActivity() {
         meetmapper = findViewById(R.id.meetmaperTV)
 
         val buttonBack = findViewById<Button>(R.id.backButton)
-        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.dark_gray))
+        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.secondary_dark))
         buttonBack.setOnClickListener {
             finish()
         }
@@ -71,7 +71,7 @@ class ProfileViewActivity : AppCompatActivity() {
                 numTelf?.let { etPhone.text = it }
                 desc?.let { etDescription.text = it }
                 etEmail.text = useremail
-                meetmapper.text = getUsernameFromEmail(useremail)
+                meetmapper.text = "Perfil de "+getUsernameFromEmail(useremail)
 
                 photo?.let {
                     val options = RequestOptions().placeholder(R.drawable.predeterminado)

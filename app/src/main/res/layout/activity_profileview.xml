@@ -13,14 +13,14 @@
         <RelativeLayout
             android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/light_gray"
+            android:layout_height="56dp"
+            android:background="@color/secondary_light"
             tools:ignore="MissingConstraints">
 
             <Button
                 android:id="@+id/backButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
                 android:layout_margin="16dp"
                 android:padding="8dp"
                 style="@style/ButtonBack"
@@ -32,14 +32,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="40dp"
-                android:maxLength="15"
-                android:fontFamily="@font/concert_one"
-                android:layout_marginTop="0dp"
-
-                android:layout_marginRight="60dp"
+                android:textSize="17dp"
+                android:maxLength="50"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
                 android:textColor="@color/dark_gray"
-                android:textAlignment="center"
                 android:layout_toEndOf="@id/backButton"
                 android:layout_alignTop="@id/backButton"
                 />
@@ -64,7 +61,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             app:layout_constraintTop_toBottomOf="@id/ivuser"

@@ -14,8 +14,8 @@
 
                 <Button
                     android:id="@+id/backButton"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_margin="16dp"
                     android:padding="8dp"
                     style="@style/ButtonBack"
@@ -28,6 +28,7 @@
                     android:layout_height="wrap_content"
                     android:text="MeetMappers"
                     android:textSize="40dp"
+                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/concert_one"
                     android:layout_marginTop="2dp"
 
