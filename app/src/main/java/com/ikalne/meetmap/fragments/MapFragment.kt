@@ -108,7 +108,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                         LatLng(lat, lng)
                     }
                 }?.let { coordinates ->
-                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${it.time} ${it.dstart}")
+                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${it.time} ${it.category}")
                     items.add(item)
                     madridMap[item.getNombre()] = it.id
                     val markerOptions = MarkerOptions().position(coordinates).title("${it.id} ${it.title}").visible(false)
@@ -266,7 +266,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
             )
             if (distance < 1000) {
-                val iconResId = selectionIcon(locator)
+                val iconResId = selectionIcon(locator.category)
                 val menuItem = LocationMenuItem(locator.id, locator.title, iconResId, locator.dstart, locator.dfinish)
                 menuItems.add(menuItem)
             }
@@ -304,7 +304,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     }
 
     private fun selectionIcon(
-        locator: LocatorView,
+        category: String,
     ): Int {
         val options = listOf(
             R.drawable.ico_gen1,
@@ -313,7 +313,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             R.drawable.ico_gen4,
             R.drawable.ico_gen5
         )
-        val iconResId = when (locator.category.split("/").getOrNull(6) ?: options.random()) {
+        val iconResId = when (category.split("/").getOrNull(6) ?: options.random()) {
             "Musica" -> R.drawable.ico_musica
             "DanzaBaile" -> R.drawable.ico_danzabaile
             "CursosTalleres" -> R.drawable.ico_cursostalleres
