@@ -37,20 +37,41 @@ class SuscribersAdapter(
         private var db = Firebase.firestore
         private var user =
             PreferencesManager.getDefaultSharedPreferences(itemView.context).getEmail()
+        private var isBtnChatVisible = true
+
         fun bind(suscriber: Suscriber) {
             nameTextView.text = suscriber.name.toString()
 
             btnpf.setOnClickListener {
-                System.out.println("email de adapter "+suscriber.useremail)
-                openPfpFragment(suscriber.useremail)
+                System.out.println("email de adapter " + suscriber.useremail)
+                openPfpActivity(suscriber.useremail)
             }
+            System.out.println(getUsernameFromEmail(getUserEmail()))
+            System.out.println(suscriber.useremail)
+            if (getUsernameFromEmail(getUserEmail()) == getUsernameFromEmail(suscriber.useremail)) {
+                btnchat.visibility = View.GONE
+            } else {
+                btnchat.visibility = View.VISIBLE
+                btnchat.setOnClickListener {
+                    newChat(suscriber.useremail)
+                }
+            }
+        }
+        private fun getUserEmail(): String {
+            val preferences = PreferencesManager.getDefaultSharedPreferences(itemView.context)
+            return preferences.getEmail()
+        }
 
-            btnchat.setOnClickListener {
-                newChat(suscriber.useremail)
+        fun getUsernameFromEmail(email: String): String {
+            val index = email.indexOf("@")
+            return if (index != -1) {
+                email.substring(0, index)
+            } else {
+                email
             }
         }
 
-        private fun openPfpFragment(userEmail: String) {
+        private fun openPfpActivity(userEmail: String) {
             val intent = Intent(itemView.context, ProfileViewActivity::class.java)
             intent.putExtra("userEmail", userEmail)
             itemView.context.startActivity(intent)
