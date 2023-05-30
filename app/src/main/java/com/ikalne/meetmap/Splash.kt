@@ -11,6 +11,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import java.util.*
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,11 @@ class Splash : AppCompatActivity() {
 
         title.visibility =  View.INVISIBLE
         slogan.visibility = View.INVISIBLE
+        val currentLanguage: String = Locale.getDefault().language
+
+        if (currentLanguage == "es") {
+            slogan.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28f) // Cambia el tamaño a tu preferencia
+        }
 
         val handsAnimationListener = object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {}
