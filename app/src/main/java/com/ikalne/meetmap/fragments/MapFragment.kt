@@ -108,7 +108,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                         LatLng(lat, lng)
                     }
                 }?.let { coordinates ->
-                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${it.time} ${it.category}")
+                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${locator.category}")
                     items.add(item)
                     madridMap[item.getNombre()] = it.id
                     val markerOptions = MarkerOptions().position(coordinates).title("${it.id} ${it.title}").visible(false)
@@ -181,7 +181,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                     LatLng(lat, lng)
                 }
             }?.let { coordinates ->
-                val item = MyItem(coordinates, "${locator.id} ${locator.title}", "${locator.time} ${locator.dstart}")
+                val item = MyItem(coordinates, "${locator.id} ${locator.title}", "${locator.category}")
                 items.add(item)
             }
         }
