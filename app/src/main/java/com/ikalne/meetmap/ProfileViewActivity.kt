@@ -22,6 +22,7 @@ class ProfileViewActivity : AppCompatActivity() {
     private lateinit var etPhone: TextView
     private lateinit var etEmail: TextView
     private lateinit var etDescription: TextView
+    private lateinit var meetmapper: TextView
     private lateinit var etPfppic: ImageView
 
     @SuppressLint("MissingInflatedId")
@@ -35,6 +36,7 @@ class ProfileViewActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.email)
         etDescription = findViewById(R.id.description)
         etPfppic = findViewById(R.id.ivuser)
+        meetmapper = findViewById(R.id.meetmaperTV)
 
         val buttonBack = findViewById<Button>(R.id.backButton)
         buttonBack.setOnClickListener {
@@ -65,6 +67,7 @@ class ProfileViewActivity : AppCompatActivity() {
                 numTelf?.let { etPhone.text = it }
                 desc?.let { etDescription.text = it }
                 etEmail.text = useremail
+                meetmapper.text = getUsernameFromEmail(useremail)
 
                 photo?.let {
                     val options = RequestOptions().placeholder(R.drawable.predeterminado)
@@ -79,6 +82,14 @@ class ProfileViewActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error reading user data: ${exception.message}")
             }
+    }
+    fun getUsernameFromEmail(email: String): String {
+        val index = email.indexOf("@")
+        return if (index != -1) {
+            email.substring(0, index)
+        } else {
+            email
+        }
     }
 
     companion object {
