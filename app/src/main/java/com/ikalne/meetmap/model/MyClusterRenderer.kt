@@ -76,7 +76,7 @@ class MyClusterRenderer(
             val adapter = object : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, items) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                     val view = super.getView(position, convertView, parent) as TextView
-                    val icon = ContextCompat.getDrawable(context, R.drawable.ico_cine)
+                    val icon = ContextCompat.getDrawable(context, MapFragment.selectionIcon(item.getCategory()))
                     icon?.setBounds(0, 0, 75, 75)
                     view.setCompoundDrawables(icon, null, null, null)
                     view.compoundDrawablePadding = 16
