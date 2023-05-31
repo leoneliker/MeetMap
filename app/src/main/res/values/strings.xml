@@ -105,4 +105,8 @@
     <string name="existUserChat">It\'s a Meetmapper!</string>
     <string name ="noExistUserChat">She/He doesn\'t know us, tell her/him about MeetMap</string>
     <string name="description2">Description</string>
+    <string name="profile_of">Profile of</string>
+    <string name="unsubscribe">Unsuscribe</string>
+    <string name="subscribe">Suscribe</string>
+    <string name="meetmappers" translatable="false">Meetmappers</string>
 </resources>

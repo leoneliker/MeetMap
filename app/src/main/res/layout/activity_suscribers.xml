@@ -29,7 +29,7 @@
                     android:id="@+id/meetmapersTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="MeetMappers"
+                    android:text="@string/meetmappers"
                     android:textSize="20dp"
                     android:fontFamily="@font/concert_one"
                     android:layout_marginTop="-2dp"

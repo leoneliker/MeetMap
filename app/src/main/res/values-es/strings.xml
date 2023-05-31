@@ -105,4 +105,7 @@
     <string name ="noExistUserChat">No nos conoce, háblale de MeetMap</string>
     <string name="location_menu">Actividades a menos de 1000 metros</string>
     <string name="description2">Descripción</string>
+    <string name="profile_of">Perfil de</string>
+    <string name="unsubscribe">Retirarse</string>
+    <string name="subscribe">Unirse</string>
 </resources>

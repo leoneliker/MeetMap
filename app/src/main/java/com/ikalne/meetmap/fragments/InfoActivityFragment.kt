@@ -359,19 +359,17 @@ class InfoActivityFragment :Fragment() {
                 }
                 IsInSuscribe = isInSubscribe
                 if (isInSubscribe) {
-                    Log.d(TAG, "checkIsSub: dentro")
                     binding.unirse.apply {
                         backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_dark)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
-                        text = "Unsubscribe"
+                        text = getString(R.string.unsubscribe)
                     }
                     binding.bubbles.visibility = View.VISIBLE
                 } else {
-                    Log.d(TAG, "checkIsSub: fuera")
                     binding.unirse.apply {
                         backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_light)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
-                        text = "Subscribe"
+                        text = getString(R.string.subscribe)
                     }
                     binding.bubbles.visibility = View.GONE
                 }
