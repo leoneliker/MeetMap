@@ -109,4 +109,5 @@
     <string name="unsubscribe">Unsuscribe</string>
     <string name="subscribe">Suscribe</string>
     <string name="meetmappers" translatable="false">Meetmappers</string>
-</resources>
+    <string name="slogan_splash">" Do you already have a plan for today? "</string>
+   </resources>

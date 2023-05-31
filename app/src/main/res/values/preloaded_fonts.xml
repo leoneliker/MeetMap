@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/concert_one</item><!-- FUENTE TITULOS-->
-        <item>@font/roboto</item><!-- FUENTE TEXTO-->
+        <item>@font/roboto</item>
+        <item>@font/satisfy</item><!-- FUENTE TEXTO-->
     </array>
 </resources>

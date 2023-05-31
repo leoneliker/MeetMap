@@ -2,26 +2,28 @@ package com.ikalne.meetmap.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.api.models.LocatorView
@@ -42,6 +44,7 @@ import kotlin.math.sqrt
 import com.google.maps.android.clustering.ClusterManager
 import com.ikalne.meetmap.model.MyItem
 import com.ikalne.meetmap.model.MyClusterRenderer
+import com.ikalne.meetmap.selectionIcon
 
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
@@ -53,6 +56,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var clusterManager: ClusterManager<MyItem>
     private lateinit var chipGroup :ChipGroup
+    private lateinit var infoButton: ImageButton
     private val infoFragment = InfoActivityFragment()
 
     companion object {
@@ -63,6 +67,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val markers = mutableMapOf<String, Marker>()
     }
 
+    private lateinit var mMapFragment : SupportMapFragment
+    private var primaryColor: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,12 +76,16 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     ): View? = inflater.inflate(R.layout.fragment_map, container, false).apply {
         chipGroup = findViewById(R.id.chip_group)
         dimView = findViewById(R.id.dim_view)
+        infoButton = findViewById(R.id.info_button)
+        infoButton.setOnClickListener {
+            showInfoDialog()
+        }
         dimView.setOnClickListener(null)
         dimView.visibility = View.VISIBLE
         loadingSpinner = findViewById(R.id.loading_spinner)
         loadingSpinner.visibility = View.VISIBLE
         observe()
-        val mMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mMapFragment.getMapAsync(this@MapFragment)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
@@ -83,6 +93,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        primaryColor = ContextCompat.getColor(requireContext(), R.color.primary)
         enableLocation()
         viewModel.fetchData()
         map.setOnMarkerClickListener { false }
@@ -107,7 +118,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                         LatLng(lat, lng)
                     }
                 }?.let { coordinates ->
-                    val item = MyItem(coordinates, "${it.id} ${it.title}", "${it.time} ${it.dstart}")
+                    val item = MyItem(coordinates, "${it.id} ${it.title}", it.category)
                     items.add(item)
                     madridMap[item.getNombre()] = it.id
                     val markerOptions = MarkerOptions().position(coordinates).title("${it.id} ${it.title}").visible(false)
@@ -154,7 +165,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 } else {
                     selectedCategories.add(category)
                     chip.setChipBackgroundColorResource(R.color.primary_light)
-                    chip.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.primary))
+                    chip.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.dark_gray))
                 }
                 if (selectedCategories.isEmpty()) {
                     applyFilter(locators)
@@ -180,7 +191,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                     LatLng(lat, lng)
                 }
             }?.let { coordinates ->
-                val item = MyItem(coordinates, "${locator.id} ${locator.title}", "${locator.time} ${locator.dstart}")
+                val item = MyItem(coordinates, "${locator.id} ${locator.title}", locator.category)
                 items.add(item)
             }
         }
@@ -259,42 +270,13 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val view = layoutInflater.inflate(R.layout.location_menu, null)
         bottomSheetDialog.setContentView(view)
         val menuItems = mutableListOf<LocationMenuItem>()
-        val options = listOf(
-            R.drawable.ico_gen1,
-            R.drawable.ico_gen2,
-            R.drawable.ico_gen3,
-            R.drawable.ico_gen4,
-            R.drawable.ico_gen5
-        )
         for (locator in locatorList) {
             val distance = distance(
                 location.latitude, location.longitude,
                 locator.location.latitude ?: 0.0, locator.location.longitude ?: 0.0
             )
             if (distance < 1000) {
-                val iconResId = when (locator.category.split("/").getOrNull(6) ?: options.random()) {
-                    "Musica" -> R.drawable.ico_musica
-                    "DanzaBaile" -> R.drawable.ico_danzabaile
-                    "CursosTalleres" -> R.drawable.ico_cursostalleres
-                    "TeatroPerformance" -> R.drawable.ico_teatro
-                    "ActividadesCalleArteUrbano" -> R.drawable.ico_arteurbano
-                    "CuentacuentosTiteresMarionetas" -> R.drawable.ico_cuentacuentos
-                    "ComemoracionesHomenajes" -> R.drawable.ico_homenaje
-                    "ConferenciasColoquios" -> R.drawable.ico_conferencias
-                    "1ciudad21distritos" -> R.drawable.ico_ciudaddistritos
-                    "ExcursionesItinerariosVisitas" -> R.drawable.ico_visitas
-                    "ItinerariosOtrasActividadesAmbientales" -> R.drawable.ico_ambientales
-                    "ClubesLectura" -> R.drawable.ico_lectura
-                    "RecitalesPresentacionesActosLiterarios" -> R.drawable.ico_recitales
-                    "Exposiciones" -> R.drawable.ico_exposiciones
-                    "Campamentos" -> R.drawable.ico_campamentos
-                    "CineActividadesAudiovisuales" -> R.drawable.ico_cine
-                    "CircoMagia" -> R.drawable.ico_circo
-                    "ProgramacionDestacadaAgendaCultura" -> R.drawable.ico_cultura
-                    "ActividadesDeportivas" -> R.drawable.ico_deportes
-                    "EnLinea" -> R.drawable.ico_enlinea
-                    else -> options.random()
-                }
+                val iconResId = selectionIcon(locator.category)
                 val menuItem = LocationMenuItem(locator.id, locator.title, iconResId, locator.dstart, locator.dfinish)
                 menuItems.add(menuItem)
             }
@@ -320,6 +302,12 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter
         }
+        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.divider_drawable)
+        drawable?.let {
+            itemDecoration.setDrawable(it)
+            view.findViewById<RecyclerView>(R.id.location_menu_recycler_view).addItemDecoration(itemDecoration)
+        }
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
         bottomSheetBehavior.peekHeight = resources.getDimensionPixelSize(R.dimen.location_menu_height)
         bottomSheetDialog.show()
@@ -334,5 +322,20 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 sin(dLon / 2) * sin(dLon / 2))
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return (ratio * c * 1000).toFloat()
+    }
+    @SuppressLint("MissingInflatedId")
+    private fun showInfoDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_info, null)
+        dialogBuilder.setView(dialogView)
+        val infoText = dialogView.findViewById<TextView>(R.id.info_text)
+        infoText.text = "Pulsa en tu ubicación y descubriras los planes cercanos!"
+        dialogBuilder.setCancelable(true)
+        val dialog = dialogBuilder.create()
+        dialog.setOnDismissListener {
+            infoButton.visibility = View.GONE
+        }
+        dialog.show()
     }
 }
