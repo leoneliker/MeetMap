@@ -19,8 +19,8 @@
 
             <Button
                 android:id="@+id/backButton"
-                android:layout_width="30dp"
-                android:layout_height="50dp"
+                android:layout_width="28dp"
+                android:layout_height="60dp"
                 android:layout_margin="16dp"
                 android:padding="8dp"
                 style="@style/ButtonBack"

@@ -42,7 +42,7 @@ class ProfileViewActivity : AppCompatActivity() {
         meetmapper = findViewById(R.id.meetmaperTV)
 
         val buttonBack = findViewById<Button>(R.id.backButton)
-        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.secondary_dark))
+        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.button_dark))
         buttonBack.setOnClickListener {
             finish()
         }

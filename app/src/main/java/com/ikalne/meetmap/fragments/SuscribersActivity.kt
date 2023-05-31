@@ -37,7 +37,7 @@ class SuscribersActivity : AppCompatActivity() {
         // Obtener la lista de suscriptores de Firebase
         updateRecyclerView()
         val buttonBack = findViewById<Button>(R.id.backButton)
-        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.secondary_dark))
+        buttonBack.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.button_dark))
         buttonBack.setOnClickListener {
             finish()
         }
