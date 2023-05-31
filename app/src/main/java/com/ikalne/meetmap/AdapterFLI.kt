@@ -48,6 +48,7 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
         holder.removeFavBtn.setOnClickListener{
             removeFromFavourite(context, model.id)
         }
+
     }
 
     private fun removeFromFavourite(context: Context, ActID: String){
@@ -71,27 +72,67 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
         currentUserUid?.let {
             val ref = FirebaseDatabase.getInstance().getReference("users/$it/Favourites")
-            ref.child(ActID)
-                .addListenerForSingleValueEvent(object: ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val title = "${snapshot.child("Title").value}"
-                        val date = "${snapshot.child("Date").value}"
-                        val time = "${snapshot.child("Time").value}"
-                        val place = "${snapshot.child("Place").value}"
-                        model.isFav = true
-                        model.titulo = title
-                        model.lugar = place
-                        model.fecha = date
-                        model.horario = time
-                        model.id = ActID
-                        holder.fli_title.text = title
-                        holder.fli_desc.text = place
-                        holder.fli_date.text = date
-                        holder.fli_time.text = time
+            ref.child(ActID).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val title = "${snapshot.child("Title").value}"
+                    val date = "${snapshot.child("Date").value}"
+                    val time = "${snapshot.child("Time").value}"
+                    val place = "${snapshot.child("Place").value}"
+                    val cat = "${snapshot.child("Cat").value}" // Agregado: Obtener el valor de "Cat"
+
+                    model.isFav = true
+                    model.titulo = title
+                    model.lugar = place
+                    model.fecha = date
+                    model.horario = time
+                    model.id = ActID
+                    holder.fli_title.text = title
+                    holder.fli_desc.text = place
+                    holder.fli_date.text = date
+                    holder.fli_time.text = time
+
+                    // Agregado: Cargar la foto si "cat" es igual a "Exposicion"
+                    if (cat == "Musica") {
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_musica)
+                    }else if (cat == "DanzaBaile"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_danzabaile)
+                    }else if (cat == "CursosTalleres"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_cursostalleres)
+                    }else if (cat == "TeatroPerformance"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_teatro)
+                    }else if (cat == "ActividadesCalleArteUrbano"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_arteurbano)
+                    }else if (cat == "CuentacuentosTiteresMarionetas"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_cuentacuentos)
+                    }else if (cat == "ConferenciasColoquios"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_conferencias)
+                    }else if (cat == "1ciudad21distritos"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_ciudaddistritos)
+                    }else if (cat == "ExcursionesItinerariosVisitas"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_campamentos)
+                    }else if (cat == "ItinerariosOtrasActividadesAmbientales"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_ambientales)
+                    }else if (cat == "ClubesLectura"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_lectura)
+                    }else if (cat == "RecitalesPresentacionesActosLiterarios"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_recitales)
+                    }else if (cat == "Exposiciones"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_exposiciones)
+                    }else if (cat == "Campamentos"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_campamentos)
+                    }else if (cat == "CineActividadesAudiovisuales"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_cine)
+                    }else if (cat == "CircoMagia"){
+                        holder.fli_cat.setBackgroundResource(R.drawable.ico_circo)
+                    }else{
+                        holder.fli_cat.setBackgroundResource(R.color.white)
                     }
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-                })
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Manejar el error de base de datos si es necesario
+                }
+            })
         }
     }
 
@@ -102,10 +143,11 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
 
     inner class HolderFLI(itemView: View): RecyclerView.ViewHolder(itemView){
         var fli_title = binding.fliTitle
-        var removeFavBtn = binding.removeFavBtn
+        var fli_cat = binding.catIV
         var fli_desc = binding.fliDesc
         var fli_time = binding.fliTime
         var fli_date = binding.fliDate
+        var removeFavBtn = binding.removeFavBtn
     }
 
 }

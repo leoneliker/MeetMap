@@ -13,7 +13,6 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
     <style name="MyTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--        <item name="windowActionBar">false</item>-->
         <!--        <item  name="windowNoTitle">true</item> comentario ctrl barra del 7 y ctrl alt L para ajustar codigo-->

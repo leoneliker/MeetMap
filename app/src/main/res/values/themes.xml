@@ -18,7 +18,6 @@
         <!--        <item name="windowActionBar">false</item>-->
         <!--        <item  name="windowNoTitle">true</item> comentario ctrl barra del 7 y ctrl alt L para ajustar codigo-->
     </style>
-
     <style name="Theme.MeetMap.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

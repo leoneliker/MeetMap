@@ -2,6 +2,8 @@ package com.ikalne.meetmap.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.AdapterFLI
 import com.ikalne.meetmap.R
+import com.ikalne.meetmap.adapters.ChatAdapter
 import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentFavouritesBinding
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
@@ -43,7 +46,7 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var fliArrayList: ArrayList<FLI>
+    private var fliArrayList: ArrayList<FLI> = ArrayList()
     private lateinit var binding: FragmentFavouritesBinding
     val firebaseAuth = FirebaseAuth.getInstance()
     private lateinit var adapterFLI: AdapterFLI
@@ -54,12 +57,11 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        loadFavouriteActs()
 
         // Crear y configurar el RecyclerView
         recyclerView = binding.favouriteRv
@@ -67,6 +69,14 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
         adapterFLI = AdapterFLI(requireContext(), fliArrayList)
         adapterFLI.clickListener = this
         recyclerView.adapter = adapterFLI
+
+
+
+
+        loadFavouriteActs()
+        System.out.println("adapter count "+adapterFLI.itemCount)
+
+
     }
 
     override fun onCreateView(
@@ -89,28 +99,68 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
             }
     }
 
-    private fun loadFavouriteActs(){
+    private fun loadFavouriteActs() {
         fliArrayList = ArrayList()
         val ref = FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseAuth.uid!!).child("Favourites")
-            .addValueEventListener(object: ValueEventListener{
-                @SuppressLint("NotifyDataSetChanged")
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    fliArrayList.clear()
-                    for(ds in snapshot.children){
+                    var boolData = false
+                    var cnt = 0
+                    val data = ArrayList<FLI>()
+                    for (ds in snapshot.children) {
                         val aid = "${ds.child("ID").value}"
                         val FLI = FLI()
                         FLI.id = aid
-                        fliArrayList.add(FLI)
+                        data.add(FLI)
+                        if(cnt == 0){
+                            boolData = true;
+                            cnt++;}
                     }
-                    adapterFLI.notifyDataSetChanged()
+                    System.out.println("boolean "+boolData)
+                    if(boolData){
+                        binding.emptyRecyclerViewImageView.visibility = View.GONE
+                        binding.emptyRecyclerViewTextView.visibility = View.GONE
+                    }else{
+                        System.out.println(" entra en else")
+                        binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+                        binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+                    }
+                    updateRecyclerViewData(data)
+                    updateRecyclerViewData(data)
+
+                   //updateEmptyRecyclerViewVisibility(adapterFLI)
+
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+
+        // Mover la inicialización del adaptador aquí
+        adapterFLI = AdapterFLI(requireContext(), fliArrayList)
+        adapterFLI.clickListener = this
+        recyclerView.adapter = adapterFLI
+
     }
 
-    override fun onItemClick(position: Int,item: FLI, view: View) {
+    private fun updateRecyclerViewData(data: ArrayList<FLI>) {
+        fliArrayList.clear()
+        fliArrayList.addAll(data)
+        adapterFLI.notifyDataSetChanged()
+    }
+
+    private fun updateEmptyRecyclerViewVisibility(adapter: AdapterFLI) {
+        if (adapter.itemCount == 0) {
+            binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+            binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
+        } else {
+            binding.emptyRecyclerViewImageView.visibility = View.GONE
+            binding.emptyRecyclerViewTextView.visibility = View.GONE
+        }
+    }
+
+    override fun onItemClick(position: Int, item: FLI, view: View) {
         val marker = MapFragment.markers["${item.id} ${item.titulo}"]
         if (marker != null) {
             val infoFragment = InfoActivityFragment()
@@ -122,6 +172,4 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
                 .commit()
         }
     }
-
-
 }
