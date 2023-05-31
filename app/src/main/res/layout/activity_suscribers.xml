@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:text="MeetMappers"
                     android:textSize="40dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="26dp"
                     android:fontFamily="@font/concert_one"
                     android:layout_marginTop="2dp"
 

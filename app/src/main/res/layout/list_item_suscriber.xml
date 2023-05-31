@@ -7,6 +7,17 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/pfImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circleiv"
+        android:src="@drawable/predeterminado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
@@ -15,7 +26,7 @@
         android:maxLength="20"
         android:text="nombre"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:textColor="@color/dark_gray"/>
 
     <Space
@@ -29,7 +40,9 @@
         android:background="@drawable/ic_message_square"
         android:backgroundTint="@color/dark_gray"
         android:id="@+id/chat"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="16dp"
+        />
 
     <ImageButton
         android:layout_width="35dp"
@@ -37,6 +50,7 @@
         android:background="@drawable/ic_profile"
         android:backgroundTint="@color/dark_gray"
         android:id="@+id/profile"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"/>
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -38,16 +40,41 @@ class SuscribersAdapter(
         private var user =
             PreferencesManager.getDefaultSharedPreferences(itemView.context).getEmail()
         private var isBtnChatVisible = true
+        private val pfImage: ImageView = itemView.findViewById(R.id.pfImage)
+
+        val usersCollection = db.collection("users")
 
         fun bind(suscriber: Suscriber) {
             nameTextView.text = suscriber.name.toString()
+            val userEmail = suscriber.useremail
+            val usersCollection = db.collection("users")
+            System.out.println("usermail "+userEmail)
+            usersCollection.document(userEmail)
+                .get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        // Obtener la URL de la imagen del documento
+                        val img = documentSnapshot.getString("img")
 
+                        // Cargar la imagen en la ImageView utilizando una biblioteca de carga de imágenes (como Picasso o Glide)
+                        // Aquí se utiliza Glide como ejemplo, asegúrate de agregar la dependencia correspondiente en tu archivo build.gradle
+                        Glide.with(itemView.context)
+                            .load(img)
+                            .circleCrop()
+                            .into(pfImage)
+                    } else {
+                        Log.d("SuscribersAdapter", "El documento no existe")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // Manejar la falla de la consulta Firestore
+                    Log.e("SuscribersAdapter", "Error al obtener la imagen: $exception")
+                }
             btnpf.setOnClickListener {
-                System.out.println("email de adapter " + suscriber.useremail)
+
                 openPfpActivity(suscriber.useremail)
             }
-            System.out.println(getUsernameFromEmail(getUserEmail()))
-            System.out.println(suscriber.useremail)
+
             if (getUsernameFromEmail(getUserEmail()) == getUsernameFromEmail(suscriber.useremail)) {
                 btnchat.visibility = View.GONE
             } else {
