@@ -45,10 +45,27 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
         holder.itemView.setOnClickListener {
             clickListener?.onItemClick(position,model, holder.itemView)
         }
+        holder.removeFavBtn.setOnClickListener{
+            removeFromFavourite(context, model.id)
+        }
 
     }
 
+    private fun removeFromFavourite(context: Context, ActID: String){
+        Log.d(ContentValues.TAG, "removeFromFavourite: Removing from fav")
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val ref=FirebaseDatabase.getInstance().getReference("users")
+        ref.child(firebaseAuth.uid!!).child("Favourites").child(ActID)
+            .removeValue()
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "removeFromFavourite: removed from fav")
+            }
+            .addOnFailureListener{e ->
+                Log.d(ContentValues.TAG, "removeFromFavourite: Failed to remove from fav due to ${e.message}")
+                // Toast.makeText(this, "Failed to remove from fav due to ${e.message}", Toast.LENGTH_SHORT).show()
 
+            }
+    }
 
     private fun loadActDetails(model: FLI, holder: AdapterFLI.HolderFLI) {
         val ActID = model.id
@@ -130,6 +147,7 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
         var fli_desc = binding.fliDesc
         var fli_time = binding.fliTime
         var fli_date = binding.fliDate
+        var removeFavBtn = binding.removeFavBtn
     }
 
 }
