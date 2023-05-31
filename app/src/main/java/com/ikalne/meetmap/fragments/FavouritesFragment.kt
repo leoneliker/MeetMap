@@ -3,6 +3,7 @@ package com.ikalne.meetmap.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,6 +57,7 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,8 +72,11 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
 
 
 
+
         loadFavouriteActs()
-        updateEmptyRecyclerViewVisibility(adapterFLI)
+        System.out.println("adapter count "+adapterFLI.itemCount)
+
+
     }
 
     override fun onCreateView(
@@ -100,26 +105,49 @@ class FavouritesFragment : Fragment(), AdapterFLI.OnItemClickListener {
         ref.child(firebaseAuth.uid!!).child("Favourites")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    var boolData = false
+                    var cnt = 0
                     val data = ArrayList<FLI>()
                     for (ds in snapshot.children) {
                         val aid = "${ds.child("ID").value}"
                         val FLI = FLI()
                         FLI.id = aid
                         data.add(FLI)
+                        if(cnt == 0){
+                            boolData = true;
+                            cnt++;}
+                    }
+                    System.out.println("boolean "+boolData)
+                    if(boolData){
+                        binding.emptyRecyclerViewImageView.visibility = View.GONE
+                        binding.emptyRecyclerViewTextView.visibility = View.GONE
+                    }else{
+                        System.out.println(" entra en else")
+                        binding.emptyRecyclerViewImageView.visibility = View.VISIBLE
+                        binding.emptyRecyclerViewTextView.visibility = View.VISIBLE
                     }
                     updateRecyclerViewData(data)
+                    updateRecyclerViewData(data)
+
+                   //updateEmptyRecyclerViewVisibility(adapterFLI)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+
+        // Mover la inicialización del adaptador aquí
+        adapterFLI = AdapterFLI(requireContext(), fliArrayList)
+        adapterFLI.clickListener = this
+        recyclerView.adapter = adapterFLI
+
     }
 
     private fun updateRecyclerViewData(data: ArrayList<FLI>) {
         fliArrayList.clear()
         fliArrayList.addAll(data)
         adapterFLI.notifyDataSetChanged()
-        updateEmptyRecyclerViewVisibility(adapterFLI)
     }
 
     private fun updateEmptyRecyclerViewVisibility(adapter: AdapterFLI) {
