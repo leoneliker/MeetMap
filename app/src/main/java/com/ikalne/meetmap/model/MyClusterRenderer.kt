@@ -9,6 +9,7 @@ import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.View
@@ -99,9 +100,10 @@ class MyClusterRenderer(
             }
 
             dialogBuilder.setAdapter(adapter) { dialog, which ->
-                val selectedItem = cluster.items.elementAtOrNull(which)
+                val selectedItem = cluster.items.elementAtOrNull(which-1)
                 if (selectedItem != null) {
                     val marker = MapFragment.markers[selectedItem.getNombre()]
+                    Log.i("pruiea",selectedItem.getNombre())
                     if (marker != null) {
                         val infoFragment = InfoActivityFragment()
                         infoFragment.setMarker(marker, MapFragment.locatorListFav)
