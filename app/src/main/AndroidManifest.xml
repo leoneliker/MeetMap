@@ -41,10 +41,14 @@
         </activity>
         <activity
             android:name=".fragments.SuscribersActivity"
-            android:label="Suscribers Activity" />
+            android:label="Suscribers Activity"
+            android:exported="false"
+            android:theme="@style/Theme.MeetMap.NoActionBar.Chat"/>
         <activity
             android:name=".ProfileViewActivity"
-            android:label="Profile View Activity" />
+            android:label="Profile View Activity"
+            android:exported="false"
+            android:theme="@style/Theme.MeetMap.NoActionBar.Chat"/>
         <activity
             android:name=".MainAppActivity"
             android:exported="false"

@@ -7,6 +7,7 @@ import android.graphics.*
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -113,7 +114,9 @@ class InfoActivityFragment :Fragment() {
                 } else {
 
                     addToSuscribe(plAct, email)
-                    checkIsSuscribe(plAct, email)
+                    Handler().postDelayed({
+                        checkIsSuscribe(plAct, email)
+                    }, 1000)
                     openSuscribersActivity(plAct.id,email)
                 }
 

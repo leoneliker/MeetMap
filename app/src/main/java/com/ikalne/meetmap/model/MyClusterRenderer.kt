@@ -74,7 +74,7 @@ class MyClusterRenderer(
             }
 
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setTitle(Html.fromHtml("<font color='#C62833'>Elige un plan!</font>"))
+            dialogBuilder.setTitle(Html.fromHtml("<font color='#C62833'>¡Elige un plan!</font>"))
 
             val adapter = object : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, items) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -114,7 +114,7 @@ class MyClusterRenderer(
             listView.addHeaderView(View(context), null, false)
             dialog.show()
         } else {
-            Toast.makeText(context, "Acércate para ver los planes disponibles", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.near_plans), Toast.LENGTH_SHORT).show()
         }
         return true
     }

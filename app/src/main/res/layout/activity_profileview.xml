@@ -1,229 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/buttonLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/secondary_light"
-            tools:ignore="MissingConstraints">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="28dp"
-                android:layout_height="60dp"
-                android:layout_margin="16dp"
-                android:padding="8dp"
-                style="@style/ButtonBack"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:id="@+id/meetmaperTV"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="17dp"
-                android:maxLength="50"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:textColor="@color/dark_gray"
-                android:layout_toEndOf="@id/backButton"
-                android:layout_alignTop="@id/backButton"
-                />
+                app:layout_constraintTop_toTopOf="parent">
 
-        </RelativeLayout>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="My Title"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:titleTextColor="@color/dark_gray"
+                    android:background="@color/secondary_light"
+                    app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
-        <ImageView
-            android:id="@+id/ivuser"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="100dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/round_image"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toTopOf="@id/buttonLayout" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <ImageView
+                android:id="@+id/ivuser"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="100dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/round_image"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toTopOf="@id/appbar" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etname"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/ivuser"
-            app:hintTextColor="@color/secondary_dark">
-
-            <TextView
-                android:id="@+id/nombreTV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/name"
-                android:textSize="15dp"
-                android:inputType="text"
-                android:textColor="@color/secondary_light" />
-            <TextView
-                android:id="@+id/nombre"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:hint=""
-                android:inputType="text"
-                android:textSize="20dp"
-                android:theme="@style/lineET" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etsurname"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/etname"
-            app:hintTextColor="@color/secondary_dark">
-
-            <TextView
-                android:id="@+id/surnombreTV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/surname"
-                android:textSize="15dp"
-                android:inputType="text"
-                android:textColor="@color/secondary_light" />
-            <TextView
-                android:id="@+id/surnombre"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint=""
-                android:theme="@style/lineET"
-                android:textSize="20dp"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ettelf"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/etsurname"
-            app:hintTextColor="@color/secondary_dark">
-
-            <TextView
-                android:id="@+id/phoneTV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/telefono"
-                android:textSize="15dp"
-                android:inputType="text"
-                android:textColor="@color/secondary_light" />
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint=""
-                android:theme="@style/lineET"
-                android:textSize="20dp"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etemail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/ettelf"
-            app:hintTextColor="@color/secondary_dark">
-
-            <TextView
-                android:id="@+id/emailTV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/email"
-                android:textSize="15dp"
-                android:inputType="text"
-                android:textColor="@color/secondary_light" />
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint=""
-                android:focusable="false"
-                android:clickable="false"
-                android:textSize="20dp"
-                android:cursorVisible="false"
-                android:theme="@style/lineET"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etdescription"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="@id/rightguide"
-            app:layout_constraintStart_toStartOf="@id/leftguide"
-            app:layout_constraintTop_toBottomOf="@id/etemail"
-            app:hintTextColor="@color/secondary_dark">
-
-            <TextView
-                android:id="@+id/descriptionTV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/description2"
-                android:textSize="15dp"
-                android:inputType="text"
-                android:textColor="@color/secondary_light" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etname"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:textSize="20dp"
-                android:hint=""
-                android:theme="@style/lineET"
-                android:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toBottomOf="@id/ivuser"
+                app:hintTextColor="@color/secondary_dark">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftguide"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1" />
+                <TextView
+                    android:id="@+id/nombreTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/name"
+                    android:textSize="15dp"
+                    android:inputType="text"
+                    android:textColor="@color/secondary_light" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightguide"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:hint=""
+                    android:inputType="text"
+                    android:textSize="20dp"
+                    android:theme="@style/lineET" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etsurname"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toBottomOf="@id/etname"
+                app:hintTextColor="@color/secondary_dark">
+
+                <TextView
+                    android:id="@+id/surnombreTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/surname"
+                    android:textSize="15dp"
+                    android:inputType="text"
+                    android:textColor="@color/secondary_light" />
+
+                <TextView
+                    android:id="@+id/surnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint=""
+                    android:theme="@style/lineET"
+                    android:textSize="20dp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ettelf"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toBottomOf="@id/etsurname"
+                app:hintTextColor="@color/secondary_dark">
+
+                <TextView
+                    android:id="@+id/phoneTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/telefono"
+                    android:textSize="15dp"
+                    android:inputType="text"
+                    android:textColor="@color/secondary_light" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint=""
+                    android:theme="@style/lineET"
+                    android:textSize="20dp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etemail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toBottomOf="@id/ettelf"
+                app:hintTextColor="@color/secondary_dark">
+
+                <TextView
+                    android:id="@+id/emailTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/email"
+                    android:textSize="15dp"
+                    android:inputType="text"
+                    android:textColor="@color/secondary_light" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint=""
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:textSize="20dp"
+                    android:cursorVisible="false"
+                    android:theme="@style/lineET"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etdescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="@id/rightguide"
+                app:layout_constraintStart_toStartOf="@id/leftguide"
+                app:layout_constraintTop_toBottomOf="@id/etemail"
+                app:hintTextColor="@color/secondary_dark">
+
+                <TextView
+                    android:id="@+id/descriptionTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/description2"
+                    android:textSize="15dp"
+                    android:inputType="text"
+                    android:textColor="@color/secondary_light" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:textSize="20dp"
+                    android:hint=""
+                    android:theme="@style/lineET"
+                    android:text="" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftguide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightguide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.9" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
