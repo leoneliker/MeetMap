@@ -110,8 +110,9 @@
     <string name="subscribe">Unirse</string>
     <string name="slogan_splash">" ¿Ya tienes plan para hoy? "</string>
     <string name="title_chat">"Chat con"</string>
-    <string name="self_location"> ¡Pulsa en tu ubicación y descubriras los planes cercanos!</string>
+    <string name="self_location"> ¡Pulsa en tu ubicación y descubrirás los planes cercanos!</string>
     <string name="near_plans">Acércate para ver los planes disponibles</string>
     <string name="not_near_plans">No se han encontrado actividades cercanas</string>
+    <string name="pick_a_plan">¡Elige un plan!</string>
 
 </resources>

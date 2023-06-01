@@ -114,4 +114,5 @@
     <string name="self_location">Click on your location and discover the nearby plans!</string>
     <string name="near_plans">Zoom to see available plans</string>
     <string name="not_near_plans">No nearby activities found</string>
+    <string name="pick_a_plan">Pick a plan!</string>
 </resources>
