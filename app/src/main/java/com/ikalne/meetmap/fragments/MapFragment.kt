@@ -282,7 +282,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             }
         }
         if (menuItems.isEmpty()){
-            menuItems.add(LocationMenuItem("","No se han encontrado actividades cercanas", R.drawable.ic_baseline_cancel_24, "", ""))
+            menuItems.add(LocationMenuItem("",resources.getString(R.string.not_near_plans), R.drawable.ic_baseline_cancel_24, "", ""))
         }
         val adapter = LocationMenuAdapter(menuItems, object : LocationMenuAdapter.OnItemClickListener {
             override fun onItemClick(position: Int,item: LocationMenuItem) {
@@ -330,7 +330,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         val dialogView = inflater.inflate(R.layout.dialog_info, null)
         dialogBuilder.setView(dialogView)
         val infoText = dialogView.findViewById<TextView>(R.id.info_text)
-        infoText.text = "Pulsa en tu ubicación y descubriras los planes cercanos!"
+        infoText.text = getString(R.string.self_location)
         dialogBuilder.setCancelable(true)
         val dialog = dialogBuilder.create()
         dialog.setOnDismissListener {

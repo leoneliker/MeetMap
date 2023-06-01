@@ -95,18 +95,24 @@
     <string name="deleteAccountSuccesful">La cuenta se ha eliminado</string>
     <string name="messagechat">Te quiero contar que...</string>
     <string name="nochats">"Qué tranquilo está todo por aquí..."</string>
-    <string name ="nointernetitle">"¡Ups no hay conexión a Internet!"</string>
-    <string name ="nointernetitleexit">"¡Queremos volverte a ver pronto!"</string>
+    <string name="nointernetitle">"¡Ups no hay conexión a Internet!"</string>
+    <string name="nointernetitleexit">"¡Queremos volverte a ver pronto!"</string>
     <string name="nointernetsubtitle">"Meetmap está deseando contar contigo. ¿Quieres seguir probando?"</string>
     <string name="nointernetsubtitleexit">"MeetMap quiere contar contigo, cuando tengas internet te estaremos esperando"</string>
     <string name="nointernetbtn">Reintentar</string>
     <string name="exitalert">Salir</string>
-    <string name="existUserChat">¡Es un Meetmapper!</string>
-    <string name ="noExistUserChat">No nos conoce, háblale de MeetMap</string>
+    <string name="existUserChat">¡Es un MeetMapper!</string>
+    <string name="noExistUserChat">No nos conoce, háblale de MeetMap</string>
     <string name="location_menu">Actividades a menos de 1000 metros</string>
     <string name="description2">Descripción</string>
     <string name="profile_of">Perfil de</string>
     <string name="unsubscribe">Retirarse</string>
     <string name="subscribe">Unirse</string>
     <string name="slogan_splash">" ¿Ya tienes plan para hoy? "</string>
+    <string name="title_chat">"Chat con"</string>
+    <string name="self_location"> ¡Pulsa en tu ubicación y descubrirás los planes cercanos!</string>
+    <string name="near_plans">Acércate para ver los planes disponibles</string>
+    <string name="not_near_plans">No se han encontrado actividades cercanas</string>
+    <string name="pick_a_plan">¡Elige un plan!</string>
+
 </resources>

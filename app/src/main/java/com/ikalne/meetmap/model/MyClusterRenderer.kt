@@ -6,6 +6,9 @@ import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.Menu
 import android.view.View
@@ -74,7 +77,12 @@ class MyClusterRenderer(
             }
 
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setTitle(Html.fromHtml("<font color='#C62833'>Elige un plan!</font>"))
+            val title = context.getString(R.string.pick_a_plan)
+            val spannableTitle = SpannableString(title)
+            val colorSpan = ForegroundColorSpan(ContextCompat.getColor(context, R.color.secondary_dark))
+            spannableTitle.setSpan(colorSpan, 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            dialogBuilder.setTitle(spannableTitle)
+
 
             val adapter = object : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, items) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -114,7 +122,7 @@ class MyClusterRenderer(
             listView.addHeaderView(View(context), null, false)
             dialog.show()
         } else {
-            Toast.makeText(context, "Acércate para ver los planes disponibles", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.near_plans), Toast.LENGTH_SHORT).show()
         }
         return true
     }

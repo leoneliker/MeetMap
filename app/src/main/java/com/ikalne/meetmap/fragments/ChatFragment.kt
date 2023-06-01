@@ -122,6 +122,7 @@ class ChatFragment : Fragment() {
                 //QUIERO COMPROBAR SI EL CHAT QUE SE QUIERE HACER YA ESTA ABIERTO
                 chatsRef.get()
                     .addOnSuccessListener { documents ->
+                        Toast.makeText(requireContext(),resources.getString(R.string.existUserChat), Toast.LENGTH_LONG).show()
                         if (documents.isEmpty) {
                             init = true
                             chatUp(otherUser, chatId)
@@ -159,7 +160,9 @@ class ChatFragment : Fragment() {
                     .addOnFailureListener { exception ->
                         Log.w("TAG", "Error al buscar EN CHATS ", exception)
                     }
-            } else {}
+            } else {
+                Toast.makeText(requireContext(),resources.getString(R.string.noExistUserChat), Toast.LENGTH_LONG).show()
+            }
         }
             .addOnFailureListener {exception ->
     Log.w("TAG", "Error getting documents: ", exception) }

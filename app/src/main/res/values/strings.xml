@@ -102,12 +102,17 @@
     <string name="nointernetsubtitleexit">"MeetMap wants to count on you, when you have internet we will be waiting for you"</string>
     <string name="nointernetbtn">Retry</string>
     <string name="exitalert">Exit</string>
-    <string name="existUserChat">It\'s a Meetmapper!</string>
-    <string name ="noExistUserChat">She/He doesn\'t know us, tell her/him about MeetMap</string>
+    <string name="existUserChat">It\'s a MeetMapper!</string>
+    <string name="noExistUserChat">She/He doesn\'t know us, tell her/him about MeetMap</string>
     <string name="description2">Description</string>
     <string name="profile_of">Profile of</string>
     <string name="unsubscribe">Unsuscribe</string>
     <string name="subscribe">Suscribe</string>
-    <string name="meetmappers" translatable="false">Meetmappers</string>
+    <string name="meetmappers" translatable="false">MeetMappers</string>
     <string name="slogan_splash">" Do you already have a plan for today? "</string>
-   </resources>
+    <string name="title_chat">"Chat with"</string>
+    <string name="self_location">Click on your location and discover the nearby plans!</string>
+    <string name="near_plans">Zoom to see available plans</string>
+    <string name="not_near_plans">No nearby activities found</string>
+    <string name="pick_a_plan">Pick a plan!</string>
+</resources>
