@@ -69,6 +69,7 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
 
     private fun loadActDetails(model: FLI, holder: AdapterFLI.HolderFLI) {
         val ActID = model.id
+        var time = ""
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
         currentUserUid?.let {
             val ref = FirebaseDatabase.getInstance().getReference("users/$it/Favourites")
@@ -76,7 +77,11 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val title = "${snapshot.child("Title").value}"
                     val date = "${snapshot.child("Date").value}"
-                    val time = "${snapshot.child("Time").value}"
+                    if("${snapshot.child("Time").value}".equals("No hay hora establecida")){
+                        time = ""
+                    }else{
+                        time = "${snapshot.child("Time").value}"
+                    }
                     val place = "${snapshot.child("Place").value}"
                     val cat = "${snapshot.child("Cat").value}" // Agregado: Obtener el valor de "Cat"
 
