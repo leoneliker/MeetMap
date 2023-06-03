@@ -5,15 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <TextView
         android:id="@+id/location_menu_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/location_menu"
-        android:textSize="16sp"
-        android:padding="8dp"
-        android:textStyle="bold" />
+        android:textSize="20sp"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingBottom="2dp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_gray"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dark_gray"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/location_menu_recycler_view"
         android:layout_width="match_parent"

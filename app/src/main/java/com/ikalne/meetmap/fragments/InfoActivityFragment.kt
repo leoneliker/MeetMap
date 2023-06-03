@@ -3,8 +3,11 @@ package com.ikalne.meetmap.fragments
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.*
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.Marker
@@ -68,6 +74,7 @@ class InfoActivityFragment :Fragment() {
             checkIsFavourite(plAct)
         }
 
+        cargarImagenesAleatorias()
         binding.btnedit.setOnClickListener() {
             checkIsFavourite(plAct)
             if (firebaseAuth.currentUser == null) {
@@ -107,8 +114,10 @@ class InfoActivityFragment :Fragment() {
                 } else {
 
                     addToSuscribe(plAct, email)
-                    checkIsSuscribe(plAct, email)
-                    openSuscribersFragment(plAct.id,email)
+                    Handler().postDelayed({
+                        checkIsSuscribe(plAct, email)
+                    }, 1000)
+                    openSuscribersActivity(plAct.id,email)
                 }
 
 
@@ -117,9 +126,11 @@ class InfoActivityFragment :Fragment() {
             }
         }
 
+
+
         binding.bubbles.setOnClickListener {
             System.out.println("click en el linear")
-            openSuscribersFragment(plAct.id, email)
+            openSuscribersActivity(plAct.id, email)
         }
         locatorsList.find { it.id==idInfo }?.let { fillFields(it) }
         return binding.root
@@ -153,9 +164,32 @@ class InfoActivityFragment :Fragment() {
                 "CircoMagia" -> resources.getDrawable(R.drawable.circo, null)
                 else -> options.random()
             }
+
             activity?.let { Glide.with(it)
                 .load(res)
                 .into(imgLayout)}
+
+
+            val cat = when (locatorView.category.split("/").getOrNull(6) ?: options.random()) {
+                "Musica" -> "Musica"
+                "DanzaBaile" -> "DanzaBaile"
+                "CursosTalleres" -> "CursosTalleres"
+                "TeatroPerformance" -> "TeatroPerformance"
+                "ActividadesCalleArteUrbano" -> "ActividadesCalleArteUrbano"
+                "CuentacuentosTiteresMarionetas" -> "CuentacuentosTiteresMarionetas"
+                "ComemoracionesHomenajes" -> "ComemoracionesHomenajes"
+                "ConferenciasColoquios" -> "ConferenciasColoquios"
+                "1ciudad21distritos" -> "1ciudad21distritos"
+                "ExcursionesItinerariosVisitas" -> "ExcursionesItinerariosVisitas"
+                "ItinerariosOtrasActividadesAmbientales" -> "ItinerariosOtrasActividadesAmbientales"
+                "ClubesLectura" -> "ClubesLectura"
+                "RecitalesPresentacionesActosLiterarios" -> "RecitalesPresentacionesActosLiterarios"
+                "Exposiciones" -> "Exposiciones"
+                "Campamentos" -> "Campamentos"
+                "CineActividadesAudiovisuales" -> "CineActividadesAudiovisuales"
+                "CircoMagia" -> "CircoMagia"
+                else -> "Otros"
+            }
 
             titulo.text = locatorView.title
             val desc = locatorView.description.ifEmpty {
@@ -199,9 +233,53 @@ class InfoActivityFragment :Fragment() {
                 titulo = titulo.text.toString(),
                 fecha = fecha.text.toString(),
                 horario = horario.text.toString(),
-                lugar = lugar.text.toString()
+                lugar = lugar.text.toString(),
+                cat = cat
             )
         }
+    }
+    fun cargarImagenesAleatorias() {
+        val imageViews = arrayOf(
+            binding.bubbleImage1,
+            binding.bubbleImage2,
+            binding.bubbleImage3
+        )
+
+        val arrayFotos = arrayOf(
+            R.drawable.imagen1,
+            R.drawable.imagen2,
+            R.drawable.imagen3,
+            R.drawable.imagen4,
+            R.drawable.imagen5,
+            R.drawable.imagen6,
+            R.drawable.imagen7,
+            R.drawable.imagen8
+        )
+
+        for (imageView in imageViews) {
+            val fotoAleatoria = arrayFotos.random()
+            val bitmap = BitmapFactory.decodeResource(resources, fotoAleatoria)
+            val squareBitmap = squareCrop(bitmap)
+            val circularBitmapDrawable = circleCrop(squareBitmap)
+            imageView.setImageDrawable(circularBitmapDrawable)
+        }
+    }
+
+    fun squareCrop(bitmap: Bitmap): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+        val squareSize = Math.min(width, height)
+        val x = (width - squareSize) / 2
+        val y = (height - squareSize) / 2
+        val squareBitmap = Bitmap.createBitmap(bitmap, x, y, squareSize, squareSize)
+        return squareBitmap
+    }
+
+    fun circleCrop(bitmap: Bitmap): RoundedBitmapDrawable {
+        val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
+        circularBitmapDrawable.isCircular = true
+        circularBitmapDrawable.cornerRadius = Math.max(bitmap.width, bitmap.height) / 2.0f
+        return circularBitmapDrawable
     }
     private fun addToFavourite(plAct: plAct){
         Log.d(TAG, "addToFavourite: Adding to fav")
@@ -215,6 +293,7 @@ class InfoActivityFragment :Fragment() {
         hashMap ["Date"] = plAct.fecha
         hashMap ["Time"] = plAct.horario
         hashMap ["Place"] = plAct.lugar
+        hashMap ["Cat"] = plAct.cat
 
         val ref = FirebaseDatabase.getInstance().getReference("users");
         ref.child(firebaseAuth.uid!!).child("Favourites").child(plAct.id.toString())
@@ -282,16 +361,18 @@ class InfoActivityFragment :Fragment() {
                 }
                 IsInSuscribe = isInSubscribe
                 if (isInSubscribe) {
-                    Log.d(TAG, "checkIsSub: dentro")
-                    binding.unirse.setBackgroundColor(R.color.secondary_dark)
-                    binding.unirse.setTextColor(R.color.dark_gray)
-                    binding.unirse.text = "Unsubscribe"
+                    binding.unirse.apply {
+                        backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_dark)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
+                        text = getString(R.string.unsubscribe)
+                    }
                     binding.bubbles.visibility = View.VISIBLE
                 } else {
-                    Log.d(TAG, "checkIsSub: fuera")
-                    binding.unirse.setBackgroundColor(R.color.secondary_light)
-                    binding.unirse.setTextColor(R.color.light_gray)
-                    binding.unirse.text = "Suscribe"
+                    binding.unirse.apply {
+                        backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_light)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
+                        text = getString(R.string.subscribe)
+                    }
                     binding.bubbles.visibility = View.GONE
                 }
             }
@@ -349,13 +430,11 @@ class InfoActivityFragment :Fragment() {
         }
     }
 
-    fun openSuscribersFragment(plActId: Int, UserEmail: String) {
-        val SuscribersFragment = SuscribersFragment(plActId, UserEmail)
-        System.out.println(UserEmail)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame, SuscribersFragment)
-            .addToBackStack(null)
-            .commit()
+    fun openSuscribersActivity(plActId: Int, UserEmail: String) {
+        val intent = Intent(requireActivity(), SuscribersActivity::class.java)
+        intent.putExtra("plActId", plActId)
+        intent.putExtra("UserEmail", UserEmail)
+        requireActivity().startActivity(intent)
     }
     private fun NumberSubs(plActId: Int, callback: (Int) -> Unit) {
         val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")
@@ -363,8 +442,10 @@ class InfoActivityFragment :Fragment() {
             .child("Suscribers")
         System.out.println("dentro de number")
         var numberSubs: Int = 0
+
         suscribersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                numberSubs = 0
                 val suscribersList = mutableListOf<Suscriber>()
                 for (suscriberSnapshot in snapshot.children) {
                     val suscriberName = suscriberSnapshot.key
@@ -382,85 +463,7 @@ class InfoActivityFragment :Fragment() {
             }
         })
     }
-    /*
-    private fun RandomSub(plActId: Int, callback: (String) -> Unit) {
-        var number: Int = 0
-        var cont: Int = 0
-        var callbackEmail: String = ""
 
-        val suscribersRef = FirebaseDatabase.getInstance().getReference("Activities")
-            .child(plActId.toString())
-            .child("Suscribers")
-
-        System.out.println("dentro de randomsub")
-
-        NumberSubs(plActId) { numberSubs ->
-            // Aquí puedes hacer uso del número de suscriptores devuelto
-            number = numberSubs
-            System.out.println(number)
-
-            suscribersRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val suscribersList = mutableListOf<Suscriber>()
-                    for (suscriberSnapshot in snapshot.children) {
-                        val suscriberName = suscriberSnapshot.key
-                        val suscriberEmail = suscriberSnapshot.value
-
-                        if (suscriberName != null) {
-                            val randomNumber = Random.nextInt(1,number)
-                            if (cont == randomNumber) {
-                                callbackEmail = suscriberEmail.toString()
-                            }
-                            cont++
-                        }
-                    }
-                    System.out.println("callbackemail"+callbackEmail+"")
-                    callback(callbackEmail) // Llamar a la devolución de llamada con el número de suscriptores
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w(TAG, "Failed to read value.", error.toException())
-                }
-            })
-        }
-    }
-
-    private fun getImageFromFirestore(plActId: Int){
-        val db = FirebaseFirestore.getInstance()
-        RandomSub(plActId) { RandomSub ->
-            val collectionPath = "users/"
-            db.collection(collectionPath).document(RandomSub)
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        val imageUrl = document.getString("img")
-                        val bubbleImage = binding.bubbleImage
-                        Glide.with(requireContext())
-                            .load(imageUrl)
-                            .into(bubbleImage)
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    // Manejar el error de Firebase Firestore
-                }
-        }
-    }
-
-    // Uso del método para obtener una imagen de Firestore
-    /*val email = "correo_electronico_del_suscriptor_random"
-    getImageFromFirestore(email) { imageUrl ->
-        if (imageUrl != null) {
-            // Aquí puedes utilizar la URL de la imagen obtenida
-            // Para cargar la imagen en un ImageView, puedes usar una biblioteca de terceros como Glide o Picasso
-            // Ejemplo con Glide:
-            Glide.with(requireContext())
-                .load(imageUrl)
-                .into(imgLayout)
-        } else {
-            // No se encontró la imagen en Firebase Firestore
-        }
-    }*/
-*/
 }
 
 

@@ -11,6 +11,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import java.util.*
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,42 +34,18 @@ class Splash : AppCompatActivity() {
         val rightHand = findViewById<ImageView>(R.id.rightHand)
         val title = findViewById<ImageView>(R.id.meetmap)
         val slogan = findViewById<TextView>(R.id.slogan)
-        val text = slogan.text.toString()
 
-        val spannableString = SpannableString(text)
-        val words = text.split(" ")
-
-        var colorIndex = 0
-        var startIndex = 0
-
-        for (word in words) {
-            val endIndex = startIndex + word.length
-
-            val color = if (colorIndex % 2 == 0) {
-                R.color.primary_dark
-            } else {
-               R.color.secondary
-            }
-            val colors = ContextCompat.getColor(this, color)
-
-            // Cambia el color de cada palabra
-            spannableString.setSpan(
-                ForegroundColorSpan(colors),
-                startIndex,
-                endIndex,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            startIndex = endIndex + 1 // Añade 1 para ignorar el espacio
-            colorIndex++
-        }
-        slogan.text = spannableString
         val animLeftHand = AnimationUtils.loadAnimation(this, R.anim.move_left_to_right)
         val animRightHand = AnimationUtils.loadAnimation(this, R.anim.move_right_to_left)
         val animtext = AnimationUtils.loadAnimation(this, R.anim.fadein)
 
         title.visibility =  View.INVISIBLE
         slogan.visibility = View.INVISIBLE
+        val currentLanguage: String = Locale.getDefault().language
+
+        if (currentLanguage == "es") {
+            slogan.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28f) // Cambia el tamaño a tu preferencia
+        }
 
         val handsAnimationListener = object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {}

@@ -7,5 +7,6 @@ data class plAct(
     val titulo: String,
     val fecha: String,
     val horario: String,
-    val lugar: String
+    val lugar: String,
+    val cat: String
 ) : Serializable

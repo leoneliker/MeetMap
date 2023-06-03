@@ -20,14 +20,11 @@ class CustomInfoWindowAdapter(val inflater: LayoutInflater, val locatorsList: Li
 
         return null
     }
-
     override fun getInfoWindow(m: Marker): View? {
-
 
         val idInfo = MapFragment.madridMap[m.title]
         locatorsList.forEach {
             if (it.id == idInfo) {
-
                 val v: View = inflater.inflate(R.layout.infowindow_layout, null)
                 (v.findViewById(R.id.nombre) as TextView).text = it.title
 

@@ -1,92 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/leftguide"
-        app:layout_constraintEnd_toStartOf="@+id/rightguide"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white">
+    android:layout_height="wrap_content"
+    android:paddingStart="100px"
+    android:paddingEnd="100px">
 
-            <TextView
-                android:id="@+id/nombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Obra de teatro"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:background="@color/primary_dark"
-                android:textColor="@color/white"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                />
+    <!-- Primera sección -->
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@color/primary_dark"
+        android:textColor="@android:color/white"
+        android:padding="10dp"
+        android:textAlignment="center" />
+
+    <!-- Segunda sección -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nombre"
+        android:background="@color/white"
+        android:textColor="@color/dark_gray"
+        android:paddingLeft="5dp">
+
+        <!-- Primer elemento -->
+        <LinearLayout
+            android:id="@+id/firstElement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/calendar"
-                android:background="@drawable/ic_calendar"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="17dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nombre"
-                android:contentDescription="TODO" />
+                android:src="@drawable/ic_calendar" />
 
             <TextView
                 android:id="@+id/fechas"
-                android:layout_width="match_parent"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/calendar"
-                app:layout_constraintTop_toBottomOf="@+id/nombre"
-                android:text="25/02-26/05"
-                android:textSize="15dp"
-                android:layout_marginLeft="5px"
-                android:padding="5dp"
-                />
+                android:text="" />
+
+        </LinearLayout>
+
+        <!-- Segundo elemento -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/firstElement"
+            android:layout_alignParentStart="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/clock"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="17dp"
-                android:background="@drawable/ic_clock"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fechas"
-                android:contentDescription="TODO" />
+                android:src="@drawable/ic_clock" />
+
             <TextView
                 android:id="@+id/horas"
-                android:layout_width="match_parent"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/clock"
-                app:layout_constraintTop_toBottomOf="@+id/fechas"
+                android:text="" />
 
-                android:text="12.00"
-                android:textSize="15dp"
-                android:padding="5dp"/>
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/leftguide"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/rightguide"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

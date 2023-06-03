@@ -15,4 +15,6 @@
     <color name="secondary_dark">#C62833</color>
     <color name="dark_gray">#575858</color>
     <color name="light_gray">#F1F1F1</color>
+    <color name="button_dark">#773A36</color>
+
 </resources>
