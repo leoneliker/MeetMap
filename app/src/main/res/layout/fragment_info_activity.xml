@@ -105,10 +105,9 @@
             android:id="@+id/tvlugar"
             android:layout_width="20sp"
             android:layout_height="20sp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="17dp"
             android:background="@drawable/ic_chincheta"
             app:layout_constraintTop_toBottomOf="@id/tvhorario"
-            app:layout_constraintEnd_toStartOf="@id/lugar"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             />
 
