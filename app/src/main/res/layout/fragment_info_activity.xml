@@ -68,20 +68,19 @@
             android:id="@+id/fecha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginStart="20dp"
-            android:text="Fecha del evento"
+            android:layout_marginTop="32dp"
             android:gravity="start"
+            android:text="Fecha del evento"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintEnd_toEndOf="@id/rightguide"
             app:layout_constraintStart_toEndOf="@id/tvfecha"
-            />
+            app:layout_constraintTop_toBottomOf="@id/description" />
 
         <ImageView
             android:id="@+id/tvhorario"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
             android:layout_marginTop="13dp"
             android:background="@drawable/ic_clock"
             app:layout_constraintTop_toBottomOf="@id/tvfecha"
@@ -104,12 +103,11 @@
 
         <ImageView
             android:id="@+id/tvlugar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="14dp"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginTop="17dp"
             android:background="@drawable/ic_chincheta"
             app:layout_constraintTop_toBottomOf="@id/tvhorario"
-            app:layout_constraintEnd_toStartOf="@id/lugar"
             app:layout_constraintStart_toStartOf="@id/leftguide"
             />
 
@@ -132,6 +130,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/lugar"
             app:layout_constraintEnd_toStartOf="@id/unirse"
             android:background="@drawable/bubble_button">
