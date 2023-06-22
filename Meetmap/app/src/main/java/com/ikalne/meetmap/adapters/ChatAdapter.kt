@@ -1,20 +1,16 @@
 package com.ikalne.meetmap.adapters
 
-import android.R.attr.data
 import android.content.Context
-import android.content.res.Resources
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.ikalne.meetmap.PreferencesManager
+import com.ikalne.meetmap.models.PreferencesManager
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.ItemChatBinding
 import com.ikalne.meetmap.models.Chat

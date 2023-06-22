@@ -1,4 +1,4 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.models
 
 import android.content.Context
 

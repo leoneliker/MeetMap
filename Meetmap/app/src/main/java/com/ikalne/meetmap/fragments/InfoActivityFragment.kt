@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.*
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -21,24 +20,18 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.ikalne.meetmap.PreferencesManager
+import com.ikalne.meetmap.models.PreferencesManager
 import com.ikalne.meetmap.R
-import com.ikalne.meetmap.Suscriber
+import com.ikalne.meetmap.models.Suscriber
 import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
-import org.w3c.dom.Text
-import java.lang.Integer.parseInt
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.properties.Delegates
-import kotlin.random.Random
 
 class InfoActivityFragment :Fragment() {
 

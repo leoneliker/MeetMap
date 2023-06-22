@@ -1,4 +1,4 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.activities
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -16,6 +16,7 @@ import com.ikalne.meetmap.models.Message
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.ActivityChatBinding
 
 

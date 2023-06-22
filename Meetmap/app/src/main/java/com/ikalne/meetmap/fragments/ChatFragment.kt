@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.ikalne.meetmap.ChatActivity
-import com.ikalne.meetmap.PreferencesManager
+import com.ikalne.meetmap.activities.ChatActivity
+import com.ikalne.meetmap.models.PreferencesManager
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.adapters.ChatAdapter
 import com.ikalne.meetmap.databinding.FragmentChatBinding

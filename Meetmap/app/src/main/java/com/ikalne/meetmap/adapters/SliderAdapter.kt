@@ -1,13 +1,14 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.adapters
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
+import com.ikalne.meetmap.R
+import com.ikalne.meetmap.models.SliderModal
 
 
 class SliderAdapter(var context: Context, sliderModalArrayList: ArrayList<SliderModal>) :

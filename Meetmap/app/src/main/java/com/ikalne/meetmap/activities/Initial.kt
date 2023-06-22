@@ -1,23 +1,22 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.activities
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Html
-import android.util.Log
-import android.util.TypedValue
-import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
+import com.ikalne.meetmap.R
+import com.ikalne.meetmap.adapters.SliderAdapter
+import com.ikalne.meetmap.forceLightMode
 import com.ikalne.meetmap.fragments.MapFragment
+import com.ikalne.meetmap.models.SliderModal
 
 
 class Initial : AppCompatActivity() {

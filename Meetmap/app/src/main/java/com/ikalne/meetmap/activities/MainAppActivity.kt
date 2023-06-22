@@ -1,4 +1,4 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.activities
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -32,8 +32,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.ActivityMainAppBinding
+import com.ikalne.meetmap.forceLightMode
 import com.ikalne.meetmap.fragments.*
+import com.ikalne.meetmap.models.PreferencesManager
 
 
 class MainAppActivity : AppCompatActivity() {

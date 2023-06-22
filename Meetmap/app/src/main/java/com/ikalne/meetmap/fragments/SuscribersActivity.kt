@@ -1,7 +1,6 @@
 package com.ikalne.meetmap.fragments
 
 import android.content.ContentValues.TAG
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -16,9 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.ikalne.meetmap.R
-import com.ikalne.meetmap.Suscriber
-import com.ikalne.meetmap.api.models.context
-import com.ikalne.meetmap.databinding.ActivityChatBinding
+import com.ikalne.meetmap.models.Suscriber
 import com.ikalne.meetmap.databinding.ActivitySuscribersBinding
 
 

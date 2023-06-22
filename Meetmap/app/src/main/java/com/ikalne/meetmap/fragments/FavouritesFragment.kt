@@ -1,43 +1,21 @@
 package com.ikalne.meetmap.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
-import com.ikalne.meetmap.AdapterFLI
+import com.ikalne.meetmap.adapters.AdapterFLI
 import com.ikalne.meetmap.R
-import com.ikalne.meetmap.adapters.ChatAdapter
-import com.ikalne.meetmap.api.models.LocatorView
 import com.ikalne.meetmap.databinding.FragmentFavouritesBinding
-import com.ikalne.meetmap.databinding.FragmentInfoActivityBinding
-import com.ikalne.meetmap.model.CustomInfoWindowAdapter
-import com.ikalne.meetmap.model.FLI
-import com.ikalne.meetmap.model.LocationMenuItem
-import com.ikalne.meetmap.viewmodels.MadridViewModel
-import java.net.IDN
+import com.ikalne.meetmap.models.FLI
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

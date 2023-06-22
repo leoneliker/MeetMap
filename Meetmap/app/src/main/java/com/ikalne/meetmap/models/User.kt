@@ -1,4 +1,4 @@
-package com.ikalne.meetmap.model
+package com.ikalne.meetmap.models
 
 import com.google.firebase.auth.FirebaseUser
 

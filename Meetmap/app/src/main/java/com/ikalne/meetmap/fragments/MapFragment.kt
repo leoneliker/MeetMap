@@ -27,7 +27,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.ikalne.meetmap.R
 import com.ikalne.meetmap.api.models.LocatorView
-import com.ikalne.meetmap.model.CustomInfoWindowAdapter
+import com.ikalne.meetmap.adapters.CustomInfoWindowAdapter
 import com.ikalne.meetmap.viewmodels.MadridViewModel
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -35,15 +35,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.ikalne.meetmap.model.LocationMenuAdapter
-import com.ikalne.meetmap.model.LocationMenuItem
+import com.ikalne.meetmap.adapters.LocationMenuAdapter
+import com.ikalne.meetmap.models.LocationMenuItem
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 import com.google.maps.android.clustering.ClusterManager
-import com.ikalne.meetmap.model.MyItem
-import com.ikalne.meetmap.model.MyClusterRenderer
+import com.ikalne.meetmap.models.MyItem
+import com.ikalne.meetmap.models.MyClusterRenderer
 import com.ikalne.meetmap.selectionIcon
 
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,

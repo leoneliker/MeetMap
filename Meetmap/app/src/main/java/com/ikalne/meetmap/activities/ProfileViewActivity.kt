@@ -1,25 +1,18 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.activities
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.ikalne.meetmap.databinding.ActivityChatBinding
+import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.ActivityProfileviewBinding
 
 class ProfileViewActivity : AppCompatActivity() {

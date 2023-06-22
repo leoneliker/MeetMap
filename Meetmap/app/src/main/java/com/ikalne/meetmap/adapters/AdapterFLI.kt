@@ -1,4 +1,4 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.adapters
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -13,8 +13,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.ikalne.meetmap.R
 import com.ikalne.meetmap.databinding.FavlistItemBinding
-import com.ikalne.meetmap.model.FLI
+import com.ikalne.meetmap.models.FLI
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -67,7 +68,7 @@ class AdapterFLI(private val context: Context, private var fliArrayList: ArrayLi
             }
     }
 
-    private fun loadActDetails(model: FLI, holder: AdapterFLI.HolderFLI) {
+    private fun loadActDetails(model: FLI, holder: HolderFLI) {
         val ActID = model.id
         var time = ""
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid

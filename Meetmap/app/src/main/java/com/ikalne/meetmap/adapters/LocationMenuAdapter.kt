@@ -1,4 +1,4 @@
-package com.ikalne.meetmap.model
+package com.ikalne.meetmap.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ikalne.meetmap.R
+import com.ikalne.meetmap.models.LocationMenuItem
 
 class LocationMenuAdapter(private val items: List<LocationMenuItem>, private val listener: OnItemClickListener) :
     RecyclerView.Adapter<LocationMenuAdapter.ViewHolder>() {

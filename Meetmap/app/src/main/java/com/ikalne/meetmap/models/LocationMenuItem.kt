@@ -1,4 +1,4 @@
-package com.ikalne.meetmap.model
+package com.ikalne.meetmap.models
 
 data class LocationMenuItem(
     val id: String,

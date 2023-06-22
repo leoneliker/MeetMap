@@ -1,4 +1,4 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.models
 
 data class Suscriber(
     val name: String,

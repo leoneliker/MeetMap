@@ -20,7 +20,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.ikalne.meetmap.*
+import com.ikalne.meetmap.activities.MainAppActivity
 import com.ikalne.meetmap.databinding.FragmentEditProfileBinding
+import com.ikalne.meetmap.models.PreferencesManager
 
 class EditProfileFragment() : Fragment() {
 

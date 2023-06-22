@@ -1,6 +1,5 @@
 package com.ikalne.meetmap.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,22 +9,16 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ikalne.meetmap.*
-import com.ikalne.meetmap.api.models.context
-import com.ikalne.meetmap.databinding.ActivityChatBinding
-import com.ikalne.meetmap.databinding.ActivityListOfChatsBinding
-import com.ikalne.meetmap.databinding.ActivityMainAppBinding
+import com.ikalne.meetmap.activities.ChatActivity
+import com.ikalne.meetmap.activities.ProfileViewActivity
 import com.ikalne.meetmap.models.Chat
+import com.ikalne.meetmap.models.PreferencesManager
+import com.ikalne.meetmap.models.Suscriber
 import java.util.*
 
 class SuscribersAdapter(

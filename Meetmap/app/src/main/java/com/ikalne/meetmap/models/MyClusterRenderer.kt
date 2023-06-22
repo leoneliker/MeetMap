@@ -1,21 +1,16 @@
-package com.ikalne.meetmap.model
+package com.ikalne.meetmap.models
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Gravity
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat

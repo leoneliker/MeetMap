@@ -25,7 +25,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDUPbwAJE5D3lLeqwGXrFxrxvzaJoCKPHY" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".activities.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.MeetMap.NoActionBar.Chat">
             <meta-data
@@ -33,7 +33,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ResetPassword"
+            android:name=".activities.ResetPassword"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -46,12 +46,12 @@
             android:exported="false"
             android:theme="@style/Theme.MeetMap.NoActionBar.Chat"/>
         <activity
-            android:name=".ProfileViewActivity"
+            android:name=".activities.ProfileViewActivity"
             android:label="Profile View Activity"
             android:exported="false"
             android:theme="@style/Theme.MeetMap.NoActionBar.Chat"/>
         <activity
-            android:name=".MainAppActivity"
+            android:name=".activities.MainAppActivity"
             android:exported="false"
             android:label="@string/title_activity_main_app"
             android:screenOrientation="portrait"
@@ -61,30 +61,22 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Initial"
+            android:name=".activities.Initial"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
-            android:name=".InfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivitiesList"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".SignUpScroll"
+            android:name=".activities.SignUpScroll"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
-            android:name=".LoginScroll"
+            android:name=".activities.LoginScroll"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MeetMap.NoActionBar" />
         <activity
-            android:name=".Splash"
+            android:name=".activities.Splash"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MeetMap.NoActionBar.Splash">

@@ -1,24 +1,18 @@
-package com.ikalne.meetmap
+package com.ikalne.meetmap.activities
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
+import com.ikalne.meetmap.*
+import com.ikalne.meetmap.models.PreferencesManager
 import java.util.*
 
 class Splash : AppCompatActivity() {
